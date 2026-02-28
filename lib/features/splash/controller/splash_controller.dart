@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:anjapepito/features/auth/login/views/sign_in_screen.dart';
 import 'package:anjapepito/features/auth/sign_up/views/sign_up_screen.dart';
 import 'package:get/get.dart';
 import '../../../../core/util/storage_service.dart';

@@ -30,6 +30,17 @@ dev_dependencies:
 
 
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/onboarding/anja_carton.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/onboarding/anja_carton.png"
+  min_sdk_android: 21
 
 
 flutter:
@@ -41,5 +52,6 @@ flutter:
     - assets/onboarding/
     - assets/icons/
     - assets/images/
+    - assets/video/
 
 

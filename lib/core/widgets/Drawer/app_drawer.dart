@@ -1,10 +1,12 @@
 
+import 'package:anjapepito/core/constants/app_assert_image.dart';
 import 'package:anjapepito/features/profile/views/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../util/app_navigation.dart';
 import '../../util/screen_size.dart';
 import '../text/app_text.dart';
+import 'package:anjapepito/features/profile/views/terms_page.dart';
 class CustomAppDrawer extends StatelessWidget {
   const CustomAppDrawer({super.key});
 
@@ -21,9 +23,10 @@ class CustomAppDrawer extends StatelessWidget {
               padding: EdgeInsets.all(context.responsiveSize(20)),
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Icon(
-                  Icons.menu,
-                  size: context.responsiveSize(28),
+                child: Image.asset(
+                  AppAssertImage.instance.drawerIcon,
+                  height: context.responsiveSize(28),
+                  width: context.responsiveSize(28),
                   color: const Color(0xFF2D2D2D),
                 ),
               ),
@@ -57,7 +60,7 @@ class CustomAppDrawer extends StatelessWidget {
               title: 'Terms and condition',
               onTap: () {
                 Navigator.pop(context);
-                // AppNavigation.push(context, const TermsPage());
+                AppNavigation.push(context, const TermsPage());
               },
             ),
 

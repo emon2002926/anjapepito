@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 // enter_otp_controller.dart
 // ══════════════════════════════════════════════════════
 
-import 'dart:async';
 
 import '../../../../core/util/app_navigation.dart';
 import '../../../../core/widgets/snakbar/custom_snackbar.dart';

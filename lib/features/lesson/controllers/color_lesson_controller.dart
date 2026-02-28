@@ -18,16 +18,16 @@ class ColorLessonController extends GetxController {
 
   // ── Learn Tab Data ──
   late final VideoSource learnVideoSource = VideoSource.asset(
-    'assets/videos/learn_orange.mp4', // Replace with your asset
-    // thumbnailAssetPath: 'assets/images/learn_thumb.png',
+    'assets/video/video_demo.mp4', // Replace with your asset
+    thumbnailAssetPath: 'assets/images/learn_thumb.png',
   );
   final String anjaSays = '"Das ist orange"';
   final String anjaTranslation = '" This is orange "';
 
   // ── Mission Tab Data ──
   late final VideoSource missionVideoSource = VideoSource.asset(
-    'assets/videos/mission_orange.mp4', // Replace with your asset
-    // thumbnailAssetPath: 'assets/images/mission_thumb.png',
+    'assets/video/video_demo.mp4', // Replace with your asset
+    thumbnailAssetPath: 'assets/images/mission_thumb.png',
   );
   final String missionTitle = 'Real–Life Mission !';
   final String missionTitleTranslation = 'Echte Mission';

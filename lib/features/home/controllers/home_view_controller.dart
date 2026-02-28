@@ -1,4 +1,3 @@
-import 'package:anjapepito/core/util/app_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
@@ -60,14 +59,21 @@ class HomeViewController extends GetxController {
       CustomSnackBar.info('Complete previous lessons to unlock');
       return;
     }
-    AppNavigation.push(
-      context,
-      ColorLessonScreen(
+    Get.to(
+      () => ColorLessonScreen(
         lessonTitle: 'Color : Orange',
         lessonTranslation: 'Farbe : Orange',
         unitTitle: 'Unit 1 : Colors',
-      ),
+      )
     );
+    // AppNavigation.push(
+    //   context,
+    //   ColorLessonScreen(
+    //     lessonTitle: 'Color : Orange',
+    //     lessonTranslation: 'Farbe : Orange',
+    //     unitTitle: 'Unit 1 : Colors',
+    //   ),
+    // );
   }
 }
 

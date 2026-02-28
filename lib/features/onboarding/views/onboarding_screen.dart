@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/util/screen_size.dart';
-import '../../../core/widgets/buttons/app_button.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/onboarding_controller.dart';
 

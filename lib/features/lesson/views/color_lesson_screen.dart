@@ -746,7 +746,7 @@ class ColorLessonScreen extends StatelessWidget {
       ) {
     const yellowColor = Color(0xFFFFEB3B);
     const whiteColor = Colors.white;
-    final fontSize = context.responsiveSize(16);
+    final fontSize = context.responsiveSize(14);
 
     TextSpan buildStyledWord(String word) {
       if (word.isEmpty) return const TextSpan();

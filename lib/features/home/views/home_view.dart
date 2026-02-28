@@ -1,11 +1,15 @@
+import 'package:anjapepito/core/constants/app_assert_image.dart';
 import 'package:anjapepito/core/widgets/Drawer/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../core/util/screen_size.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/home_view_controller.dart';
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+   HomeView({super.key});
+
+  final assets = AppAssertImage.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +33,19 @@ class HomeView extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () => controller.openDrawer(),
-                    child: Icon(
-                      Icons.menu,
-                      size: context.responsiveSize(28),
+                    child: Image.asset(
+                      assets.drawerIcon,
+                      height: context.responsiveSize(28),
+                      width: context.responsiveSize(28),
                       color: const Color(0xFF2D2D2D),
                     ),
                   ),
                   GestureDetector(
                     onTap: () => controller.onNotificationTap(context),
-                    child: Icon(
-                      Icons.notifications_outlined,
-                      size: context.responsiveSize(28),
+                    child: Image.asset(
+                      assets.notificationIcon,
+                      height: context.responsiveSize(28),
+                      width: context.responsiveSize(28),
                       color: const Color(0xFF2D2D2D),
                     ),
                   ),
@@ -70,8 +76,8 @@ class HomeView extends StatelessWidget {
                           context.responsiveSize(16),
                         ),
                         border: Border.all(
-                          color: const Color(0xFFFFD700),
-                          width: 1.5,
+                          color: Colors.white,
+                          width: 2.5,
                         ),
                       ),
                       child: Column(
@@ -82,7 +88,7 @@ class HomeView extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text: 'Learn ',
-                                  style: TextStyle(
+                                  style: GoogleFonts.plusJakartaSans(
                                     fontSize: context.responsiveSize(16),
                                     fontWeight: FontWeight.w600,
                                     color: const Color(0xFF2D2D2D),
@@ -90,7 +96,7 @@ class HomeView extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text: 'German',
-                                  style: TextStyle(
+                                  style: GoogleFonts.plusJakartaSans(
                                     fontSize: context.responsiveSize(16),
                                     fontWeight: FontWeight.w700,
                                     color: const Color(0xFF4CB8B3),
@@ -385,7 +391,12 @@ class HomeView extends StatelessWidget {
                 color: isActive
                     ? const Color(0xFFFFF0DC)
                     : const Color(0xFFE5E5E5),
-                shape: BoxShape.circle,
+                borderRadius: isActive? BorderRadius.circular(
+                  context.responsiveSize(50),
+                ): BorderRadius.circular(
+                  context.responsiveSize(14),
+                ),
+                // shape: BoxShape.circle,
               ),
               child: Center(
                 child: isActive && lesson.colorIcon != null
@@ -394,7 +405,9 @@ class HomeView extends StatelessWidget {
                   height: context.responsiveSize(28),
                   decoration: BoxDecoration(
                     color: lesson.colorIcon,
-                    shape: BoxShape.circle,
+                    borderRadius: BorderRadius.circular(
+                      context.responsiveSize(12),
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color:
@@ -407,7 +420,7 @@ class HomeView extends StatelessWidget {
                 )
                     : Icon(
                   Icons.lock_outlined,
-                  size: context.responsiveSize(22),
+                  size: context.responsiveSize(26),
                   color: const Color(0xFFB0B0B0),
                 ),
               ),

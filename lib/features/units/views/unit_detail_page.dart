@@ -1,3 +1,4 @@
+import 'package:anjapepito/core/constants/app_assert_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -116,27 +117,23 @@ class UnitDetailPage extends StatelessWidget {
           children: [
             // Checkbox Icon
             Container(
-              width: context.responsiveSize(40),
-              height: context.responsiveSize(40),
+              width: context.responsiveSize(32),
+              height: context.responsiveSize(32),
               decoration: BoxDecoration(
-                color: isCompleted
-                    ? const Color(0xFF4CB8B3)
-                    : Colors.transparent,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(
                   context.responsiveSize(8),
                 ),
                 border: Border.all(
-                  color: isCompleted
-                      ? const Color(0xFF4CB8B3)
-                      : const Color(0xFFD1D1D1),
+                  color: isCompleted ? Colors.transparent : const Color(0xFFD1D1D1),
                   width: 2,
                 ),
               ),
               child: isCompleted
-                  ? Icon(
-                Icons.check,
-                size: context.responsiveSize(22),
-                color: Colors.white,
+                  ? Image.asset(
+                AppAssertImage.instance.checkboxIcon,
+                height: context.responsiveSize(30),
+                width: context.responsiveSize(30),
               )
                   : null,
             ),

@@ -1,5 +1,9 @@
+import 'package:anjapepito/features/home/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../core/util/app_navigation.dart';
+import '../../login/views/sign_in_screen.dart';
 class SignUpController extends GetxController {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
@@ -23,19 +27,21 @@ class SignUpController extends GetxController {
     final password = passwordController.text.trim();
     final confirmPassword = confirmPasswordController.text.trim();
 
-    if (username.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty ||
-        confirmPassword.isEmpty) {
-      return;
-    }
-
-    if (password != confirmPassword) {
-      // Show password mismatch error
-      return;
-    }
+    // if (username.isEmpty ||
+    //     email.isEmpty ||
+    //     password.isEmpty ||
+    //     confirmPassword.isEmpty) {
+    //   return;
+    // }
+    //
+    // if (password != confirmPassword) {
+    //   // Show password mismatch error
+    //   return;
+    // }
 
     // TODO: Implement sign up logic
+    AppNavigation.pushAndClear(context, const HomePage());
+
   }
 
   void onSignUpWithGoogle(BuildContext context) {
@@ -47,7 +53,7 @@ class SignUpController extends GetxController {
   }
 
   void onSignIn(BuildContext context) {
-    // AppNavigation.push(context, const SignInScreen());
+    AppNavigation.push(context, const SignInScreen());
   }
 
   void onPrivacyPolicyTap() {

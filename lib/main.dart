@@ -1,11 +1,9 @@
-import 'package:anjapepito/features/home/views/home_page.dart';
 import 'package:anjapepito/features/onboarding/views/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'features/splash/controller/splash_controller.dart';
-import 'features/splash/views/splash_screen.dart';
 void main() {
   Get.lazyPut(() => SplashController());
 
@@ -36,8 +34,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        // home: const OnboardingScreen(),
-        home: const HomePage(),
+        home: const OnboardingScreen(),
+        // home: const HomePage(),
       );
   }
 

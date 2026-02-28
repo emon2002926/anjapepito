@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_assert_image.dart';
 import '../../util/screen_size.dart';
 import '../text/app_text.dart';
-
-
-
-// ══════════════════════════════════════════════════════
-// custom_bottom_navigation_bar.dart
-// ══════════════════════════════════════════════════════
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -44,7 +37,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         top: false,
         child: Padding(
           padding: EdgeInsets.symmetric(
-            vertical: context.responsiveSize(12),
+            vertical: context.responsiveSize(8),
             horizontal: context.responsiveSize(8),
           ),
           child: Row(
@@ -84,7 +77,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: context.responsiveSize(4)),
+                      // SizedBox(height: context.responsiveSize(4)),
                       AppText(
                         data: item['label'] as String,
                         fontSize: 12,

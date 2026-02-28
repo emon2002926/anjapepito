@@ -1,9 +1,7 @@
-import 'package:anjapepito/core/util/app_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
-import '../../units/views/unit_detail_page.dart';
 class BadgeItem {
   final String title;
   final String subtitle;
