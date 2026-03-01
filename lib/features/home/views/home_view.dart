@@ -314,7 +314,7 @@ class HomeView extends StatelessWidget {
                       TextSpan(
                         text: value,
                         style: TextStyle(
-                          fontSize: context.responsiveSize(15),
+                          fontSize: context.responsiveSize(12),
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFF2D2D2D),
                         ),
@@ -322,7 +322,7 @@ class HomeView extends StatelessWidget {
                       TextSpan(
                         text: ' $label',
                         style: TextStyle(
-                          fontSize: context.responsiveSize(12),
+                          fontSize: context.responsiveSize(10),
                           fontWeight: FontWeight.w400,
                           color: const Color(0xFFB0B0B0),
                         ),

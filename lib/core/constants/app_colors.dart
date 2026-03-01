@@ -102,7 +102,7 @@ class AppColors {
   final Color labelTextColor = const Color(0xFF000000);
 
   final Color primary = const Color(0xFFBDF0D5);
-  final Color background = const Color(0xFFF5F5F5);
+  final Color background = const Color(0xFFF8F5F1);
   final Color textFilledColor = const Color(0xFFB8ECC5);
   final Color textFilledBackground = const Color(0xFFC4F8D2);
   final Color frostedGlassColor = const Color(0xFF99E1AA);

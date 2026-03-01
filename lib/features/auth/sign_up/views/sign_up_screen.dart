@@ -1,8 +1,11 @@
+import 'package:anjapepito/core/widgets/buttons/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/constants/app_assert_image.dart';
 import '../../../../core/util/screen_size.dart';
+import '../../../../core/widgets/buttons/social_login_buttons.dart';
+import '../../../../core/widgets/divider/text_divider.dart';
 import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/sign_up_controllers.dart';
@@ -77,6 +80,7 @@ class SignUpScreen extends StatelessWidget {
                 borderColor: const Color(0xFFD1D1D1),
                 hintTextColor: const Color(0xFFB0B0B0),
                 inputTextColor: const Color(0xFF2D2D2D),
+                isHintTextInMiddle: true,
                 elevation: 0,
                 customBorderRadius: BorderRadius.circular(
                   context.responsiveSize(28),
@@ -91,6 +95,7 @@ class SignUpScreen extends StatelessWidget {
                 hintText: 'Email',
                 keyboardType: TextInputType.emailAddress,
                 fillColor: Colors.transparent,
+                isHintTextInMiddle: true,
                 borderColor: const Color(0xFFD1D1D1),
                 hintTextColor: const Color(0xFFB0B0B0),
                 inputTextColor: const Color(0xFF2D2D2D),
@@ -113,6 +118,7 @@ class SignUpScreen extends StatelessWidget {
                   hintTextColor: const Color(0xFFB0B0B0),
                   inputTextColor: const Color(0xFF2D2D2D),
                   elevation: 0,
+                  isHintTextInMiddle: true,
                   customBorderRadius: BorderRadius.circular(
                     context.responsiveSize(28),
                   ),
@@ -134,6 +140,7 @@ class SignUpScreen extends StatelessWidget {
                   obscureText:
                   !controller.isConfirmPasswordVisible.value,
                   fillColor: Colors.transparent,
+                  isHintTextInMiddle: true,
                   borderColor: const Color(0xFFD1D1D1),
                   hintTextColor: const Color(0xFFB0B0B0),
                   inputTextColor: const Color(0xFF2D2D2D),
@@ -153,53 +160,35 @@ class SignUpScreen extends StatelessWidget {
               SizedBox(height: context.responsiveSize(28)),
 
               // Sign Up Button
-              GestureDetector(
-                onTap: () => controller.onSignUp(context),
-                child: Container(
-                  width: double.infinity,
-                  height: context.responsiveSize(56),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF4CB8B3),
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(28),
-                    ),
-                  ),
-                  child: Center(
-                    child: AppText(
-                      data: 'Sign up',
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      useResponsiveFontSize: true,
-                    ),
-                  ),
-                ),
+
+              AppButton(
+                buttonText: 'Sign up',
+                onPressed: () => controller.onSignUp(context),
+                fillColor: const Color(0xFF4CB8B3),
+                textColor: Colors.white,
+                borderRadius: 28,
+                buttonHeight: 45,
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
               ),
 
               SizedBox(height: context.responsiveSize(20)),
-
-              // Divider with "or"
-              _buildOrDivider(context),
-
+              TextDivider(),
               SizedBox(height: context.responsiveSize(20)),
-
               // Sign up with Google
-              _buildSocialButton(
-                context,
-                onTap: () => controller.onSignUpWithGoogle(context),
-                iconPath: 'assets/icons/google_icon.png',
-                text: 'Sign up with Google',
-              ),
+              SocialButton(
+                  onTap: () => controller.onSignUpWithApple(context),
+                  text: 'Sign up with Google',
+                  iconPath: appImage.googleLogo,
+                  height: 45),
 
               SizedBox(height: context.responsiveSize(14)),
 
-              // Sign up with Apple
-              _buildSocialButton(
-                context,
-                onTap: () => controller.onSignUpWithApple(context),
-                icon: Icons.apple,
-                text: 'Sign up with Apple',
-              ),
+              SocialButton(
+                  onTap: () => controller.onSignUpWithApple(context),
+                  text: 'Sign up with Apple',
+                  icon: Icons.apple,
+                  height: 45),
 
               SizedBox(height: context.responsiveSize(20)),
 
@@ -210,7 +199,7 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     AppText(
                       data: 'Already have an account?  ',
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: const Color(0xFFB0B0B0),
                       useResponsiveFontSize: true,
@@ -219,8 +208,8 @@ class SignUpScreen extends StatelessWidget {
                       onTap: () => controller.onSignIn(context),
                       child: AppText(
                         data: 'Sign in',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
                         color: const Color(0xFF2D2D2D),
                         useResponsiveFontSize: true,
                       ),
@@ -243,7 +232,7 @@ class SignUpScreen extends StatelessWidget {
                           fontSize: context.responsiveSize(13),
                           fontWeight: FontWeight.w400,
                           color: const Color(0xFF9E9E9E),
-                          fontStyle: FontStyle.italic,
+                          fontStyle: FontStyle.normal,
                         ),
                       ),
                       WidgetSpan(
@@ -253,7 +242,7 @@ class SignUpScreen extends StatelessWidget {
                             'Privacy Policy.',
                             style: TextStyle(
                               fontSize: context.responsiveSize(13),
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.normal,
                               color: const Color(0xFF4A4A4A),
                             ),
                           ),
@@ -273,105 +262,5 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  // ── "or" Divider ──
-  Widget _buildOrDivider(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            height: 1,
-            color: const Color(0xFF2D2D2D),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.responsiveSize(16),
-          ),
-          child: AppText(
-            data: 'or',
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: const Color(0xFF9E9E9E),
-            useResponsiveFontSize: true,
-          ),
-        ),
-        Expanded(
-          child: Container(
-            height: 1,
-            color: const Color(0xFF2D2D2D),
-          ),
-        ),
-      ],
-    );
-  }
 
-  // ── Social Button ──
-  Widget _buildSocialButton(
-      BuildContext context, {
-        required VoidCallback onTap,
-        required String text,
-        String? iconPath,
-        IconData? icon,
-      }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: context.responsiveSize(56),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(
-            context.responsiveSize(28),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (iconPath != null)
-              SizedBox(
-                width: context.responsiveSize(24),
-                height: context.responsiveSize(24),
-                child: Image.asset(
-                  iconPath,
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: Text(
-                        'G',
-                        style: TextStyle(
-                          fontSize: context.responsiveSize(18),
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xFF4285F4),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              )
-            else if (icon != null)
-              Icon(
-                icon,
-                color: Colors.black,
-                size: context.responsiveSize(24),
-              ),
-            SizedBox(width: context.responsiveSize(12)),
-            AppText(
-              data: text,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xFF2D2D2D),
-              useResponsiveFontSize: true,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

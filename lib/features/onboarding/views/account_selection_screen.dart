@@ -71,6 +71,10 @@ class AccountSelectionScreen extends StatelessWidget {
                         offset: const Offset(0, 2),
                       ),
                     ],
+                    border: Border.all(
+                      color: const Color(0xFFD1D1D1),
+                      width: 1,
+                    ),
                   ),
                   child: Center(
                     child: AppText(
@@ -93,21 +97,21 @@ class AccountSelectionScreen extends StatelessWidget {
                   width: double.infinity,
                   height: context.responsiveSize(56),
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(
                       context.responsiveSize(28),
                     ),
-                    border: Border.all(
-                      color: const Color(0xFFD1D1D1),
-                      width: 1,
-                    ),
+                    // border: Border.all(
+                    //   color: const Color(0xFFD1D1D1),
+                    //   width: 1,
+                    // ),
                   ),
                   child: Center(
                     child: AppText(
                       data: 'I have an account',
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFFB0B0B0),
+                      color: const Color(0xFF2D2D2D),
                       useResponsiveFontSize: true,
                     ),
                   ),
@@ -127,14 +131,14 @@ class AccountSelectionScreen extends StatelessWidget {
                       TextSpan(
                         text: 'By clicking the "sign up" button, you accept the terms\nof the  ',
                         style: TextStyle(
-                          fontSize: context.responsiveSize(13),
+                          fontSize: context.responsiveSize(12),
                           fontWeight: FontWeight.w400,
                           color: const Color(0xFF9E9E9E),
                         ),
                       ),
                       WidgetSpan(
                         child: GestureDetector(
-                          onTap: () => controller.onPrivacyPolicyTap(),
+                          onTap: () => controller.onPrivacyPolicyTap(context),
                           child: Text(
                             'Privacy Policy.',
                             style: TextStyle(

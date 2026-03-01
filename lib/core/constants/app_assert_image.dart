@@ -15,6 +15,7 @@
     final String onboardingImage2 = "assets/onboarding/youtube_image.png";
     final String onboardingImage3 = "assets/onboarding/bobule_image.png";
     final String appLogo = "assets/onboarding/anja_carton.png";
+    final String anjaIcon = "assets/icons/anja_icon.png";
 
     final String shareIcon = "assets/images/share_icon.png";
     final String alertImage = "assets/icons/alart_icon.png";

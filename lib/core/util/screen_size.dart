@@ -30,3 +30,4 @@ import 'package:flutter/material.dart';
       double get cardWidth => screenWidth * 0.25; // ~25% of screen
       double get cardHeight => cardWidth * 1.5; // Maintain aspect ratio
     }
+

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../core/util/app_navigation.dart';
 import '../../../home/views/home_page.dart';
 import '../../others/views/forgot_password_screen.dart';
+import '../../sign_up/views/sign_up_screen.dart';
 class SignInController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -41,7 +42,7 @@ class SignInController extends GetxController {
   }
 
   void onSignUp(BuildContext context) {
-    // AppNavigation.push(context, const SignUpScreen());
+    AppNavigation.push(context, const SignUpScreen());
   }
 
   @override

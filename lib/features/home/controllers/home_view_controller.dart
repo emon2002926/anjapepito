@@ -60,10 +60,11 @@ class HomeViewController extends GetxController {
       return;
     }
     Get.to(
-      () => ColorLessonScreen(
+      () => LessonScreen(
         lessonTitle: 'Color : Orange',
         lessonTranslation: 'Farbe : Orange',
         unitTitle: 'Unit 1 : Colors',
+        isForLesson: true,
       )
     );
     // AppNavigation.push(

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/util/app_navigation.dart';
 import '../../auth/login/views/sign_in_screen.dart';
 import '../../auth/sign_up/views/sign_up_screen.dart';
+import '../../profile/views/terms_page.dart';
 class AccountSelectionController extends GetxController {
   void onCreateAccount(BuildContext context) {
     // Navigate to Sign Up screen
@@ -15,8 +16,8 @@ class AccountSelectionController extends GetxController {
     AppNavigation.push(context, const SignInScreen());
   }
 
-  void onPrivacyPolicyTap() {
+  void onPrivacyPolicyTap(BuildContext context) {
     // Open privacy policy URL
-    // launchUrl(Uri.parse('https://yourapp.com/privacy'));
+    AppNavigation.push(context, TermsPage());
   }
 }

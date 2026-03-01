@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../core/util/app_navigation.dart';
+import '../../../core/util/storage_service.dart';
+import '../../auth/login/views/sign_in_screen.dart';
 class ProfileController extends GetxController {
   final RxString userName = 'Andrew Garfield'.obs;
   final RxString userEmail = 'andrew_Garfield@gmail.com'.obs;
@@ -19,7 +23,7 @@ class ProfileController extends GetxController {
 
   void onLogout(BuildContext context) {
     // TODO: Implement logout
-    // StorageService.clearAll();
-    // AppNavigation.pushAndClear(context, const SignInScreen());
+    // StorageService.logout();
+    AppNavigation.pushAndClear(context, const SignInScreen());
   }
 }

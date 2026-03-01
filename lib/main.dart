@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'features/home/views/home_page.dart';
 import 'features/splash/controller/splash_controller.dart';
 void main() {
   Get.lazyPut(() => SplashController());

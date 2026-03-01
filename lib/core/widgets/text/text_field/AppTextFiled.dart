@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
+import '../../../util/screen_size.dart';
 import '../app_text.dart';
 
 
@@ -24,12 +25,10 @@ class AppTextField extends StatelessWidget {
   final Color? fillColor;
   final Color? inputTextColor;
   final Color? hintTextColor;
-  final bool useResponsiveSize;
-
-  // New options
   final double elevation;
   final Color? shadowColor;
-  final BorderRadius? customBorderRadius; // per-corner control
+  final BorderRadius? customBorderRadius;
+  final bool isHintTextInMiddle;
 
   const AppTextField({
     super.key,
@@ -51,25 +50,23 @@ class AppTextField extends StatelessWidget {
     this.fillColor,
     this.inputTextColor,
     this.hintTextColor,
-    this.useResponsiveSize = true,
     this.elevation = 8,
     this.shadowColor,
     this.customBorderRadius,
+    this.isHintTextInMiddle = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final effectiveSuffixTap = suffixIconOnTap ?? onSuffixIconTap;
 
-    final double labelFontSize = useResponsiveSize ? _getResponsiveFontSize(context, 14) : 14;
-    final double inputFontSize = useResponsiveSize ? _getResponsiveFontSize(context, 14) : 14;
-    final double iconSize     = useResponsiveSize ? _getResponsiveSize(context, 20) : 20;
-    final double borderRadius = useResponsiveSize ? _getResponsiveSize(context, 10) : 10;
-    final double verticalPadding   = useResponsiveSize ? _getResponsiveSize(context, 14) : 14;
-    final double horizontalPadding = useResponsiveSize ? _getResponsiveSize(context, 16) : 16;
-    final double spacing = useResponsiveSize ? _getResponsiveSize(context, 8) : 8;
+    final double inputFontSize     = context.responsiveFontSize(14);
+    final double iconSize          = context.responsiveSize(20);
+    final double borderRadius      = context.responsiveSize(10);
+    final double verticalPadding   = context.responsiveSize(14);
+    final double horizontalPadding = context.responsiveSize(16);
+    final double spacing           = context.responsiveSize(8);
 
-    // Resolve the final BorderRadius — custom wins over uniform
     final BorderRadius effectiveBorderRadius =
         customBorderRadius ?? BorderRadius.circular(borderRadius);
 
@@ -85,17 +82,16 @@ class AppTextField extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: AppColors.instance.titleTextColor,
                 fontSize: 14,
-                useResponsiveFontSize: useResponsiveSize,
               ),
               if (label2 != null)
                 GestureDetector(
                   onTap: label2OnClick,
                   child: Text(
                     label2!,
-                    style: GoogleFonts.inter(
+                    style: GoogleFonts.plusJakartaSans(
                       fontWeight: FontWeight.w600,
                       color: Colors.blue,
-                      fontSize: labelFontSize,
+                      fontSize: inputFontSize,
                     ),
                   ),
                 ),
@@ -104,7 +100,6 @@ class AppTextField extends StatelessWidget {
           SizedBox(height: spacing),
         ],
 
-        // Material wraps the field to provide shadow/elevation
         Material(
           elevation: elevation,
           shadowColor: shadowColor ?? Colors.black,
@@ -117,13 +112,14 @@ class AppTextField extends StatelessWidget {
             focusNode: focusNode,
             keyboardType: keyboardType,
             enabled: enabled,
-            style: GoogleFonts.poppins(
+            textAlign: isHintTextInMiddle ? TextAlign.center : TextAlign.start,
+            style: GoogleFonts.plusJakartaSans(
               color: inputTextColor,
               fontSize: inputFontSize,
             ),
             decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: GoogleFonts.inter(
+              hintStyle: GoogleFonts.plusJakartaSans(
                 color: hintTextColor ?? Colors.grey,
                 fontSize: inputFontSize,
                 fontWeight: FontWeight.w400,
@@ -168,11 +164,5 @@ class AppTextField extends StatelessWidget {
     );
   }
 
-  double _getResponsiveSize(BuildContext context, double size) {
-    return MediaQuery.of(context).size.width * (size / 375);
-  }
 
-  double _getResponsiveFontSize(BuildContext context, double size) {
-    return MediaQuery.of(context).size.width * (size / 375);
-  }
 }

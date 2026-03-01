@@ -1,29 +1,84 @@
 import 'package:flutter/material.dart';
 
+import '../../util/screen_size.dart';
 import '../text/app_text.dart';
-class SocialLoginButtons extends StatelessWidget {
-  final String title;
-  final VoidCallback onPressed;
-  final String iconPath;
-  const SocialLoginButtons({super.key, required this.title, required this.onPressed, required this.iconPath});
+class SocialButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final String text;
+  final String? iconPath;
+  final IconData? icon;
+  final double height;
+
+  const SocialButton({
+    super.key,
+    required this.onTap,
+    required this.text,
+    this.iconPath,
+    this.icon, required this.height,
+  }) : assert(
+  iconPath != null || icon != null,
+  'Provide either iconPath or icon',
+  );
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 48,
-      child: OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: SizedBox(
-          width: 20,
-          height: 20,
-          child: Image.asset(iconPath),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: context.responsiveSize(height),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(context.responsiveSize(28)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
-        label: AppText(color: Colors.white, data:title),
-        style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
-          side: const BorderSide(color: Colors.white, width: 1.5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // ── Icon ──
+            if (iconPath != null)
+              SizedBox(
+                width: context.responsiveSize(24),
+                height: context.responsiveSize(24),
+                child: Image.asset(
+                  iconPath!,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => Center(
+                    child: Text(
+                      'G',
+                      style: TextStyle(
+                        fontSize: context.responsiveSize(18),
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF4285F4),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            else if (icon != null)
+              Icon(
+                icon,
+                color: Colors.black,
+                size: context.responsiveSize(24),
+              ),
+
+            SizedBox(width: context.responsiveSize(12)),
+
+            // ── Label ──
+            AppText(
+              data: text,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFF2D2D2D),
+              useResponsiveFontSize: true,
+            ),
+          ],
         ),
       ),
     );

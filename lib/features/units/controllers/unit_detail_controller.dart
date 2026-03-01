@@ -1,9 +1,10 @@
-// ══════════════════════════════════════════════════════
-// unit_detail_controller.dart
-// ══════════════════════════════════════════════════════
+
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
+import '../../lesson/views/color_lesson_screen.dart';
 enum LessonStatus { completed, incomplete }
 
 class UnitLesson {
@@ -59,6 +60,14 @@ class UnitDetailController extends GetxController {
   ].obs;
 
   void onLessonTap(BuildContext context, int index) {
-    // TODO: Navigate to lesson
+    Get.to(
+            () => LessonScreen(
+          lessonTitle: 'Color : Orange',
+          lessonTranslation: 'Farbe : Orange',
+          unitTitle: 'Unit 1 : Colors',
+          isForLesson: false,
+        )
+    );
+
   }
 }

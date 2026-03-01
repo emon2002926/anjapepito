@@ -3,6 +3,7 @@ import 'package:anjapepito/core/constants/app_assert_image.dart';
 import 'package:anjapepito/features/profile/views/profile_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../features/auth/login/views/sign_in_screen.dart';
 import '../../util/app_navigation.dart';
 import '../../util/screen_size.dart';
 import '../text/app_text.dart';
@@ -157,6 +158,6 @@ class CustomAppDrawer extends StatelessWidget {
 
   void _handleLogout(BuildContext context) {
     // StorageService.clearAll();
-    // AppNavigation.pushAndClear(context, const SignInScreen());
+    AppNavigation.pushAndClear(context, const SignInScreen());
   }
 }
