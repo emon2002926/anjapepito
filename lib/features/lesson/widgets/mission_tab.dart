@@ -20,7 +20,7 @@ class MissionTab extends StatelessWidget {
           videoSource: controller.missionVideoSource,
           tag: 'mission_video',
           width: double.infinity,
-          height: context.responsiveSize(240),
+          height: context.responsiveSize(210),
           borderRadius: context.responsiveSize(16),
           autoPlay: false,
           showThumbnail: true,
@@ -77,7 +77,10 @@ class MissionTab extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(context.responsiveSize(16)),
+      padding: EdgeInsets.symmetric(
+          vertical: context.responsiveSize(8),
+          horizontal: context.responsiveSize(16)
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(context.responsiveSize(16)),
@@ -90,23 +93,23 @@ class MissionTab extends StatelessWidget {
         ],
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipOval(
             child: Image.asset(
               appImage.anjaIcon,
-              width: context.responsiveSize(56),
-              height: context.responsiveSize(56),
+              width: context.responsiveSize(52),
+              height: context.responsiveSize(52),
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) => Container(
-                width: context.responsiveSize(56),
-                height: context.responsiveSize(56),
+                width: context.responsiveSize(52),
+                height: context.responsiveSize(52),
                 decoration: const BoxDecoration(
                   color: Color(0xFFEDE8DF),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(Icons.person,
-                    size: context.responsiveSize(30), color: Colors.grey),
+                    size: context.responsiveSize(28), color: Colors.grey),
               ),
             ),
           ),
@@ -134,7 +137,7 @@ class MissionTab extends StatelessWidget {
                 SizedBox(height: context.responsiveSize(2)),
                 AppText(
                   data: englishText,
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: const Color(0xFFE8A838),
                   useResponsiveFontSize: true,

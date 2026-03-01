@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/app_assert_image.dart';
 import '../../../core/util/screen_size.dart';
 import '../../../core/widgets/Drawer/app_drawer.dart';
 import '../../../core/widgets/text/app_text.dart';
@@ -86,7 +87,7 @@ class BadgesPage extends StatelessWidget {
                           // Title
                           AppText(
                             data: 'Badges',
-                            fontSize: 22,
+                            fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: const Color(0xFF2D2D2D),
                             useResponsiveFontSize: true,
@@ -124,28 +125,28 @@ class BadgesPage extends StatelessWidget {
                           SizedBox(height: context.responsiveSize(24)),
 
                           // Next → Weiter Button
-                          GestureDetector(
-                            onTap: () =>
-                                controller.onNextTap(context),
-                            child: Container(
-                              width: double.infinity,
-                              height: context.responsiveSize(56),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF4CB8B3),
-                                borderRadius: BorderRadius.circular(
-                                  context.responsiveSize(28),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: _buildButtonTextSpans(
-                                        context),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          // GestureDetector(
+                          //   onTap: () =>
+                          //       controller.onNextTap(context),
+                          //   child: Container(
+                          //     width: double.infinity,
+                          //     height: context.responsiveSize(56),
+                          //     decoration: BoxDecoration(
+                          //       color: const Color(0xFF4CB8B3),
+                          //       borderRadius: BorderRadius.circular(
+                          //         context.responsiveSize(28),
+                          //       ),
+                          //     ),
+                          //     child: Center(
+                          //       child: Text.rich(
+                          //         TextSpan(
+                          //           children: _buildButtonTextSpans(
+                          //               context),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -191,10 +192,10 @@ class BadgesPage extends StatelessWidget {
                       fontSize: iconSize * 0.5,
                     ),
                   )
-                      : Icon(
-                    Icons.lock_outlined,
-                    size: iconSize * 0.4,
-                    color: const Color(0xFFB0B0B0),
+                      : Image.asset(
+                    AppAssertImage.instance.filledLockIcon,
+                    height: iconSize * 0.4,
+                    width: iconSize * 0.4,
                   ),
                 ),
               ),
@@ -229,7 +230,7 @@ class BadgesPage extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: badge.isUnlocked
-                      ? const Color(0xFFE8A838)
+                      ? const Color(0xFFED8854)
                       : const Color(0xFFE0E0E0),
                   borderRadius: BorderRadius.circular(
                     context.responsiveSize(2),

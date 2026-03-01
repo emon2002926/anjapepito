@@ -16,6 +16,9 @@
     final String onboardingImage3 = "assets/onboarding/bobule_image.png";
     final String appLogo = "assets/onboarding/anja_carton.png";
     final String anjaIcon = "assets/icons/anja_icon.png";
+    final String lockIcon = "assets/icons/lock_icon.png";
+    final String filledLockIcon = "assets/icons/filled_lock.png";
+    final String logOutIcon = "assets/icons/logout_icon.png";
 
     final String shareIcon = "assets/images/share_icon.png";
     final String alertImage = "assets/icons/alart_icon.png";
@@ -37,9 +40,16 @@
 
 
     final String home= "assets/icons/navigation/home.png";
-    final String card= "assets/icons/navigation/card.png";
-    final String game= "assets/icons/navigation/game_icon.png";
-    final String video= "assets/icons/navigation/video_icon.png";
+    final String homeSelected= "assets/icons/navigation/home_selected.png";
+
+    final String units= "assets/icons/navigation/units.png";
+    final String unitsSelected= "assets/icons/navigation/units_selected.png";
+
+    final String trophy= "assets/icons/navigation/trophy.png";
+    final String trophySelected= "assets/icons/navigation/trophy_selected.png";
+
+
+
     final String profileIcon= "assets/icons/navigation/profile_icon.png";
     final String checkboxIcon= "assets/icons/checkbox.png";
 

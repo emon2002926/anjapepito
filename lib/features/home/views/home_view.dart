@@ -131,7 +131,7 @@ class HomeView extends StatelessWidget {
                     // ── Ready for today's mission ──
                     AppText(
                       data: "Ready for today\u2019s mission ?",
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF2D2D2D),
                       useResponsiveFontSize: true,
@@ -148,10 +148,10 @@ class HomeView extends StatelessWidget {
                             child: _buildStatCard(
                               context,
                               emoji: '✦',
-                              emojiColor: const Color(0xFF4CB8B3),
+                              emojiColor: Colors.amber,
                               value: '${controller.totalXp.value}',
                               label: 'XP',
-                              bgColor: const Color(0xFFFFF8E8),
+                              bgColor: const Color(0xFFFFFBEF),
                               barColor: const Color(0xFFD1D1D1),
                               barFill: 0.0,
                             ),
@@ -164,7 +164,7 @@ class HomeView extends StatelessWidget {
                               emoji: '🔥',
                               value: '${controller.streak.value}',
                               label: 'Streak',
-                              bgColor: const Color(0xFFFFF8E8),
+                              bgColor: const Color(0xFFFFF4E8),
                               barColor: const Color(0xFFD1D1D1),
                               barFill: 0.0,
                             ),
@@ -178,7 +178,7 @@ class HomeView extends StatelessWidget {
                               value:
                               '${controller.completedLessons.value}/${controller.totalLessons.value}',
                               label: 'Done',
-                              bgColor: const Color(0xFFEAFAF5),
+                              bgColor: const Color(0xFFF5FFFE),
                               barColor: const Color(0xFF4CB8B3),
                               barFill: controller.totalLessons.value > 0
                                   ? controller.completedLessons.value /
@@ -198,7 +198,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         AppText(
                           data: 'Unit 1 : Colors',
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFF2D2D2D),
                           useResponsiveFontSize: true,
@@ -207,7 +207,7 @@ class HomeView extends StatelessWidget {
                               () => AppText(
                             data:
                             '${controller.unitProgress.value.toInt()}%',
-                            fontSize: 15,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF4CB8B3),
                             useResponsiveFontSize: true,
@@ -322,7 +322,7 @@ class HomeView extends StatelessWidget {
                       TextSpan(
                         text: ' $label',
                         style: TextStyle(
-                          fontSize: context.responsiveSize(10),
+                          fontSize: context.responsiveSize(12),
                           fontWeight: FontWeight.w400,
                           color: const Color(0xFFB0B0B0),
                         ),
@@ -352,149 +352,145 @@ class HomeView extends StatelessWidget {
   }
 
   // ── Lesson Card ──
-  Widget _buildLessonCard(
-      BuildContext context,
-      HomeViewController controller,
-      LessonItem lesson,
-      int index,
-      ) {
-    final bool isActive = lesson.isUnlocked;
+   Widget _buildLessonCard(
+       BuildContext context,
+       HomeViewController controller,
+       LessonItem lesson,
+       int index,
+       ) {
+     final bool isActive = lesson.isUnlocked;
 
-    return GestureDetector(
-      onTap: () => controller.onLessonTap(context, index),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: context.responsiveSize(14),
-          vertical: context.responsiveSize(6),
-        ),
-        decoration: BoxDecoration(
-          color: isActive
-              ? const Color(0xFFFFF8E8)
-              : Colors.white,
-          borderRadius: BorderRadius.circular(
-            context.responsiveSize(16),
-          ),
-          border: isActive
-              ? Border.all(
-            color: const Color(0xFF4CB8B3),
-            width: 1.5,
-          )
-              : null,
-        ),
-        child: Row(
-          children: [
-            // Circle icon
-            Container(
-              width: context.responsiveSize(48),
-              height: context.responsiveSize(48),
-              decoration: BoxDecoration(
-                color: isActive
-                    ? const Color(0xFFFFF0DC)
-                    : const Color(0xFFE5E5E5),
-                borderRadius: isActive? BorderRadius.circular(
-                  context.responsiveSize(50),
-                ): BorderRadius.circular(
-                  context.responsiveSize(14),
-                ),
-                // shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: isActive && lesson.colorIcon != null
-                    ? Container(
-                  width: context.responsiveSize(28),
-                  height: context.responsiveSize(28),
-                  decoration: BoxDecoration(
-                    color: lesson.colorIcon,
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(12),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color:
-                        lesson.colorIcon!.withOpacity(0.4),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                )
-                    : Icon(
-                  Icons.lock_outlined,
-                  size: context.responsiveSize(26),
-                  color: const Color(0xFFB0B0B0),
-                ),
-              ),
-            ),
+     return GestureDetector(
+       onTap: () => controller.onLessonTap(context, index),
+       child: Material(
+         elevation: isActive ? 6 : 0,
+         shadowColor: const Color(0xFF4CB8B3).withOpacity(0.3),
+         borderRadius: BorderRadius.circular(context.responsiveSize(16)),
+         color: Colors.transparent,
+         child: Container(
+           padding: EdgeInsets.symmetric(
+             horizontal: context.responsiveSize(14),
+             vertical: context.responsiveSize(6),
+           ),
+           decoration: BoxDecoration(
+             color: isActive ?
+             const Color(0xFFFFFFFF) : const Color(0xFFF7F7F7),
+             borderRadius: BorderRadius.circular(context.responsiveSize(16)),
+             border: Border.all(
+               color: Colors.white
+             )
+           ),
+           child: Row(
+             children: [
+               // ── Circle Icon ──
+               Container(
+                 width: context.responsiveSize(45),
+                 height: context.responsiveSize(45),
+                 decoration: BoxDecoration(
+                   color: isActive
+                       ? const Color(0xFFFFF0DC)
+                       : const Color(0xFFE5E5E5),
+                   borderRadius: isActive
+                       ? BorderRadius.circular(context.responsiveSize(50))
+                       : BorderRadius.circular(context.responsiveSize(14)),
+                 ),
+                 child: Center(
+                   child: isActive && lesson.colorIcon != null
+                       ? Container(
+                     width: context.responsiveSize(28),
+                     height: context.responsiveSize(28),
+                     decoration: BoxDecoration(
+                       color: lesson.colorIcon,
+                       borderRadius: BorderRadius.circular(
+                         context.responsiveSize(12),
+                       ),
+                       boxShadow: [
+                         BoxShadow(
+                           color: lesson.colorIcon!.withOpacity(0.4),
+                           blurRadius: 6,
+                           offset: const Offset(0, 2),
+                         ),
+                       ],
+                     ),
+                   )
+                       : Image.asset(
+                     AppAssertImage.instance.lockIcon,
+                     height: context.responsiveSize(24),
+                     width: context.responsiveSize(24),
+                     color: const Color(0xFFB0B0B0),
+                   ),
+                 ),
+               ),
 
-            SizedBox(width: context.responsiveSize(14)),
+               SizedBox(width: context.responsiveSize(14)),
 
-            // Text
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    data: lesson.title,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFF2D2D2D),
-                    useResponsiveFontSize: true,
-                  ),
-                  SizedBox(height: context.responsiveSize(2)),
-                  AppText(
-                    data: lesson.translation,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xFFB0B0B0),
-                    useResponsiveFontSize: true,
-                  ),
-                  SizedBox(height: context.responsiveSize(4)),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: context.responsiveSize(8),
-                      vertical: context.responsiveSize(2),
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFF3D6),
-                      borderRadius: BorderRadius.circular(
-                        context.responsiveSize(6),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          '✦ ',
-                          style: TextStyle(
-                            fontSize: context.responsiveSize(11),
-                            color: const Color(0xFFE8A838),
-                          ),
-                        ),
-                        AppText(
-                          data: '${lesson.xp}XP',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFFE8A838),
-                          useResponsiveFontSize: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+               // ── Text ──
+               Expanded(
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     AppText(
+                       data: lesson.title,
+                       fontSize: 16,
+                       fontWeight: FontWeight.w600,
+                       color: const Color(0xFF2D2D2D),
+                       useResponsiveFontSize: true,
+                     ),
+                     SizedBox(height: context.responsiveSize(2)),
+                     AppText(
+                       data: lesson.translation,
+                       fontSize: 13,
+                       fontWeight: FontWeight.w400,
+                       color: const Color(0xFFB0B0B0),
+                       useResponsiveFontSize: true,
+                     ),
+                     SizedBox(height: context.responsiveSize(4)),
+                     Container(
+                       padding: EdgeInsets.symmetric(
+                         horizontal: context.responsiveSize(8),
+                         vertical: context.responsiveSize(2),
+                       ),
+                       decoration: BoxDecoration(
+                         color: const Color(0xFFFFF3D6),
+                         borderRadius: BorderRadius.circular(
+                           context.responsiveSize(6),
+                         ),
+                       ),
+                       child: Row(
+                         mainAxisSize: MainAxisSize.min,
+                         children: [
+                           Text(
+                             '✦ ',
+                             style: TextStyle(
+                               fontSize: context.responsiveSize(11),
+                               color: const Color(0xFFE8A838),
+                             ),
+                           ),
+                           AppText(
+                             data: '${lesson.xp}XP',
+                             fontSize: 12,
+                             fontWeight: FontWeight.w600,
+                             color: const Color(0xFFE8A838),
+                             useResponsiveFontSize: true,
+                           ),
+                         ],
+                       ),
+                     ),
+                   ],
+                 ),
+               ),
 
-            // Arrow
-            Icon(
-              Icons.chevron_right,
-              size: context.responsiveSize(24),
-              color: const Color(0xFFB0B0B0),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
+               // ── Arrow ──
+               Icon(
+                 Icons.chevron_right,
+                 size: context.responsiveSize(24),
+                 color: const Color(0xFFB0B0B0),
+               ),
+             ],
+           ),
+         ),
+       ),
+     );
+   }
 
 }

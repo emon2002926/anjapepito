@@ -34,7 +34,7 @@ class LessonController extends GetxController {
   // ── Mission Tab Data ──
   late final VideoSource missionVideoSource = VideoSource.asset(
     'assets/video/video_demo.mp4',
-    thumbnailAssetPath: 'assets/images/learn_thumb.png',
+    thumbnailAssetPath: 'assets/images/secound_thumbnail.png',
   );
   final String missionTitle = 'Real–Life Mission !';
   final String missionTitleTranslation = 'Echte Mission';

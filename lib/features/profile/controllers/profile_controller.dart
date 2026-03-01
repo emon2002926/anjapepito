@@ -24,6 +24,6 @@ class ProfileController extends GetxController {
   void onLogout(BuildContext context) {
     // TODO: Implement logout
     // StorageService.logout();
-    AppNavigation.pushAndClear(context, const SignInScreen());
+    Get.offAll(SignInScreen());
   }
 }

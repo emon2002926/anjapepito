@@ -98,7 +98,7 @@ class UnitDetailPage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: context.responsiveSize(14),
-          vertical: context.responsiveSize(12),
+          vertical: context.responsiveSize(8),
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -132,8 +132,8 @@ class UnitDetailPage extends StatelessWidget {
               child: isCompleted
                   ? Image.asset(
                 AppAssertImage.instance.checkboxIcon,
-                height: context.responsiveSize(30),
-                width: context.responsiveSize(30),
+                height: context.responsiveSize(32),
+                width: context.responsiveSize(32),
               )
                   : null,
             ),
@@ -147,7 +147,7 @@ class UnitDetailPage extends StatelessWidget {
                 children: [
                   AppText(
                     data: lesson.title,
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: const Color(0xFF2D2D2D),
                     useResponsiveFontSize: true,
@@ -155,7 +155,7 @@ class UnitDetailPage extends StatelessWidget {
                   SizedBox(height: context.responsiveSize(2)),
                   AppText(
                     data: lesson.translation,
-                    fontSize: 13,
+                    fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: const Color(0xFFB0B0B0),
                     useResponsiveFontSize: true,
@@ -178,13 +178,13 @@ class UnitDetailPage extends StatelessWidget {
                         Text(
                           '✦ ',
                           style: TextStyle(
-                            fontSize: context.responsiveSize(11),
+                            fontSize: context.responsiveSize(10),
                             color: const Color(0xFFE8A838),
                           ),
                         ),
                         AppText(
                           data: '${lesson.xp}XP',
-                          fontSize: 12,
+                          fontSize: 11,
                           fontWeight: FontWeight.w600,
                           color: const Color(0xFFE8A838),
                           useResponsiveFontSize: true,

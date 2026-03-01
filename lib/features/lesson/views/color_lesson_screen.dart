@@ -52,7 +52,7 @@ class LessonScreen extends StatelessWidget {
                     // Unit Title
                     AppText(
                       data: controller.unitTitle,
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF2D2D2D),
                       useResponsiveFontSize: true,
@@ -181,7 +181,7 @@ class LessonScreen extends StatelessWidget {
                   children: [
                     AppText(
                       data: controller.tabs[index],
-                      fontSize: 13,
+                      fontSize: 12,
                       fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                       color: isActive
                           ? const Color(0xFF2D2D2D)
@@ -360,9 +360,9 @@ class LessonScreen extends StatelessWidget {
         onTap: onTap,
         child: Container(
           width: double.infinity,
-          height: context.responsiveSize(56),
+          height: context.responsiveSize(45),
           decoration: BoxDecoration(
-            color: const Color(0xFF4CB8B3),
+            color: const Color(0xFF2FA8B6),
             borderRadius: BorderRadius.circular(context.responsiveSize(28)),
           ),
           child: Center(

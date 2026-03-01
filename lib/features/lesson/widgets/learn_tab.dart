@@ -22,7 +22,7 @@ class LearnTab extends StatelessWidget {
           videoSource: controller.learnVideoSource,
           tag: 'learn_video',
           width: double.infinity,
-          height: context.responsiveSize(240),
+          height: context.responsiveSize(210),
           borderRadius: context.responsiveSize(16),
           autoPlay: false,
           showThumbnail: true,
@@ -63,7 +63,6 @@ class LearnTab extends StatelessWidget {
             color: const Color(0xFF9E9E9E),
             useResponsiveFontSize: true,
           ),
-          SizedBox(width: context.responsiveSize(8)),
           Expanded(
             child: SliderTheme(
               data: SliderThemeData(
@@ -109,10 +108,13 @@ class LearnTab extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(context.responsiveSize(16)),
+      padding: EdgeInsets.symmetric(
+          horizontal: context.responsiveSize(16),
+          vertical:context.responsiveSize(8)
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(context.responsiveSize(16)),
+        borderRadius: BorderRadius.circular(context.responsiveSize(12)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -157,7 +159,7 @@ class LearnTab extends StatelessWidget {
                 SizedBox(height: context.responsiveSize(4)),
                 AppText(
                   data: germanText,
-                  fontSize: 15,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: const Color(0xFF2D2D2D),
                   useResponsiveFontSize: true,
@@ -166,7 +168,7 @@ class LearnTab extends StatelessWidget {
                 SizedBox(height: context.responsiveSize(2)),
                 AppText(
                   data: englishText,
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: const Color(0xFFE8A838),
                   useResponsiveFontSize: true,

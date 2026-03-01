@@ -2,6 +2,7 @@
 import 'package:anjapepito/core/constants/app_assert_image.dart';
 import 'package:anjapepito/features/profile/views/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../features/auth/login/views/sign_in_screen.dart';
 import '../../util/app_navigation.dart';
@@ -96,16 +97,17 @@ class CustomAppDrawer extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.logout_rounded,
-                        size: context.responsiveSize(20),
+                      Image.asset(
+                        AppAssertImage.instance.logOutIcon,
+                        height: context.responsiveSize(20),
+                        width: context.responsiveSize(20),
                         color: const Color(0xFF2D2D2D),
                       ),
                       SizedBox(width: context.responsiveSize(8)),
                       AppText(
                         data: 'Log out',
                         fontSize: 15,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                         color: const Color(0xFF2D2D2D),
                         useResponsiveFontSize: true,
                       ),
@@ -158,6 +160,7 @@ class CustomAppDrawer extends StatelessWidget {
 
   void _handleLogout(BuildContext context) {
     // StorageService.clearAll();
-    AppNavigation.pushAndClear(context, const SignInScreen());
+    // AppNavigation.pushAndClear(context, const SignInScreen());
+    Get.offAll(SignInScreen());
   }
 }

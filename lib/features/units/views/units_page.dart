@@ -1,3 +1,4 @@
+import 'package:anjapepito/core/constants/app_assert_image.dart';
 import 'package:flutter/material.dart';
 import '../../../core/util/screen_size.dart';
 import '../../../core/widgets/Drawer/app_drawer.dart';
@@ -172,7 +173,7 @@ class UnitsPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: (isCompleted || isInProgress)
                         ? const Color(0xFF4CAF50)
-                        : const Color(0xFFE0DDD5),
+                        : Colors.transparent,
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -182,10 +183,10 @@ class UnitsPage extends StatelessWidget {
                       size: context.responsiveSize(22),
                       color: Colors.white,
                     )
-                        : Icon(
-                      Icons.lock_outlined,
-                      size: context.responsiveSize(20),
-                      color: const Color(0xFFB0B0B0),
+                        : Image.asset(
+                      AppAssertImage.instance.lockIcon,
+                      height:  context.responsiveSize(20),
+                      width:  context.responsiveSize(20),
                     ),
                   ),
                 ),
