@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/util/screen_size.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/home_view_controller.dart';
+import '../models/lesson_item.dart';
 class HomeView extends StatelessWidget {
    HomeView({super.key});
 
@@ -13,7 +14,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(HomeViewController());
+    final controller = Get.find<HomeViewController>();
 
     return Scaffold(
       key: controller.scaffoldKey,

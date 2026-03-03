@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
 import '../../lesson/views/color_lesson_screen.dart';
+import '../models/lesson_item.dart';
 
 
 class HomeViewController extends GetxController {
@@ -78,18 +79,3 @@ class HomeViewController extends GetxController {
   }
 }
 
-class LessonItem {
-  final String title;
-  final String translation;
-  final int xp;
-  final bool isUnlocked;
-  final Color? colorIcon;
-
-  LessonItem({
-    required this.title,
-    required this.translation,
-    required this.xp,
-    required this.isUnlocked,
-    this.colorIcon,
-  });
-}
