@@ -13,6 +13,7 @@ class UnitsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(UnitsController());
 
+    final assets = AppAssertImage.instance;
     return Scaffold(
       key: controller.scaffoldKey,
       backgroundColor: const Color(0xFFF8F5F1),
@@ -40,9 +41,10 @@ class UnitsPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () => controller.onNotificationTap(context),
-                    child: Icon(
-                      Icons.notifications_outlined,
-                      size: context.responsiveSize(28),
+                    child: Image.asset(
+                      assets.notificationIcon,
+                      height: context.responsiveSize(28),
+                      width: context.responsiveSize(28),
                       color: const Color(0xFF2D2D2D),
                     ),
                   ),

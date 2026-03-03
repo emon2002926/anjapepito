@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
       GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          // Ensure status bar styling is applied to all AppBars
           appBarTheme: const AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
@@ -35,8 +34,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const OnboardingScreen(),
-        // home: const HomePage(),
+        // home: const OnboardingScreen(),
+        home: const HomePage(),
       );
   }
 

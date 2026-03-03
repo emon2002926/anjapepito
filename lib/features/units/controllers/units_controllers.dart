@@ -28,7 +28,7 @@ class UnitsController extends GetxController {
   final RxList<UnitItem> completedUnits = <UnitItem>[
     UnitItem(
       title: 'Unit : 1',
-      subtitle: 'Colors/Fabre',
+      subtitle: 'Colors/Farbe',
       xp: 100,
       status: UnitStatus.completed,
       progress: 1.0,
