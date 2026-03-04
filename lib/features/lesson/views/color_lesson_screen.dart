@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/util/screen_size.dart';
+import '../../../core/widgets/app_bar/build_app_bar.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/color_lesson_controller.dart';
 import '../widgets/learn_tab.dart';
+import '../widgets/lesson_text_input.dart';
+import '../widgets/lesson_voice_input.dart';
 import '../widgets/mission_tab.dart';
 import '../widgets/practice_tab.dart';
 class LessonScreen extends StatelessWidget {
@@ -11,157 +14,123 @@ class LessonScreen extends StatelessWidget {
   final String lessonTranslation;
   final String unitTitle;
   final bool isForLesson;
+  final LessonController controller;
 
-  const LessonScreen({
+  LessonScreen({
     super.key,
     required this.lessonTitle,
     required this.lessonTranslation,
     required this.unitTitle,
     required this.isForLesson,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(LessonController(
+  }):controller = Get.put(
+    LessonController(
       lessonTitle: lessonTitle,
       lessonTranslation: lessonTranslation,
       unitTitle: unitTitle,
       isForLesson: isForLesson,
-    ));
+    ),
+  );
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9F5ED),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ── App Bar ──
-            _buildAppBar(context, controller),
-            Container(height: 1, color: const Color(0xFFE8E4DC)),
+  @override
+  Widget build(BuildContext context) {
 
-            // ── Content ──
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.responsiveSize(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: context.responsiveSize(12)),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) Get.delete<LessonController>();
+        if(didPop) print("Poped from memory");
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF9F5ED),
+        body: SafeArea(
+          child: Column(
+            children: [
+              BuildAppBar(
+                useMinimalStyle: true,
+                title: controller.lessonTitle,
+                subtitle: controller.lessonTranslation,
+                onBackButtonPressed: () {
+                  Get.delete<LessonController>();
+                  Navigator.pop(context);
+                },
+              ),
 
-                    // Unit Title
-                    AppText(
-                      data: controller.unitTitle,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFF2D2D2D),
-                      useResponsiveFontSize: true,
-                    ),
 
-                    SizedBox(height: context.responsiveSize(12)),
-
-                    // ── Tab Bar ──
-                    _buildTabBar(context, controller),
-
-                    SizedBox(height: context.responsiveSize(16)),
-
-                    // ── Tab Content ──
-                    Obx(() {
-                      switch (controller.currentTab.value) {
-                        case 0:
-                          return const LearnTab();
-                        case 1:
-                          return const MissionTab();
-                        case 2:
-                          return const PracticeTab();
-                        default:
-                          return const SizedBox();
-                      }
-                    }),
-                  ],
+              Container(height: 1, color: const Color(0xFFE8E4DC)),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.responsiveSize(20),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: context.responsiveSize(12)),
+      
+                      // Unit Title
+                      AppText(
+                        data: controller.unitTitle,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF2D2D2D),
+                        useResponsiveFontSize: true,
+                      ),
+      
+                      SizedBox(height: context.responsiveSize(12)),
+      
+                      // ── Tab Bar ──
+                      _buildTabBar(context, controller),
+      
+                      SizedBox(height: context.responsiveSize(16)),
+      
+                      // ── Tab Content ──
+                      Obx(() {
+                        switch (controller.currentTab.value) {
+                          case 0:
+                            return const LearnTab();
+                          case 1:
+                            return const MissionTab();
+                          case 2:
+                            return const PracticeTab();
+                          default:
+                            return const SizedBox();
+                        }
+                      }),
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-            // ── Voice + Text Inputs (Practice tab only) ──
-            Obx(() {
-              if (controller.currentTab.value != 2) return const SizedBox();
-              return Container(
-                color: const Color(0xFFF9F5ED),
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.responsiveSize(20),
-                  vertical: context.responsiveSize(8),
-                ),
-                child: Column(
-                  children: [
-                    _buildVoiceInput(context, controller),
-                    SizedBox(height: context.responsiveSize(12)),
-                    _buildTextInput(context, controller),
-                    SizedBox(height: context.responsiveSize(12)),
-
-                  ],
-                ),
-              );
-            }),
-
-            // ── Bottom Button ──
-            Obx(() => _buildBottomButton(context, controller)),
-          ],
+      
+              // ── Voice + Text Inputs (Practice tab only) ──
+              Obx(() {
+                if (controller.currentTab.value != 2) return const SizedBox();
+                return Container(
+                  color: const Color(0xFFF9F5ED),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.responsiveSize(20),
+                    vertical: context.responsiveSize(8),
+                  ),
+                  child: Column(
+                    children: [
+                      VoiceInput(controller: controller,),
+                      SizedBox(height: context.responsiveSize(12)),
+                      LessonTextInput(controller :controller),
+                      SizedBox(height: context.responsiveSize(12)),
+                    ],
+                  ),
+                );
+              }),
+      
+              // ── Bottom Button ──
+              Obx(() => _buildBottomButton(context, controller)),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  // ══════════════════════════════════════════════════════
-  // APP BAR
-  // ══════════════════════════════════════════════════════
-  Widget _buildAppBar(BuildContext context, LessonController controller) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.responsiveSize(20),
-        vertical: context.responsiveSize(12),
-      ),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Icon(
-              Icons.chevron_left,
-              size: context.responsiveSize(28),
-              color: const Color(0xFF2D2D2D),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                AppText(
-                  data: controller.lessonTitle,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF2D2D2D),
-                  useResponsiveFontSize: true,
-                  textAlign: TextAlign.center,
-                ),
-                AppText(
-                  data: controller.lessonTranslation,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xFFB0B0B0),
-                  useResponsiveFontSize: true,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: context.responsiveSize(28)),
-        ],
-      ),
-    );
-  }
 
-  // ══════════════════════════════════════════════════════
-  // TAB BAR
-  // ══════════════════════════════════════════════════════
+
   Widget _buildTabBar(BuildContext context, LessonController controller) {
     return Obx(
           () => Row(
@@ -209,114 +178,8 @@ class LessonScreen extends StatelessWidget {
     );
   }
 
-  // ══════════════════════════════════════════════════════
-  // VOICE INPUT
-  // ══════════════════════════════════════════════════════
-  Widget _buildVoiceInput(BuildContext context, LessonController controller) {
-    return Obx(
-          () => GestureDetector(
-        onTap: () => controller.onTalkWithAnja(),
-        child: Container(
-          width: double.infinity,
-          height: context.responsiveSize(56),
-          decoration: BoxDecoration(
-            color: controller.isRecording.value
-                ? const Color(0xFF4CB8B3).withOpacity(0.1)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(context.responsiveSize(28)),
-            border: Border.all(color: const Color(0xFF4CB8B3), width: 1.5),
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: context.responsiveSize(16)),
-              Icon(
-                controller.isRecording.value ? Icons.mic : Icons.mic_outlined,
-                size: context.responsiveSize(22),
-                color: const Color(0xFF4CB8B3),
-              ),
-              SizedBox(width: context.responsiveSize(10)),
-              Expanded(
-                child: AppText(
-                  data: controller.isRecording.value
-                      ? 'Recording...'
-                      : 'Talk with Pocket Anja',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: const Color(0xFF4CB8B3),
-                  useResponsiveFontSize: true,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: context.responsiveSize(16)),
-                child: Icon(
-                  Icons.send_rounded,
-                  size: context.responsiveSize(22),
-                  color: const Color(0xFF4CB8B3),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  // ══════════════════════════════════════════════════════
-  // TEXT INPUT
-  // ══════════════════════════════════════════════════════
-  Widget _buildTextInput(BuildContext context, LessonController controller) {
-    return Container(
-      width: double.infinity,
-      height: context.responsiveSize(56),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(context.responsiveSize(28)),
-        border: Border.all(color: const Color(0xFFD1D1D1), width: 1),
-      ),
-      child: Row(
-        children: [
-          SizedBox(width: context.responsiveSize(16)),
-          Icon(
-            Icons.keyboard_outlined,
-            size: context.responsiveSize(22),
-            color: const Color(0xFFB0B0B0),
-          ),
-          SizedBox(width: context.responsiveSize(10)),
-          Expanded(
-            child: TextField(
-              controller: controller.chatInputController,
-              decoration: InputDecoration(
-                hintText: 'Chat with Pocket Anja',
-                hintStyle: TextStyle(
-                  fontSize: context.responsiveSize(15),
-                  color: const Color(0xFFB0B0B0),
-                  fontWeight: FontWeight.w400,
-                ),
-                border: InputBorder.none,
-                isDense: true,
-              ),
-              onSubmitted: (_) => controller.onSendChat(),
-            ),
-          ),
-          GestureDetector(
-            onTap: () => controller.onSendChat(),
-            child: Padding(
-              padding: EdgeInsets.only(right: context.responsiveSize(16)),
-              child: Icon(
-                Icons.send_rounded,
-                size: context.responsiveSize(22),
-                color: const Color(0xFFB0B0B0),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  // ══════════════════════════════════════════════════════
-  // BOTTOM BUTTON
-  // ══════════════════════════════════════════════════════
   Widget _buildBottomButton(BuildContext context, LessonController controller) {
     String primaryText;
     String translationText;

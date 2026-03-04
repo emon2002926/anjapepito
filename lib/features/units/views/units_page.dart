@@ -11,7 +11,8 @@ class UnitsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UnitsController());
+    final controller = Get.find<UnitsController>();
+
 
     final assets = AppAssertImage.instance;
     return Scaffold(

@@ -1,3 +1,5 @@
+import 'package:anjapepito/core/util/app_navigation.dart';
+import 'package:anjapepito/features/notification/views/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
@@ -15,11 +17,11 @@ class HomeViewController extends GetxController {
 
   late final RxList<LessonItem> lessons = <LessonItem>[
     LessonItem(
-      title: 'Color : Orange',
-      translation: 'Farbe : Orange',
+      title: 'Color : Red',
+      translation: 'Farbe : Rot',
       xp: 20,
       isUnlocked: true,
-      colorIcon: const Color(0xFFFF8C00),
+      colorIcon: Colors.red,
     ),
     LessonItem(
       title: 'Color : Blue',
@@ -53,6 +55,7 @@ class HomeViewController extends GetxController {
 
   void onNotificationTap(BuildContext context) {
     // TODO: Navigate to notifications
+    AppNavigation.push(context, NotificationPage());
   }
 
   void onLessonTap(BuildContext context, int index) {

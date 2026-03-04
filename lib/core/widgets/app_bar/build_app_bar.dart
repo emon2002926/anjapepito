@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import '../../util/screen_size.dart';
-
-
+import '../text/app_text.dart';
 
 class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
+  final String? subtitle; // Subtitle displayed below the title
+  final Color? subtitleColor;
+  final double? subtitleSize;
+  final FontWeight? subtitleFontWeight;
   final Color? titleColor;
   final Color? iconColor;
   final bool enableFrostEffect;
@@ -18,14 +21,19 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? titleSize;
   final FontWeight? fontWeight;
   final VoidCallback? onBackButtonPressed;
-  final bool useCircularBackButton; // New parameter for circular style
-  final Color? circularButtonColor; // Color for circular button
-  final double? circularButtonSize; // Size for circular button
-  final IconData backButtonIcon; // Customizable back icon
+  final bool useCircularBackButton;
+  final Color? circularButtonColor;
+  final double? circularButtonSize;
+  final IconData backButtonIcon;
+  final bool useMinimalStyle; // Enables the minimal chevron-left row layout
 
   const BuildAppBar({
     super.key,
     this.title,
+    this.subtitle,
+    this.subtitleColor,
+    this.subtitleSize,
+    this.subtitleFontWeight,
     this.titleColor,
     this.iconColor,
     this.enableFrostEffect = false,
@@ -37,15 +45,85 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleSize,
     this.fontWeight,
     this.onBackButtonPressed,
-    this.useCircularBackButton = false, // Default to false for backward compatibility
+    this.useCircularBackButton = false,
     this.circularButtonColor,
     this.circularButtonSize,
     this.backButtonIcon = Icons.arrow_back,
+    this.useMinimalStyle = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Custom circular back button widget
+    // ── Minimal style (matches _buildAppBar) ──────────────────────────────────
+    if (useMinimalStyle) {
+      return Container(
+        color: backgroundColor ?? Colors.transparent,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: context.responsiveSize(20),
+            vertical: context.responsiveSize(12),
+          ),
+          child: Row(
+            children: [
+              // Back button — chevron_left icon
+              showBackButton
+                  ? GestureDetector(
+                onTap: onBackButtonPressed ?? () => Navigator.pop(context),
+                child: Icon(
+                  Icons.chevron_left,
+                  size: context.responsiveSize(28),
+                  color: iconColor ?? const Color(0xFF2D2D2D),
+                ),
+              )
+                  : SizedBox(width: context.responsiveSize(28)),
+
+              // Centered title + optional subtitle
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (title != null)
+                      AppText(
+                        data: title!,
+                        fontSize: titleSize ?? 17,
+                        fontWeight: fontWeight ?? FontWeight.w600,
+                        color: titleColor ?? const Color(0xFF2D2D2D),
+                        useResponsiveFontSize: true,
+                        textAlign: TextAlign.center,
+                      ),
+                    if (subtitle != null)
+                      AppText(
+                        data: subtitle!,
+                        fontSize: subtitleSize ?? 13,
+                        fontWeight: subtitleFontWeight ?? FontWeight.w400,
+                        color: subtitleColor ?? const Color(0xFFB0B0B0),
+                        useResponsiveFontSize: true,
+                        textAlign: TextAlign.center,
+                      ),
+                  ],
+                ),
+              ),
+
+              // Balancing spacer — keeps title truly centered,
+              // or a side action button when showSideButton is true
+              showSideButton
+                  ? GestureDetector(
+                onTap: onSideButtonPressed,
+                child: Icon(
+                  sideButtonIcon,
+                  size: context.responsiveSize(28),
+                  color: iconColor ?? const Color(0xFF2D2D2D),
+                ),
+              )
+                  : SizedBox(width: context.responsiveSize(28)),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // ── Original style (unchanged) ────────────────────────────────────────────
+
     Widget buildCircularBackButton() {
       final size = circularButtonSize ?? context.responsiveSize(50);
       final color = circularButtonColor ?? const Color(0xFF0047AB);
@@ -57,7 +135,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
           bottom: context.responsiveSize(8),
         ),
         child: GestureDetector(
-          onTap: onBackButtonPressed ?? (){Navigator.pop(context);},
+          onTap: onBackButtonPressed ?? () { Navigator.pop(context); },
           child: Container(
             width: size,
             height: size,
@@ -84,11 +162,10 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
     }
 
-    // Standard back button widget
     Widget buildStandardBackButton() {
       return IconButton(
         icon: Icon(backButtonIcon, color: iconColor ?? Colors.black),
-        onPressed: onBackButtonPressed ?? () {Navigator.pop(context);},
+        onPressed: onBackButtonPressed ?? () { Navigator.pop(context); },
       );
     }
 
@@ -98,14 +175,14 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? Colors.white.withOpacity(0.15)
               : Colors.transparent),
       elevation: 0,
-      automaticallyImplyLeading: false, // Set to false to use custom leading
+      automaticallyImplyLeading: false,
       leading: showBackButton
           ? (useCircularBackButton
           ? buildCircularBackButton()
           : buildStandardBackButton())
           : null,
       leadingWidth: useCircularBackButton
-          ? context.responsiveSize(74) // Extra space for circular button
+          ? context.responsiveSize(74)
           : null,
       title: title != null
           ? Text(
