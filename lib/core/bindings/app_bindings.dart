@@ -8,7 +8,6 @@ class AppBindings {
     HomeBinding.dependencies();
     NotificationBinding.dependencies();
     UnitsBinding.dependencies();
-
   }
 
 }

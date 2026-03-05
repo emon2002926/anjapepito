@@ -20,11 +20,11 @@ class SplashController extends GetxController {
       String? accessToken = StorageService.accessToken;
 
       if (accessToken != null && accessToken.isNotEmpty) {
-        AppNavigation.pushAndClear(Get.context!, SignUpScreen());
+        AppNavigation.pushAndClear( SignUpScreen());
 
       } else {
 
-        AppNavigation.pushAndClear(Get.context!, OnboardingScreen());
+        AppNavigation.pushAndClear( OnboardingScreen());
         // AppNavigation.pushAndClear(Get.context!, LoginScreen());
 
       }

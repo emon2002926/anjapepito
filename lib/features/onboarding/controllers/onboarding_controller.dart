@@ -72,7 +72,7 @@ class OnboardingController extends GetxController {
 
   void completeOnboarding(BuildContext context) {
     StorageService.saveOnboardingCompleted();
-    AppNavigation.pushAndClear(context, const AccountSelectionScreen());
+    AppNavigation.pushAndClear( AccountSelectionScreen());
   }
 
   @override

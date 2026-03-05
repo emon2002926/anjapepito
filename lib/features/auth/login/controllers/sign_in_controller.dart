@@ -24,13 +24,13 @@ class SignInController extends GetxController {
     //   return;
     // }
 
-    AppNavigation.pushAndClear(context, const HomePage());
+    AppNavigation.pushAndClear( const HomePage());
 
     // TODO: Implement sign in logic
   }
 
   void onForgotPassword(BuildContext context) {
-    AppNavigation.push(context, const ForgotPasswordScreen());
+    AppNavigation.push( const ForgotPasswordScreen());
   }
 
   void onSignUpWithGoogle(BuildContext context) {
@@ -42,7 +42,7 @@ class SignInController extends GetxController {
   }
 
   void onSignUp(BuildContext context) {
-    AppNavigation.push(context, const SignUpScreen());
+    AppNavigation.push( const SignUpScreen());
   }
 
   @override

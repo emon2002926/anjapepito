@@ -67,7 +67,7 @@ class EnterOtpController extends GetxController {
     // try {
     //   await verifyOtp(otp);
     //   CustomSnackBar.success('OTP verified successfully');
-      AppNavigation.push(context, const ResetPasswordScreen());
+      AppNavigation.push( const ResetPasswordScreen());
     // } catch (e) {
     //   CustomSnackBar.error('Invalid OTP. Please try again.');
     // } finally {

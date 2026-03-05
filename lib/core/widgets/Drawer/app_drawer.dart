@@ -45,7 +45,7 @@ class CustomAppDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
 
-                AppNavigation.push(context, const ProfileScreen());
+                AppNavigation.push( const ProfileScreen());
               },
             ),
 
@@ -62,7 +62,7 @@ class CustomAppDrawer extends StatelessWidget {
               title: 'Terms and condition',
               onTap: () {
                 Navigator.pop(context);
-                AppNavigation.push(context, const TermsPage());
+                AppNavigation.push( const TermsPage());
               },
             ),
 

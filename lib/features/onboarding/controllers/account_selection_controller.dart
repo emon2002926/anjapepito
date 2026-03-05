@@ -8,16 +8,16 @@ import '../../profile/views/terms_page.dart';
 class AccountSelectionController extends GetxController {
   void onCreateAccount(BuildContext context) {
     // Navigate to Sign Up screen
-    AppNavigation.push(context, const SignUpScreen());
+    AppNavigation.push( const SignUpScreen());
   }
 
   void onHaveAccount(BuildContext context) {
     // Navigate to Sign In screen
-    AppNavigation.push(context, const SignInScreen());
+    AppNavigation.push( const SignInScreen());
   }
 
   void onPrivacyPolicyTap(BuildContext context) {
     // Open privacy policy URL
-    AppNavigation.push(context, TermsPage());
+    AppNavigation.push(TermsPage());
   }
 }

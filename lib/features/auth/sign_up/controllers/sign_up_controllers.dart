@@ -40,7 +40,7 @@ class SignUpController extends GetxController {
     // }
 
     // TODO: Implement sign up logic
-    AppNavigation.pushAndClear(context, const HomePage());
+    AppNavigation.pushAndClear( const HomePage());
 
   }
 
@@ -53,7 +53,7 @@ class SignUpController extends GetxController {
   }
 
   void onSignIn(BuildContext context) {
-    AppNavigation.push(context, const SignInScreen());
+    AppNavigation.push( const SignInScreen());
   }
 
   void onPrivacyPolicyTap() {

@@ -93,7 +93,7 @@ class UnitsController extends GetxController {
       CustomSnackBar.info('Complete previous units to unlock');
       return;
     }
-    AppNavigation.push(context, UnitDetailPage(unitTitle: 'Unit 1: Colors',));
+    AppNavigation.push( UnitDetailPage(unitTitle: 'Unit 1: Colors',));
 
 
     // TODO: Navigate to unit detail

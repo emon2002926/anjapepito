@@ -55,7 +55,7 @@ class HomeViewController extends GetxController {
 
   void onNotificationTap(BuildContext context) {
     // TODO: Navigate to notifications
-    AppNavigation.push(context, NotificationPage());
+    AppNavigation.push( NotificationPage());
   }
 
   void onLessonTap(BuildContext context, int index) {

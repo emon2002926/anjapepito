@@ -1,7 +1,3 @@
-// ══════════════════════════════════════════════════════
-// reset_password_controller.dart
-// ══════════════════════════════════════════════════════
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -53,7 +49,7 @@ class ResetPasswordController extends GetxController {
     // try {
     //   await resetPassword(password);
     //   CustomSnackBar.success('Password reset successfully');
-      AppNavigation.pushAndClear(context, const SignInScreen());
+      AppNavigation.pushAndClear( const SignInScreen());
     // } catch (e) {
     //   CustomSnackBar.error('Failed to reset password');
     // } finally {

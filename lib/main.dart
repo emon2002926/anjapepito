@@ -1,4 +1,5 @@
 import 'package:anjapepito/core/bindings/app_bindings.dart';
+import 'package:anjapepito/core/util/app_navigation.dart';
 import 'package:anjapepito/features/onboarding/views/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     return
       GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorKey: AppNavigation.navigatorKey,
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
