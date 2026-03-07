@@ -77,7 +77,7 @@ class SignInScreen extends StatelessWidget {
               // Email / Username Field
               AppTextField(
                 controller: controller.emailController,
-                hintText: 'Email / User name',
+                hintText: 'Email',
                 keyboardType: TextInputType.emailAddress,
                 fillColor: Colors.transparent,
                 borderColor: const Color(0xFFD1D1D1),

@@ -1,5 +1,6 @@
 
 import 'package:anjapepito/core/constants/app_assert_image.dart';
+import 'package:anjapepito/features/onboarding/views/onboarding_screen.dart';
 import 'package:anjapepito/features/profile/views/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../features/auth/login/views/sign_in_screen.dart';
 import '../../util/app_navigation.dart';
 import '../../util/screen_size.dart';
+import '../../util/storage_service.dart';
 import '../text/app_text.dart';
 import 'package:anjapepito/features/profile/views/terms_page.dart';
 class CustomAppDrawer extends StatelessWidget {
@@ -159,8 +161,8 @@ class CustomAppDrawer extends StatelessWidget {
   }
 
   void _handleLogout(BuildContext context) {
-    // StorageService.clearAll();
+    StorageService.clearToken();
     // AppNavigation.pushAndClear(context, const SignInScreen());
-    Get.offAll(SignInScreen());
+    Get.offAll(OnboardingScreen());
   }
 }

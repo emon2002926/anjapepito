@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/constants/app_assert_image.dart';
+import '../../video_player/controllers/video_player_controller.dart';
 import '../../video_player/models/video_source.dart';
 class LessonController extends GetxController {
-  final RxInt currentTab = 0.obs; // 0=Learn, 1=Mission, 2=Practice
+  final RxInt currentTab = 0.obs;
   final String lessonTitle;
   final String lessonTranslation;
   final String unitTitle;
-  final bool isForLesson; // ← if false, Practice tab is hidden
+  final bool isForLesson;
   final appImage = AppAssertImage.instance;
 
   LessonController({
@@ -56,10 +57,32 @@ class LessonController extends GetxController {
       englishExample: '(Where is … ?)',
     ),
   ].obs;
-  final chatInputController = TextEditingController();
+
+  late final TextEditingController chatInputController = TextEditingController();
   final RxBool isRecording = false.obs;
+  final RxString selectedInput = ''.obs; // '' | 'voice' | 'text'
 
   void switchTab(int index) {
+    // Pause video of the tab we're leaving
+    if (currentTab.value == 0) {
+      try {
+        final learnController =
+        Get.find<AppVideoPlayerController>(tag: 'learn_video');
+        learnController.videoController?.pause();
+      } catch (_) {}
+    } else if (currentTab.value == 1) {
+      try {
+        final missionController =
+        Get.find<AppVideoPlayerController>(tag: 'mission_video');
+        missionController.videoController?.pause();
+      } catch (_) {}
+    }
+
+    // Reset input selection when leaving practice tab
+    if (currentTab.value == 2) {
+      selectedInput.value = '';
+    }
+
     currentTab.value = index;
   }
 
@@ -68,7 +91,6 @@ class LessonController extends GetxController {
   }
 
   void onDonePractice(BuildContext context) {
-    // Only move to Practice tab if isForLesson is true
     if (isForLesson) {
       currentTab.value = 2;
     } else {
@@ -81,8 +103,8 @@ class LessonController extends GetxController {
   }
 
   void onTalkWithAnja() {
+    selectedInput.value = 'voice';
     isRecording.value = !isRecording.value;
-    // TODO: Implement voice recording
   }
 
   void onSendChat() {

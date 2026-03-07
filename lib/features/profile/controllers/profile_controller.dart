@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
 
   void onLogout(BuildContext context) {
     // TODO: Implement logout
-    // StorageService.logout();
+    StorageService.logout();
     Get.offAll(SignInScreen());
   }
 }

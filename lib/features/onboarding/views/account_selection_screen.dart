@@ -130,10 +130,10 @@ class AccountSelectionScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(
                       context.responsiveSize(28),
                     ),
-                    // border: Border.all(
-                    //   color: const Color(0xFFD1D1D1),
-                    //   width: 1,
-                    // ),
+                    border: Border.all(
+                      color: const Color(0xFFD1D1D1),
+                      width: 1,
+                    ),
                   ),
                   child: Center(
                     child: AppText(

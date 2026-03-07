@@ -22,7 +22,7 @@ class LessonScreen extends StatelessWidget {
     required this.lessonTranslation,
     required this.unitTitle,
     required this.isForLesson,
-  }):controller = Get.put(
+  }) : controller = Get.put(
     LessonController(
       lessonTitle: lessonTitle,
       lessonTranslation: lessonTranslation,
@@ -33,11 +33,9 @@ class LessonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
-        if (didPop) Get.delete<LessonController>();
-        if(didPop) print("Poped from memory");
+        if (didPop) print("Popped from memory");
       },
       child: Scaffold(
         backgroundColor: const Color(0xFFF9F5ED),
@@ -54,8 +52,8 @@ class LessonScreen extends StatelessWidget {
                 },
               ),
 
-
               Container(height: 1, color: const Color(0xFFE8E4DC)),
+
               Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
@@ -65,7 +63,7 @@ class LessonScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: context.responsiveSize(12)),
-      
+
                       // Unit Title
                       AppText(
                         data: controller.unitTitle,
@@ -74,14 +72,14 @@ class LessonScreen extends StatelessWidget {
                         color: const Color(0xFF2D2D2D),
                         useResponsiveFontSize: true,
                       ),
-      
+
                       SizedBox(height: context.responsiveSize(12)),
-      
+
                       // ── Tab Bar ──
                       _buildTabBar(context, controller),
-      
+
                       SizedBox(height: context.responsiveSize(16)),
-      
+
                       // ── Tab Content ──
                       Obx(() {
                         switch (controller.currentTab.value) {
@@ -99,7 +97,7 @@ class LessonScreen extends StatelessWidget {
                   ),
                 ),
               ),
-      
+
               // ── Voice + Text Inputs (Practice tab only) ──
               Obx(() {
                 if (controller.currentTab.value != 2) return const SizedBox();
@@ -111,15 +109,15 @@ class LessonScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      VoiceInput(controller: controller,),
+                      VoiceInput(controller: controller),
                       SizedBox(height: context.responsiveSize(12)),
-                      LessonTextInput(controller :controller),
+                      LessonTextInput(controller: controller),
                       SizedBox(height: context.responsiveSize(12)),
                     ],
                   ),
                 );
               }),
-      
+
               // ── Bottom Button ──
               Obx(() => _buildBottomButton(context, controller)),
             ],
@@ -128,8 +126,6 @@ class LessonScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget _buildTabBar(BuildContext context, LessonController controller) {
     return Obx(
@@ -151,7 +147,8 @@ class LessonScreen extends StatelessWidget {
                     AppText(
                       data: controller.tabs[index],
                       fontSize: 12,
-                      fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight:
+                      isActive ? FontWeight.w700 : FontWeight.w500,
                       color: isActive
                           ? const Color(0xFF2D2D2D)
                           : const Color(0xFF9E9E9E),
@@ -178,9 +175,8 @@ class LessonScreen extends StatelessWidget {
     );
   }
 
-
-
-  Widget _buildBottomButton(BuildContext context, LessonController controller) {
+  Widget _buildBottomButton(
+      BuildContext context, LessonController controller) {
     String primaryText;
     String translationText;
     VoidCallback onTap;
@@ -226,7 +222,8 @@ class LessonScreen extends StatelessWidget {
           height: context.responsiveSize(45),
           decoration: BoxDecoration(
             color: const Color(0xFF2FA8B6),
-            borderRadius: BorderRadius.circular(context.responsiveSize(28)),
+            borderRadius:
+            BorderRadius.circular(context.responsiveSize(28)),
           ),
           child: Center(
             child: Text.rich(
@@ -288,7 +285,10 @@ class LessonScreen extends StatelessWidget {
     final spans = <TextSpan>[];
 
     for (int i = 0; i < primaryWords.length; i++) {
-      if (i > 0) spans.add(TextSpan(text: ' ', style: TextStyle(fontSize: fontSize)));
+      if (i > 0) {
+        spans.add(TextSpan(
+            text: ' ', style: TextStyle(fontSize: fontSize)));
+      }
       spans.add(buildStyledWord(primaryWords[i]));
     }
 
@@ -302,7 +302,10 @@ class LessonScreen extends StatelessWidget {
     ));
 
     for (int i = 0; i < translationWords.length; i++) {
-      if (i > 0) spans.add(TextSpan(text: ' ', style: TextStyle(fontSize: fontSize)));
+      if (i > 0) {
+        spans.add(TextSpan(
+            text: ' ', style: TextStyle(fontSize: fontSize)));
+      }
       spans.add(buildStyledWord(translationWords[i]));
     }
 
