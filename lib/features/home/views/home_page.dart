@@ -2,6 +2,7 @@ import 'package:anjapepito/features/units/views/units_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/bottom_navigation/bottom_navigation.dart';
+import '../../../core/widgets/guest_overlay/guest_overlay.dart';
 import '../../badges/views/badges_page.dart';
 import 'home_view.dart';
 
@@ -48,8 +49,9 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final screens = [
       HomeView(),
-      UnitsPage(),
-      BadgesPage(),
+      GuestOverlay(child: const UnitsPage()),
+      GuestOverlay(child: const BadgesPage()),
+
     ];
 
     return Scaffold(

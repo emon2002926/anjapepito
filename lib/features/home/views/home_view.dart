@@ -65,69 +65,11 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: context.responsiveSize(16)),
+                    SizedBox(height: context.responsiveSize(24)),
 
                     // ── Yellow Banner ──
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(context.responsiveSize(20)),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFE566),
-                        borderRadius: BorderRadius.circular(
-                          context.responsiveSize(16),
-                        ),
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2.5,
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Learn ',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    fontSize: context.responsiveSize(16),
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFF2D2D2D),
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: 'German',
-                                  style: GoogleFonts.plusJakartaSans(
-                                    fontSize: context.responsiveSize(16),
-                                    fontWeight: FontWeight.w700,
-                                    color: const Color(0xFF4CB8B3),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: context.responsiveSize(2)),
-                          AppText(
-                            data: 'naturally… with real–life dialogues!',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFF2D2D2D),
-                            useResponsiveFontSize: true,
-                          ),
-                          SizedBox(height: context.responsiveSize(12)),
-                          AppText(
-                            data:
-                            'Hi, I am Anja, your native German tutor. I help you become fluent without wasting months trying to memorize grammar rules and word lists.',
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xFF6B6B6B),
-                            useResponsiveFontSize: true,
-                          ),
-                        ],
-                      ),
-                    ),
 
-                    SizedBox(height: context.responsiveSize(24)),
+                    // SizedBox(height: context.responsiveSize(24)),
 
                     // ── Ready for today's mission ──
                     AppText(
@@ -492,6 +434,68 @@ class HomeView extends StatelessWidget {
          ),
        ),
      );
+   }
+
+   Widget yellowCard(BuildContext context){
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(context.responsiveSize(20)),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFE566),
+        borderRadius: BorderRadius.circular(
+          context.responsiveSize(16),
+        ),
+        border: Border.all(
+          color: Colors.white,
+          width: 2.5,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Learn ',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: context.responsiveSize(16),
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF2D2D2D),
+                  ),
+                ),
+                TextSpan(
+                  text: 'German',
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: context.responsiveSize(16),
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF4CB8B3),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: context.responsiveSize(2)),
+          AppText(
+            data: 'naturally… with real–life dialogues!',
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFF2D2D2D),
+            useResponsiveFontSize: true,
+          ),
+          SizedBox(height: context.responsiveSize(12)),
+          AppText(
+            data:
+            'Hi, I am Anja, your native German tutor. I help you become fluent without wasting months trying to memorize grammar rules and word lists.',
+            fontSize: 13,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF6B6B6B),
+            useResponsiveFontSize: true,
+          ),
+        ],
+      ),
+    );
+
    }
 
 }

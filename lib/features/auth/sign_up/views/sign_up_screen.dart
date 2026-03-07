@@ -72,20 +72,20 @@ class SignUpScreen extends StatelessWidget {
               SizedBox(height: context.responsiveSize(20)),
 
               // Username Field
-              AppTextField(
-                controller: controller.usernameController,
-                hintText: 'Username',
-                keyboardType: TextInputType.name,
-                fillColor: Colors.transparent,
-                borderColor: const Color(0xFFD1D1D1),
-                hintTextColor: const Color(0xFFB0B0B0),
-                inputTextColor: const Color(0xFF2D2D2D),
-                isHintTextInMiddle: true,
-                elevation: 0,
-                customBorderRadius: BorderRadius.circular(
-                  context.responsiveSize(28),
-                ),
-              ),
+              // AppTextField(
+              //   controller: controller.usernameController,
+              //   hintText: 'Username',
+              //   keyboardType: TextInputType.name,
+              //   fillColor: Colors.transparent,
+              //   borderColor: const Color(0xFFD1D1D1),
+              //   hintTextColor: const Color(0xFFB0B0B0),
+              //   inputTextColor: const Color(0xFF2D2D2D),
+              //   isHintTextInMiddle: true,
+              //   elevation: 0,
+              //   customBorderRadius: BorderRadius.circular(
+              //     context.responsiveSize(28),
+              //   ),
+              // ),
 
               SizedBox(height: context.responsiveSize(14)),
 
@@ -93,6 +93,7 @@ class SignUpScreen extends StatelessWidget {
               AppTextField(
                 controller: controller.emailController,
                 hintText: 'Email',
+
                 keyboardType: TextInputType.emailAddress,
                 fillColor: Colors.transparent,
                 isHintTextInMiddle: true,

@@ -1,3 +1,4 @@
+import 'package:anjapepito/core/util/storage_service.dart';
 import 'package:anjapepito/features/home/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,6 +41,7 @@ class SignUpController extends GetxController {
     // }
 
     // TODO: Implement sign up logic
+    StorageService.saveToken("accessToken");
     AppNavigation.pushAndClear( const HomePage());
 
   }

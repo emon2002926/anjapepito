@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'features/home/views/home_page.dart';
+import 'features/onboarding/views/onboarding_screen.dart';
 void main() {
   AppBindings.init();
   SystemChrome.setPreferredOrientations([
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        // home: const OnboardingScreen(),
-        home: const HomePage(),
+        home: const OnboardingScreen(),
+        // home: const HomePage(),
 
       );
   }

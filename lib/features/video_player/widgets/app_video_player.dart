@@ -322,11 +322,7 @@ class AppVideoPlayer extends StatelessWidget {
 
 
 
-
-
-
 /*
-
 
 // Example 1: Single videos player
 import 'package:flutter/material.dart';

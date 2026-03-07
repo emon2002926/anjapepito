@@ -55,7 +55,7 @@ class AccountSelectionScreen extends StatelessWidget {
 
               // Create an account Button
               GestureDetector(
-                onTap: () => controller.onCreateAccount(context),
+                onTap: () => controller.onCreateAccount(),
                 child: Container(
                   width: double.infinity,
                   height: context.responsiveSize(56),
@@ -92,7 +92,36 @@ class AccountSelectionScreen extends StatelessWidget {
 
               // I have an account Button
               GestureDetector(
-                onTap: () => controller.onHaveAccount(context),
+                onTap: () => controller.onHaveAccount(),
+                child: Container(
+                  width: double.infinity,
+                  height: context.responsiveSize(56),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(
+                      context.responsiveSize(28),
+                    ),
+                    border: Border.all(
+                      color: const Color(0xFFD1D1D1),
+                      width: 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: AppText(
+                      data: 'I have an account',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF2D2D2D),
+                      useResponsiveFontSize: true,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: context.responsiveSize(16)),
+
+              // I have an account Button
+              GestureDetector(
+                onTap: () => controller.exploreAsGuest(),
                 child: Container(
                   width: double.infinity,
                   height: context.responsiveSize(56),
@@ -108,7 +137,7 @@ class AccountSelectionScreen extends StatelessWidget {
                   ),
                   child: Center(
                     child: AppText(
-                      data: 'I have an account',
+                      data: 'Explore as guest ',
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: const Color(0xFF2D2D2D),
@@ -138,7 +167,7 @@ class AccountSelectionScreen extends StatelessWidget {
                       ),
                       WidgetSpan(
                         child: GestureDetector(
-                          onTap: () => controller.onPrivacyPolicyTap(context),
+                          onTap: () => controller.onPrivacyPolicyTap(),
                           child: Text(
                             'Privacy Policy.',
                             style: TextStyle(

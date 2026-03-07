@@ -24,8 +24,8 @@ class LearnTab extends StatelessWidget {
           width: double.infinity,
           height: context.responsiveSize(210),
           borderRadius: context.responsiveSize(16),
-          autoPlay: false,
-          showThumbnail: true,
+          autoPlay: true,
+          showThumbnail: false,
         ),
 
         // SizedBox(height: context.responsiveSize(8)),

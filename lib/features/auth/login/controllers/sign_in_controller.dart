@@ -1,3 +1,4 @@
+import 'package:anjapepito/core/util/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +25,7 @@ class SignInController extends GetxController {
     //   return;
     // }
 
+    StorageService.saveToken("accessToken");
     AppNavigation.pushAndClear( const HomePage());
 
     // TODO: Implement sign in logic
