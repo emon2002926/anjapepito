@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
         ),
         home: const SignUpScreen(),
         // home: const HomePage(),
-
       );
   }
 

@@ -7,13 +7,14 @@ import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/enter_otp_controller.dart';
 class EnterOtpScreen extends StatelessWidget {
-  const EnterOtpScreen({super.key});
+  final String email;
+  const EnterOtpScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(EnterOtpController());
     final appImage = AppAssertImage.instance;
-
+    print("fdgfgh:$email");
     return Scaffold(
       backgroundColor: const Color(0xFFF9F5ED),
       body: SafeArea(
