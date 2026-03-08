@@ -5,6 +5,6 @@ class AppStrings {
   factory AppStrings() => instance;
   AppStrings._internal();
 
-  final String baseUrl = 'https://qube.dsrt321.online/api/v1';
+  final String baseUrl = 'https://anjaapi.dsrt321.online';
 
 }

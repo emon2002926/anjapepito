@@ -18,6 +18,9 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
         return;
       }
 
+      final screenHeight = MediaQuery.of(ctx).size.height;
+      final topPadding = MediaQuery.of(ctx).padding.top;
+
       final snack = SnackBar(
         content: Row(
           children: [
@@ -31,7 +34,13 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
         backgroundColor: color,
         duration: duration,
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: topPadding + 8,
+          // Push snackbar to top by setting a large bottom margin
+          bottom: screenHeight - topPadding - 80,
+        ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         action: action,
       );

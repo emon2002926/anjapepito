@@ -71,13 +71,13 @@ class UnitsController extends GetxController {
       status: UnitStatus.locked,
       progress: 0.0,
     ),
-    UnitItem(
-      title: '3rd Mission',
-      subtitle: 'Colors/Farbe',
-      xp: 100,
-      status: UnitStatus.locked,
-      progress: 0.0,
-    ),
+    // UnitItem(
+    //   title: '3rd Mission',
+    //   subtitle: 'Colors/Farbe',
+    //   xp: 100,
+    //   status: UnitStatus.locked,
+    //   progress: 0.0,
+    // ),
   ].obs;
 
   void openDrawer() {

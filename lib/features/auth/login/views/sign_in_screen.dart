@@ -75,45 +75,41 @@ class SignInScreen extends StatelessWidget {
               SizedBox(height: context.responsiveSize(24)),
 
               // Email / Username Field
-              AppTextField(
+              Obx(() => AppTextField(
                 controller: controller.emailController,
                 hintText: 'Email',
+                enabled: !controller.isLoading.value,
                 keyboardType: TextInputType.emailAddress,
                 fillColor: Colors.transparent,
                 borderColor: const Color(0xFFD1D1D1),
                 hintTextColor: const Color(0xFFB0B0B0),
                 inputTextColor: const Color(0xFF2D2D2D),
                 isHintTextInMiddle: true,
+                focusNode: controller.emailFocusNode,
                 elevation: 0,
-                customBorderRadius: BorderRadius.circular(
-                  context.responsiveSize(28),
-                ),
-              ),
+                customBorderRadius: BorderRadius.circular(context.responsiveSize(28)),
+              )),
 
               SizedBox(height: context.responsiveSize(16)),
 
               // Password Field
-              Obx(
-                    () => AppTextField(
-                  controller: controller.passwordController,
-                  hintText: 'Password',
-                  isHintTextInMiddle: true,
-                  obscureText: !controller.isPasswordVisible.value,
-                  fillColor: Colors.transparent,
-                  borderColor: const Color(0xFFD1D1D1),
-                  hintTextColor: const Color(0xFFB0B0B0),
-                  inputTextColor: const Color(0xFF2D2D2D),
-                  elevation: 0,
-                  customBorderRadius: BorderRadius.circular(
-                    context.responsiveSize(28),
-                  ),
-                  suffixIcon: controller.isPasswordVisible.value
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                  onSuffixIconTap: () =>
-                      controller.togglePasswordVisibility(),
-                ),
-              ),
+              Obx(() => AppTextField(
+                controller: controller.passwordController,
+                hintText: 'Password',
+                enabled: !controller.isLoading.value,
+                isHintTextInMiddle: true,
+                obscureText: !controller.isPasswordVisible.value,
+                fillColor: Colors.transparent,
+                borderColor: const Color(0xFFD1D1D1),
+                hintTextColor: const Color(0xFFB0B0B0),
+                inputTextColor: const Color(0xFF2D2D2D),
+                elevation: 0,
+                customBorderRadius: BorderRadius.circular(context.responsiveSize(28)),
+                suffixIcon: controller.isPasswordVisible.value
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+                onSuffixIconTap: () => controller.togglePasswordVisibility(),
+              )),
 
               SizedBox(height: context.responsiveSize(12)),
 
@@ -133,15 +129,19 @@ class SignInScreen extends StatelessWidget {
 
               SizedBox(height: context.responsiveSize(28)),
 
-              AppButton(
-                buttonText: 'Sign in',
-                onPressed: () => controller.onSignIn(context),
-                fillColor: const Color(0xFF4CB8B3),
-                textColor: Colors.white,
-                borderRadius: 28,
-                buttonHeight: 45,
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
+              Obx(
+                  () => AppButton(
+                    buttonText: 'Sign in',
+                    onPressed: () => controller.onSignIn(),
+                    fillColor: const Color(0xFF4CB8B3),
+                    textColor: Colors.white,
+                    borderRadius: 28,
+                    buttonHeight: 45,
+                    fontSize: 17,
+                    isLoading: controller.isLoading.value,
+                    loadingText: 'Signing in...',
+                    fontWeight: FontWeight.w600,
+                  ),
               ),
 
               SizedBox(height: context.responsiveSize(24)),
