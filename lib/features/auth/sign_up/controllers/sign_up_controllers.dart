@@ -8,6 +8,7 @@ import '../../../../core/util/app_navigation.dart';
 import '../../../../core/util/form_validator.dart';
 import '../../../../core/widgets/snakbar/custom_snackbar.dart';
 import '../../sign_in/views/sign_in_screen.dart';
+import '../models/sign_up_request_model.dart';
 class SignUpController extends GetxController {
   final usernameFocusNode = FocusNode();
   final emailFocusNode = FocusNode();
@@ -65,14 +66,18 @@ class SignUpController extends GetxController {
 
 
     isLoading.value = true;
+    final request = SignUpRequestModel(email: email, password: password, re_type_password: confirmPassword);
+
     try{
       final response = await api.post('/api/v1/auth/register/',
-      body: {
-        'full_name':"emon",
-        'email': email,
-        'password': password,
-        're_type_password': confirmPassword,
-      }
+
+      // body: {
+      //   'full_name':"emon",
+      //   'email': email,
+      //   'password': password,
+      //   're_type_password': confirmPassword,
+      // }
+        body: request.toJson(),
       );
       isLoading.value = false;
       print(response);
@@ -88,8 +93,8 @@ class SignUpController extends GetxController {
     }
 
     // TODO: Implement sign up logic
-    StorageService.saveToken("accessToken");
-    AppNavigation.pushAndClear( const HomePage());
+    // StorageService.saveToken("accessToken");
+    // AppNavigation.pushAndClear( const HomePage());
 
   }
 
