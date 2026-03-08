@@ -17,7 +17,8 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SignInController());
+    // final controller = Get.put(SignInController());
+    final controller = Get.find<SignInController>();
     final appImage = AppAssertImage.instance;
 
     return Scaffold(
@@ -100,6 +101,7 @@ class SignInScreen extends StatelessWidget {
                 isHintTextInMiddle: true,
                 obscureText: !controller.isPasswordVisible.value,
                 fillColor: Colors.transparent,
+                focusNode: controller.passwordFocusNode,
                 borderColor: const Color(0xFFD1D1D1),
                 hintTextColor: const Color(0xFFB0B0B0),
                 inputTextColor: const Color(0xFF2D2D2D),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/util/app_navigation.dart';
 import '../../../core/util/storage_service.dart';
-import '../../auth/login/views/sign_in_screen.dart';
+import '../../auth/sign_in/views/sign_in_screen.dart';
 class ProfileController extends GetxController {
   final RxString userName = 'Andrew Garfield'.obs;
   final RxString userEmail = 'andrew_Garfield@gmail.com'.obs;

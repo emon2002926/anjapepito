@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../features/auth/login/views/sign_in_screen.dart';
+import '../../../features/auth/sign_in/views/sign_in_screen.dart';
 import '../../../features/auth/sign_up/views/sign_up_screen.dart';
 import '../../util/screen_size.dart';
 import '../../util/storage_service.dart';

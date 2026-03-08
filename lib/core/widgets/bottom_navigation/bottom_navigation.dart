@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_assert_image.dart';
 import '../../util/screen_size.dart';
-import '../text/app_text.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;

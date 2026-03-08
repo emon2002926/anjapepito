@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/util/app_navigation.dart';
 import '../../../../core/widgets/snakbar/custom_snackbar.dart';
-import '../../login/views/sign_in_screen.dart';
+import '../../sign_in/views/sign_in_screen.dart';
 
 class ResetPasswordController extends GetxController {
   final passwordController = TextEditingController();

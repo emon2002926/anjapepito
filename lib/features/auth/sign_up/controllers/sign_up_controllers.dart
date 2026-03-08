@@ -1,12 +1,18 @@
 import 'package:anjapepito/core/util/storage_service.dart';
 import 'package:anjapepito/features/home/views/home_page.dart';
-import 'package:anjapepito/features/onboarding/views/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/services/api_services.dart';
 import '../../../../core/util/app_navigation.dart';
-import '../../login/views/sign_in_screen.dart';
+import '../../../../core/util/form_validator.dart';
+import '../../../../core/widgets/snakbar/custom_snackbar.dart';
+import '../../sign_in/views/sign_in_screen.dart';
 class SignUpController extends GetxController {
+  final usernameFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+  final confirmPasswordFocusNode = FocusNode();
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -14,6 +20,7 @@ class SignUpController extends GetxController {
   final RxBool isPasswordVisible = false.obs;
   final RxBool isConfirmPasswordVisible = false.obs;
   final RxBool isLoading = false.obs;
+  final api = Get.find<ApiServices>();
 
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
@@ -23,23 +30,62 @@ class SignUpController extends GetxController {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   }
 
-  void onSignUp(BuildContext context) {
-    final username = usernameController.text.trim();
+  Future<void> onSignUp(BuildContext context) async{
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
     final confirmPassword = confirmPasswordController.text.trim();
 
-    // if (username.isEmpty ||
-    //     email.isEmpty ||
-    //     password.isEmpty ||
-    //     confirmPassword.isEmpty) {
-    //   return;
-    // }
-    //
-    // if (password != confirmPassword) {
-    //   // Show password mismatch error
-    //   return;
-    // }
+    if (!FormValidator.isValidEmail(email)) {
+      CustomSnackBar.warning('Please enter a valid email');
+      emailFocusNode.requestFocus();
+      return;
+    }
+    if (!FormValidator.isValidPassword(password)) {
+      final msg = password.length < 8
+          ? 'Password must be at least 8 characters'
+          : 'Password must contain at least one uppercase letter';
+      CustomSnackBar.warning(msg);
+      passwordFocusNode.requestFocus();
+      return;
+    }
+
+    if (!FormValidator.isValidPassword(confirmPassword)) {
+      final msg = password.length < 8
+          ? 'Password must be at least 8 characters'
+          : 'Password must contain at least one uppercase letter';
+      CustomSnackBar.warning(msg);
+      passwordFocusNode.requestFocus();
+      return;
+    }
+
+    if (password != confirmPassword) {
+      CustomSnackBar.error('Passwords do not match.');
+      return;
+    }
+
+
+    isLoading.value = true;
+    try{
+      final response = await api.post('/api/v1/auth/register/',
+      body: {
+        'full_name':"emon",
+        'email': email,
+        'password': password,
+        're_type_password': confirmPassword,
+      }
+      );
+      isLoading.value = false;
+      print(response);
+      CustomSnackBar.success(response['message']);
+
+    }on HttpException catch (e){
+
+
+    }catch(e){
+
+    }finally{
+      isLoading.value = false;
+    }
 
     // TODO: Implement sign up logic
     StorageService.saveToken("accessToken");

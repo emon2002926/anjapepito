@@ -71,38 +71,26 @@ class SignUpScreen extends StatelessWidget {
 
               SizedBox(height: context.responsiveSize(20)),
 
-              // Username Field
-              // AppTextField(
-              //   controller: controller.usernameController,
-              //   hintText: 'Username',
-              //   keyboardType: TextInputType.name,
-              //   fillColor: Colors.transparent,
-              //   borderColor: const Color(0xFFD1D1D1),
-              //   hintTextColor: const Color(0xFFB0B0B0),
-              //   inputTextColor: const Color(0xFF2D2D2D),
-              //   isHintTextInMiddle: true,
-              //   elevation: 0,
-              //   customBorderRadius: BorderRadius.circular(
-              //     context.responsiveSize(28),
-              //   ),
-              // ),
 
               SizedBox(height: context.responsiveSize(14)),
 
               // Email Field
-              AppTextField(
-                controller: controller.emailController,
-                hintText: 'Email',
-
-                keyboardType: TextInputType.emailAddress,
-                fillColor: Colors.transparent,
-                isHintTextInMiddle: true,
-                borderColor: const Color(0xFFD1D1D1),
-                hintTextColor: const Color(0xFFB0B0B0),
-                inputTextColor: const Color(0xFF2D2D2D),
-                elevation: 0,
-                customBorderRadius: BorderRadius.circular(
-                  context.responsiveSize(28),
+              Obx(
+                ()=> AppTextField(
+                  controller: controller.emailController,
+                  hintText: 'Email',
+                  enabled: !controller.isLoading.value,
+                  keyboardType: TextInputType.emailAddress,
+                  fillColor: Colors.transparent,
+                  isHintTextInMiddle: true,
+                  borderColor: const Color(0xFFD1D1D1),
+                  hintTextColor: const Color(0xFFB0B0B0),
+                  inputTextColor: const Color(0xFF2D2D2D),
+                  focusNode: controller.emailFocusNode,
+                  elevation: 0,
+                  customBorderRadius: BorderRadius.circular(
+                    context.responsiveSize(28),
+                  ),
                 ),
               ),
 
@@ -118,7 +106,9 @@ class SignUpScreen extends StatelessWidget {
                   borderColor: const Color(0xFFD1D1D1),
                   hintTextColor: const Color(0xFFB0B0B0),
                   inputTextColor: const Color(0xFF2D2D2D),
+                  focusNode: controller.passwordFocusNode,
                   elevation: 0,
+                      enabled: !controller.isLoading.value,
                   isHintTextInMiddle: true,
                   customBorderRadius: BorderRadius.circular(
                     context.responsiveSize(28),
@@ -141,6 +131,8 @@ class SignUpScreen extends StatelessWidget {
                   obscureText:
                   !controller.isConfirmPasswordVisible.value,
                   fillColor: Colors.transparent,
+                  focusNode: controller.confirmPasswordFocusNode,
+                  enabled: !controller.isLoading.value,
                   isHintTextInMiddle: true,
                   borderColor: const Color(0xFFD1D1D1),
                   hintTextColor: const Color(0xFFB0B0B0),
@@ -171,6 +163,8 @@ class SignUpScreen extends StatelessWidget {
                 buttonHeight: 45,
                 fontSize: 17,
                 fontWeight: FontWeight.w600,
+                isLoading: controller.isLoading.value,
+                loadingText: "Regstrating ...",
               ),
 
               SizedBox(height: context.responsiveSize(20)),

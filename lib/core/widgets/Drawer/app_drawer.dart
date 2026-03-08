@@ -4,8 +4,6 @@ import 'package:anjapepito/features/onboarding/views/onboarding_screen.dart';
 import 'package:anjapepito/features/profile/views/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../features/auth/login/views/sign_in_screen.dart';
 import '../../util/app_navigation.dart';
 import '../../util/screen_size.dart';
 import '../../util/storage_service.dart';
