@@ -61,6 +61,8 @@ class SignInController extends GetxController {
         StorageService.saveToken(loginResponse.data.accessToken);
         AppNavigation.pushAndClear( const HomePage());
       } on HttpException catch (e) {
+        isLoading.value = false;
+
         switch (e.statusCode) {
           case 401:
             CustomSnackBar.error('Invalid email or password.');

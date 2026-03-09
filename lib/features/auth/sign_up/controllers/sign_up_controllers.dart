@@ -79,10 +79,23 @@ class SignUpController extends GetxController {
 
 
     }on HttpException catch (e){
-
+      isLoading.value = false;
+      switch (e.statusCode) {
+        case 400:
+          CustomSnackBar.error('Invalid email or password.');
+          break;
+        case 401:
+          CustomSnackBar.error('Invalid email or password.');
+          break;
+        case 422:
+          CustomSnackBar.warning('Please check your input.');
+          break;
+        default:
+          CustomSnackBar.error('Something went wrong (${e.statusCode}).');
+      }
 
     }catch(e){
-
+      isLoading.value= false;
     }finally{
       isLoading.value = false;
     }

@@ -105,7 +105,7 @@ class EnterOtpController extends GetxController {
   Future<void> onResend(String email, String otpType)async {
     if (!canResend.value) {
       CustomSnackBar.info('Please wait for the timer to expire');
-
+      otpController.clear();
       try {
         final response = await api.post(
           '/api/v1/auth/resend-otp/',
@@ -123,13 +123,13 @@ class EnterOtpController extends GetxController {
 
       } on HttpException catch (e) {
         otpController.clear();
-        switch (e.statusCode) {
-          case 400:
-            CustomSnackBar.error('Invalid or expired OTP.');
-            break;
-          default:
-            CustomSnackBar.error('Something went wrong (${e.statusCode}).');
-        }
+        // switch (e.statusCode) {
+        //   case 400:
+        //     CustomSnackBar.error('Invalid or expired OTP.');
+        //     break;
+        //   default:
+        //     CustomSnackBar.error('Something went wrong (${e.statusCode}).');
+        // }
       } catch (e) {
         otpController.clear();
         CustomSnackBar.error('Network error. Please try again.');
