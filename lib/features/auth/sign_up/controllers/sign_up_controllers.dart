@@ -1,5 +1,4 @@
-import 'package:anjapepito/core/util/storage_service.dart';
-import 'package:anjapepito/features/home/views/home_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,57 +36,58 @@ class SignUpController extends GetxController {
     final password = passwordController.text.trim();
     final confirmPassword = confirmPasswordController.text.trim();
     //
-    // if (!FormValidator.isValidEmail(email)) {
-    //   CustomSnackBar.warning('Please enter a valid email');
-    //   emailFocusNode.requestFocus();
-    //   return;
-    // }
-    // if (!FormValidator.isValidPassword(password)) {
-    //   final msg = password.length < 8
-    //       ? 'Password must be at least 8 characters'
-    //       : 'Password must contain at least one uppercase letter';
-    //   CustomSnackBar.warning(msg);
-    //   passwordFocusNode.requestFocus();
-    //   return;
-    // }
-    //
-    // if (!FormValidator.isValidPassword(confirmPassword)) {
-    //   final msg = password.length < 8
-    //       ? 'Password must be at least 8 characters'
-    //       : 'Password must contain at least one uppercase letter';
-    //   CustomSnackBar.warning(msg);
-    //   passwordFocusNode.requestFocus();
-    //   return;
-    // }
-    //
-    // if (password != confirmPassword) {
-    //   CustomSnackBar.error('Passwords do not match.');
-    //   return;
-    // }
-    //
-    //
-    // isLoading.value = true;
-    // final request = SignUpRequestModel(email: email, password: password, re_type_password: confirmPassword);
-    //
-    // try{
-    //   final response = await api.post('/api/v1/auth/register/',
-    //     body: request.toJson(),
-    //   );
-    //   isLoading.value = false;
-    //   print(response);
-    //   CustomSnackBar.success(response['message']);
-    //
-    // }on HttpException catch (e){
-    //
-    //
-    // }catch(e){
-    //
-    // }finally{
-    //   isLoading.value = false;
-    // }
+    if (!FormValidator.isValidEmail(email)) {
+      CustomSnackBar.warning('Please enter a valid email');
+      emailFocusNode.requestFocus();
+      return;
+    }
+    if (!FormValidator.isValidPassword(password)) {
+      final msg = password.length < 8
+          ? 'Password must be at least 8 characters'
+          : 'Password must contain at least one uppercase letter';
+      CustomSnackBar.warning(msg);
+      passwordFocusNode.requestFocus();
+      return;
+    }
+
+    if (!FormValidator.isValidPassword(confirmPassword)) {
+      final msg = password.length < 8
+          ? 'Password must be at least 8 characters'
+          : 'Password must contain at least one uppercase letter';
+      CustomSnackBar.warning(msg);
+      passwordFocusNode.requestFocus();
+      return;
+    }
+
+    if (password != confirmPassword) {
+      CustomSnackBar.error('Passwords do not match.');
+      return;
+    }
 
 
-    AppNavigation.push(EnterOtpScreen(email: email,));
+    isLoading.value = true;
+    final request = SignUpRequestModel(email: email, password: password, re_type_password: confirmPassword);
+
+    try{
+      final response = await api.post('/api/v1/auth/register/',
+        body: request.toJson(),
+      );
+      isLoading.value = false;
+      print(response);
+      CustomSnackBar.success(response['message']);
+      AppNavigation.push(EnterOtpScreen(email: email,comesFromSignUp: 'register',));
+
+
+    }on HttpException catch (e){
+
+
+    }catch(e){
+
+    }finally{
+      isLoading.value = false;
+    }
+
+
 
   }
 

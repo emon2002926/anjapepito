@@ -15,8 +15,7 @@ class ForgotPasswordController extends GetxController {
       return;
     }
 
-    // TODO: Implement send OTP logic
-    AppNavigation.push( const EnterOtpScreen(email: "",));
+    AppNavigation.push( const EnterOtpScreen(email: "",comesFromSignUp: 'forgotPassword',));
   }
 
   @override

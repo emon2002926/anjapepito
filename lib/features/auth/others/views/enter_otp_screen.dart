@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_assert_image.dart';
 import '../../../../core/util/screen_size.dart';
+import '../../../../core/widgets/buttons/app_button.dart';
 import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/enter_otp_controller.dart';
 class EnterOtpScreen extends StatelessWidget {
   final String email;
-  const EnterOtpScreen({super.key, required this.email});
+  final String comesFromSignUp;
+  const EnterOtpScreen({super.key, required this.email, required this.comesFromSignUp});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,8 @@ class EnterOtpScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: context.responsiveSize(8)),
+              SizedBox(height: context.responsiveSize(24)),
 
-              // Logo (centered)
               Center(
                 child: Container(
                   width: context.responsiveSize(140),
@@ -87,15 +88,14 @@ class EnterOtpScreen extends StatelessWidget {
               const Spacer(),
 
               // Info text with timer and resend
-              Obx(
-                    () => Center(
+              Obx(() => Center(
                   child: Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
                           text:
                           'We sent a verification code to your email. Please check.\nIf not, resend in ',
-                          style: TextStyle(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: context.responsiveSize(13),
                             fontWeight: FontWeight.w400,
                             color: const Color(0xFF9E9E9E),
@@ -103,7 +103,7 @@ class EnterOtpScreen extends StatelessWidget {
                         ),
                         TextSpan(
                           text: controller.formattedTime,
-                          style: TextStyle(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: context.responsiveSize(13),
                             fontWeight: FontWeight.w700,
                             color: const Color(0xFF2D2D2D),
@@ -111,7 +111,7 @@ class EnterOtpScreen extends StatelessWidget {
                         ),
                         TextSpan(
                           text: ' minutes. ',
-                          style: TextStyle(
+                          style: GoogleFonts.plusJakartaSans(
                             fontSize: context.responsiveSize(13),
                             fontWeight: FontWeight.w400,
                             color: const Color(0xFF9E9E9E),
@@ -119,10 +119,10 @@ class EnterOtpScreen extends StatelessWidget {
                         ),
                         WidgetSpan(
                           child: GestureDetector(
-                            onTap: () => controller.onResend(),
+                            onTap: () => controller.onResend(email,comesFromSignUp),
                             child: Text(
                               'Resend',
-                              style: TextStyle(
+                              style: GoogleFonts.plusJakartaSans(
                                 fontSize: context.responsiveSize(13),
                                 fontWeight: FontWeight.w700,
                                 color: controller.canResend.value
@@ -143,28 +143,45 @@ class EnterOtpScreen extends StatelessWidget {
               SizedBox(height: context.responsiveSize(16)),
 
               // Submit Button
-              GestureDetector(
-                onTap: () => controller.onSubmit(context),
-                child: Container(
-                  width: double.infinity,
-                  height: context.responsiveSize(52),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF4CB8B3),
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(28),
-                    ),
-                  ),
-                  child: Center(
-                    child: AppText(
-                      data: 'Submit',
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      useResponsiveFontSize: true,
-                    ),
-                  ),
+
+              Obx(
+                    () => AppButton(
+                  buttonText: 'Submit',
+                  onPressed: () => controller.onSubmit(email,comesFromSignUp),
+                  fillColor: const Color(0xFF4CB8B3),
+                  textColor: Colors.white,
+                  borderRadius: 28,
+                  buttonHeight: 45,
+                  fontSize: 17,
+                  isLoading: controller.isLoading.value,
+                  loadingText: 'Verifying otp...',
+                  fontWeight: FontWeight.w600,
                 ),
               ),
+
+
+              // GestureDetector(
+              //   onTap: () => controller.onSubmit(email,comesFromSignUp),
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: context.responsiveSize(52),
+              //     decoration: BoxDecoration(
+              //       color: const Color(0xFF4CB8B3),
+              //       borderRadius: BorderRadius.circular(
+              //         context.responsiveSize(28),
+              //       ),
+              //     ),
+              //     child: Center(
+              //       child: AppText(
+              //         data: 'Submit',
+              //         fontSize: 17,
+              //         fontWeight: FontWeight.w600,
+              //         color: Colors.white,
+              //         useResponsiveFontSize: true,
+              //       ),
+              //     ),
+              //   ),
+              // ),
 
               SizedBox(height: context.responsiveSize(32)),
             ],

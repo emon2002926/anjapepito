@@ -11,8 +11,10 @@ import 'package:get/get.dart';
 // ══════════════════════════════════════════════════════
 
 
+import '../../../../core/services/api_services.dart';
 import '../../../../core/util/app_navigation.dart';
 import '../../../../core/widgets/snakbar/custom_snackbar.dart';
+import '../../../home/views/home_page.dart';
 import '../views/reset_password_screen.dart';
 
 class EnterOtpController extends GetxController {
@@ -21,6 +23,8 @@ class EnterOtpController extends GetxController {
   final RxInt remainingSeconds = 22.obs;
   final RxBool canResend = false.obs;
   Timer? _timer;
+  final api = Get.find<ApiServices>();
+
 
   @override
   void onInit() {
@@ -49,7 +53,7 @@ class EnterOtpController extends GetxController {
     return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
 
-  void onSubmit(BuildContext context) {
+  Future<void> onSubmit(String email, String otpType) async {
     final otp = otpController.text.trim();
 
     if (otp.isEmpty) {
@@ -62,32 +66,83 @@ class EnterOtpController extends GetxController {
       return;
     }
 
-    // TODO: Implement OTP verification logic
-    // isLoading.value = true;
-    // try {
-    //   await verifyOtp(otp);
-    //   CustomSnackBar.success('OTP verified successfully');
-      AppNavigation.push( const ResetPasswordScreen());
-    // } catch (e) {
-    //   CustomSnackBar.error('Invalid OTP. Please try again.');
-    // } finally {
-    //   isLoading.value = false;
-    // }
+    isLoading.value = true;
+
+    try {
+      final response = await api.postFormData(
+        '/api/v1/auth/verify-otp/',
+        fields: {
+          'email': email,
+          'otp_code': otp,
+          'otp_type': otpType,
+        },
+      );
+
+      final message = response['message'] ?? 'Verified successfully';
+      isLoading.value = false;
+      otpController.clear();
+      CustomSnackBar.success(message);
+      AppNavigation.pushAndClear(const HomePage());
+
+    } on HttpException catch (e) {
+      otpController.clear();
+      switch (e.statusCode) {
+        case 400:
+          CustomSnackBar.error('Invalid or expired OTP.');
+          break;
+        default:
+          CustomSnackBar.error('Something went wrong (${e.statusCode}).');
+      }
+    } catch (e) {
+      otpController.clear();
+      CustomSnackBar.error('Network error. Please try again.');
+    } finally {
+      otpController.clear();
+      isLoading.value = false;
+    }
   }
 
-  void onResend() {
+  Future<void> onResend(String email, String otpType)async {
     if (!canResend.value) {
       CustomSnackBar.info('Please wait for the timer to expire');
+
+      try {
+        final response = await api.post(
+          '/api/v1/auth/resend-otp/',
+          body: {
+            'email': email,
+            'otp_type': otpType,
+          },
+        );
+
+        final message = response['message'] ?? 'Otp Resend successfully';
+        isLoading.value = false;
+        otpController.clear();
+        CustomSnackBar.success(message);
+        // AppNavigation.pushAndClear(const HomePage());
+
+      } on HttpException catch (e) {
+        otpController.clear();
+        switch (e.statusCode) {
+          case 400:
+            CustomSnackBar.error('Invalid or expired OTP.');
+            break;
+          default:
+            CustomSnackBar.error('Something went wrong (${e.statusCode}).');
+        }
+      } catch (e) {
+        otpController.clear();
+        CustomSnackBar.error('Network error. Please try again.');
+      } finally {
+        otpController.clear();
+        isLoading.value = false;
+      }
+
+
       return;
     }
 
-    // TODO: Implement resend OTP logic
-    // try {
-    //   await resendOtp();
-    //   CustomSnackBar.success('OTP resent successfully');
-    // } catch (e) {
-    //   CustomSnackBar.error('Failed to resend OTP');
-    // }
+
 
     CustomSnackBar.success('OTP resent to your email');
     startTimer();

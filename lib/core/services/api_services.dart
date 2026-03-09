@@ -90,6 +90,28 @@ class ApiServices {
       body: response.body,
     );
   }
+
+
+  Future<dynamic> postFormData(
+      String endpoints, {
+        Map<String, String>? headers,
+        required Map<String, String> fields,
+      }) async {
+    final url = Uri.parse('$baseUrl$endpoints');
+    final request = http.MultipartRequest('POST', url);
+
+    request.headers.addAll({
+      'Accept': 'application/json',
+      ...?headers,
+    });
+
+    request.fields.addAll(fields);
+
+    final streamedResponse = await _httpClient.send(request);
+    final response = await http.Response.fromStream(streamedResponse);
+
+    return _handleResponse(response, url);
+  }
 }
 
 class HttpException implements Exception {
