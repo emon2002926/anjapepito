@@ -75,7 +75,7 @@ class SignUpController extends GetxController {
       isLoading.value = false;
       print(response);
       CustomSnackBar.success(response['message']);
-      AppNavigation.push(EnterOtpScreen(email: email,comesFromSignUp: 'register',));
+      AppNavigation.pushReplacement(EnterOtpScreen(email: email,comesFromSignUp: 'register',));
 
 
     }on HttpException catch (e){

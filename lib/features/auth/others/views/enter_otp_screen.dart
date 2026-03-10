@@ -88,13 +88,18 @@ class EnterOtpScreen extends StatelessWidget {
               const Spacer(),
 
               // Info text with timer and resend
-              Obx(() => Center(
+              Obx(() {
+                final minutes = controller.remainingSeconds.value ~/ 60;
+                final seconds = controller.remainingSeconds.value % 60;
+                final timeText = '$minutes:${seconds.toString().padLeft(2, '0')}';
+                final canResend = controller.canResend.value;
+
+                return Center(
                   child: Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
-                          text:
-                          'We sent a verification code to your email. Please check.\nIf not, resend in ',
+                          text: 'We sent a verification code to your email. Please check.\nIf not, resend in ',
                           style: GoogleFonts.plusJakartaSans(
                             fontSize: context.responsiveSize(13),
                             fontWeight: FontWeight.w400,
@@ -102,7 +107,7 @@ class EnterOtpScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: controller.formattedTime,
+                          text: timeText, // 👈 now tracked by Obx
                           style: GoogleFonts.plusJakartaSans(
                             fontSize: context.responsiveSize(13),
                             fontWeight: FontWeight.w700,
@@ -119,13 +124,13 @@ class EnterOtpScreen extends StatelessWidget {
                         ),
                         WidgetSpan(
                           child: GestureDetector(
-                            onTap: () => controller.onResend(email,comesFromSignUp),
+                            onTap: () => controller.onResend(email, comesFromSignUp),
                             child: Text(
-                              'Resend',
+                                controller.isResendLoading.value? 'Resending..':'Resend'  ,
                               style: GoogleFonts.plusJakartaSans(
                                 fontSize: context.responsiveSize(13),
                                 fontWeight: FontWeight.w700,
-                                color: controller.canResend.value
+                                color: canResend
                                     ? const Color(0xFF2D2D2D)
                                     : const Color(0xFF9E9E9E),
                                 decoration: TextDecoration.underline,
@@ -137,9 +142,8 @@ class EnterOtpScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                ),
-              ),
-
+                );
+              }),
               SizedBox(height: context.responsiveSize(16)),
 
               // Submit Button

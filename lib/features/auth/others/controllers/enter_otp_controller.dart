@@ -1,11 +1,8 @@
-// ══════════════════════════════════════════════════════
-// enter_otp_controller.dart
-// ══════════════════════════════════════════════════════
-
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 // ══════════════════════════════════════════════════════
 // enter_otp_controller.dart
 // ══════════════════════════════════════════════════════
@@ -20,10 +17,12 @@ import '../views/reset_password_screen.dart';
 class EnterOtpController extends GetxController {
   final otpController = TextEditingController();
   final RxBool isLoading = false.obs;
-  final RxInt remainingSeconds = 22.obs;
+  final RxInt remainingSeconds = 60.obs;
   final RxBool canResend = false.obs;
+  final RxBool isResendLoading = false.obs;
   Timer? _timer;
   final api = Get.find<ApiServices>();
+
 
 
   @override
@@ -31,6 +30,7 @@ class EnterOtpController extends GetxController {
     super.onInit();
     startTimer();
   }
+
 
   void startTimer() {
     canResend.value = false;
@@ -46,7 +46,6 @@ class EnterOtpController extends GetxController {
       }
     });
   }
-
   String get formattedTime {
     final minutes = remainingSeconds.value ~/ 60;
     final seconds = remainingSeconds.value % 60;
@@ -85,7 +84,6 @@ class EnterOtpController extends GetxController {
       AppNavigation.pushAndClear(const HomePage());
 
     } on HttpException catch (e) {
-      otpController.clear();
       switch (e.statusCode) {
         case 400:
           CustomSnackBar.error('Invalid or expired OTP.');
@@ -97,57 +95,48 @@ class EnterOtpController extends GetxController {
       otpController.clear();
       CustomSnackBar.error('Network error. Please try again.');
     } finally {
-      otpController.clear();
       isLoading.value = false;
     }
   }
 
-  Future<void> onResend(String email, String otpType)async {
+  Future<void> onResend(String email, String otpType) async {
     if (!canResend.value) {
       CustomSnackBar.info('Please wait for the timer to expire');
-      otpController.clear();
-      try {
-        final response = await api.post(
-          '/api/v1/auth/resend-otp/',
-          body: {
-            'email': email,
-            'otp_type': otpType,
-          },
-        );
-
-        final message = response['message'] ?? 'Otp Resend successfully';
-        isLoading.value = false;
-        otpController.clear();
-        CustomSnackBar.success(message);
-        // AppNavigation.pushAndClear(const HomePage());
-
-      } on HttpException catch (e) {
-        otpController.clear();
-        // switch (e.statusCode) {
-        //   case 400:
-        //     CustomSnackBar.error('Invalid or expired OTP.');
-        //     break;
-        //   default:
-        //     CustomSnackBar.error('Something went wrong (${e.statusCode}).');
-        // }
-      } catch (e) {
-        otpController.clear();
-        CustomSnackBar.error('Network error. Please try again.');
-      } finally {
-        otpController.clear();
-        isLoading.value = false;
-      }
-
-
       return;
     }
 
+    isResendLoading.value = true;
 
+    try {
+      final response = await api.post(
+        '/api/v1/auth/resend-otp/',
+        body: {
+          'email': email,
+          'otp_type': otpType,
+        },
+      );
 
-    CustomSnackBar.success('OTP resent to your email');
-    startTimer();
+      otpController.clear();
+      canResend.value = false;
+      isResendLoading.value = false;
+      CustomSnackBar.success(response['message'] ?? 'OTP resent successfully');
+      startTimer();
+
+    } on HttpException catch (e) {
+      switch (e.statusCode) {
+        case 400:
+          CustomSnackBar.error('Invalid request.');
+          break;
+        default:
+          CustomSnackBar.error('Something went wrong (${e.statusCode}).');
+      }
+    } catch (e) {
+      CustomSnackBar.error('Network error. Please try again.');
+    } finally {
+        isResendLoading.value = false;
+
+    }
   }
-
   @override
   void onClose() {
     otpController.dispose();
