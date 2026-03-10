@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/constants/app_assert_image.dart';
 import '../../../../core/util/screen_size.dart';
+import '../../../../core/widgets/buttons/app_button.dart';
 import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/forgot_password_controller.dart';
@@ -11,7 +12,8 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ForgotPasswordController());
+    // final controller = Get.put(ForgotPasswordController());
+    final controller = Get.find<ForgotPasswordController>();
     final appImage = AppAssertImage.instance;
 
     return Scaffold(
@@ -76,6 +78,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 fillColor: Colors.transparent,
                 borderColor: const Color(0xFFD1D1D1),
                 hintTextColor: const Color(0xFFB0B0B0),
+                enabled: !controller.isLoading.value,
                 inputTextColor: const Color(0xFF2D2D2D),
                 elevation: 0,
                 customBorderRadius: BorderRadius.circular(
@@ -86,26 +89,18 @@ class ForgotPasswordScreen extends StatelessWidget {
               const Spacer(),
 
               // Send OTP Button
-              GestureDetector(
-                onTap: () => controller.onSendOtp(context),
-                child: Container(
-                  width: double.infinity,
-                  height: context.responsiveSize(52),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF4CB8B3),
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(28),
-                    ),
-                  ),
-                  child: Center(
-                    child: AppText(
-                      data: 'Send OTP',
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      useResponsiveFontSize: true,
-                    ),
-                  ),
+              Obx(
+                    () => AppButton(
+                  buttonText: 'Send OTP',
+                  onPressed: () => controller.onSendOtp(),
+                  fillColor: const Color(0xFF4CB8B3),
+                  textColor: Colors.white,
+                  borderRadius: 28,
+                  buttonHeight: 45,
+                  fontSize: 17,
+                  isLoading: controller.isLoading.value,
+                  loadingText: 'Sending otp...',
+                  fontWeight: FontWeight.w600,
                 ),
               ),
 

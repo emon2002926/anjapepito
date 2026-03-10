@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:anjapepito/features/auth/sign_in/views/sign_in_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,6 +13,7 @@ import '../../../../core/services/api_services.dart';
 import '../../../../core/util/app_navigation.dart';
 import '../../../../core/widgets/snakbar/custom_snackbar.dart';
 import '../../../home/views/home_page.dart';
+import '../views/forgot_password_screen.dart';
 import '../views/reset_password_screen.dart';
 
 class EnterOtpController extends GetxController {
@@ -68,20 +70,35 @@ class EnterOtpController extends GetxController {
     isLoading.value = true;
 
     try {
-      final response = await api.postFormData(
-        '/api/v1/auth/verify-otp/',
-        fields: {
-          'email': email,
-          'otp_code': otp,
-          'otp_type': otpType,
-        },
-      );
+      dynamic response;
 
-      final message = response['message'] ?? 'Verified successfully';
-      isLoading.value = false;
-      otpController.clear();
-      CustomSnackBar.success(message);
-      AppNavigation.pushAndClear(const HomePage());
+      if (otpType == 'password_reset') {
+        response = await api.post(
+          '/api/v1/auth/password/verify-reset-otp/',
+          body: {
+            'email': email,
+            'otp_code': otp,
+          },
+        );
+
+        final resetToken = response['data']['reset_token'];
+        CustomSnackBar.success(response['message'] ?? 'OTP verified');
+        AppNavigation.pushAndClear(ResetPasswordScreen(resetToken: resetToken));
+
+      } else {
+        // register flow — form-data
+        response = await api.postFormData(
+          '/api/v1/auth/verify-otp/',
+          fields: {
+            'email': email,
+            'otp_code': otp,
+            'otp_type': otpType,
+          },
+        );
+
+        CustomSnackBar.success(response['message'] ?? 'Verified successfully');
+        AppNavigation.pushAndClear(const SignInScreen());
+      }
 
     } on HttpException catch (e) {
       switch (e.statusCode) {
@@ -92,10 +109,10 @@ class EnterOtpController extends GetxController {
           CustomSnackBar.error('Something went wrong (${e.statusCode}).');
       }
     } catch (e) {
-      otpController.clear();
       CustomSnackBar.error('Network error. Please try again.');
     } finally {
       isLoading.value = false;
+      otpController.clear();
     }
   }
 

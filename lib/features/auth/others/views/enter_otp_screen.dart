@@ -14,7 +14,8 @@ class EnterOtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(EnterOtpController());
+    // final controller = Get.put(EnterOtpController());
+    final controller = Get.find<EnterOtpController>();
     final appImage = AppAssertImage.instance;
     print("fdgfgh:$email");
     return Scaffold(
@@ -75,6 +76,7 @@ class EnterOtpScreen extends StatelessWidget {
                 controller: controller.otpController,
                 hintText: 'Enter 6 digit OTP',
                 keyboardType: TextInputType.number,
+                enabled: !controller.isLoading.value,
                 fillColor: Colors.transparent,
                 borderColor: const Color(0xFFD1D1D1),
                 hintTextColor: const Color(0xFFB0B0B0),

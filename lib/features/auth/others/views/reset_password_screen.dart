@@ -1,23 +1,21 @@
-// ══════════════════════════════════════════════════════
-// reset_password_screen.dart
-// ══════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/constants/app_assert_image.dart';
 import '../../../../core/util/screen_size.dart';
+import '../../../../core/widgets/buttons/app_button.dart';
 import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/reset_password_controller.dart';
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  final String resetToken ;
+   ResetPasswordScreen({super.key,required this.resetToken});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ResetPasswordController());
+    final controller = Get.find<ResetPasswordController>();
     final appImage = AppAssertImage.instance;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF9F5ED),
       body: SafeArea(
@@ -78,6 +76,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   controller: controller.passwordController,
                   hintText: 'Password',
                   obscureText: !controller.isPasswordVisible.value,
+                  enabled: !controller.isLoading.value,
                   fillColor: Colors.transparent,
                   borderColor: const Color(0xFFD1D1D1),
                   hintTextColor: const Color(0xFFB0B0B0),
@@ -104,6 +103,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   obscureText:
                   !controller.isConfirmPasswordVisible.value,
                   fillColor: Colors.transparent,
+                  enabled: !controller.isLoading.value,
                   borderColor: const Color(0xFFD1D1D1),
                   hintTextColor: const Color(0xFFB0B0B0),
                   inputTextColor: const Color(0xFF2D2D2D),
@@ -123,26 +123,17 @@ class ResetPasswordScreen extends StatelessWidget {
               const Spacer(),
 
               // Confirm Button
-              GestureDetector(
-                onTap: () => controller.onConfirm(context),
-                child: Container(
-                  width: double.infinity,
-                  height: context.responsiveSize(52),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF4CB8B3),
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(28),
-                    ),
-                  ),
-                  child: Center(
-                    child: AppText(
-                      data: 'Confirm',
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      useResponsiveFontSize: true,
-                    ),
-                  ),
+              Obx(() => AppButton(
+                    buttonText: 'Confirm',
+                  onPressed: () => controller.onConfirm(resetToken),
+                  fillColor: const Color(0xFF4CB8B3),
+                  textColor: Colors.white,
+                  borderRadius: 28,
+                  buttonHeight: 45,
+                  fontSize: 17,
+                  isLoading: controller.isLoading.value,
+                  loadingText: 'Loading...',
+                  fontWeight: FontWeight.w600,
                 ),
               ),
 

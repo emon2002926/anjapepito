@@ -1,16 +1,24 @@
+import 'dart:io';
+
+import 'package:anjapepito/core/services/api_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/util/app_navigation.dart';
+import '../../../../core/util/form_validator.dart';
 import '../../../../core/widgets/snakbar/custom_snackbar.dart';
 import '../../sign_in/views/sign_in_screen.dart';
 
 class ResetPasswordController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final passwordFocusNode = FocusNode();
+  final confirmPasswordFocusNode = FocusNode();
   final RxBool isPasswordVisible = false.obs;
   final RxBool isConfirmPasswordVisible = false.obs;
   final RxBool isLoading = false.obs;
+
+  final api = Get.find<ApiServices>();
 
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
@@ -20,41 +28,59 @@ class ResetPasswordController extends GetxController {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   }
 
-  void onConfirm(BuildContext context) {
+  Future<void> onConfirm(String resetToken) async {
     final password = passwordController.text.trim();
     final confirmPassword = confirmPasswordController.text.trim();
 
-    if (password.isEmpty) {
-      CustomSnackBar.warning('Please enter a new password');
+    if (!FormValidator.isValidPassword(password)) {
+      final msg = password.length < 8
+          ? 'Password must be at least 8 characters'
+          : 'Password must contain at least one uppercase letter';
+      CustomSnackBar.warning(msg);
+      passwordFocusNode.requestFocus();
       return;
     }
 
-    if (confirmPassword.isEmpty) {
-      CustomSnackBar.warning('Please re-type your password');
-      return;
-    }
-
-    if (password.length < 6) {
-      CustomSnackBar.error('Password must be at least 6 characters');
+    if (!FormValidator.isValidPassword(confirmPassword)) {
+      final msg = password.length < 8
+          ? 'Password must be at least 8 characters'
+          : 'Password must contain at least one uppercase letter';
+      CustomSnackBar.warning(msg);
+      passwordFocusNode.requestFocus();
       return;
     }
 
     if (password != confirmPassword) {
-      CustomSnackBar.error('Passwords do not match');
+      CustomSnackBar.error('Passwords do not match.');
       return;
     }
 
-    // TODO: Implement reset password logic
-    // isLoading.value = true;
-    // try {
-    //   await resetPassword(password);
-    //   CustomSnackBar.success('Password reset successfully');
+    try{
+      isLoading.value = true;
+      final response  = api.post(
+          '/api/v1/auth/password/reset/',
+        body: {
+          "reset_token":resetToken,
+          "new_password":password,
+          "confirm_password":confirmPassword
+        },
+      );
+       print(response);
+       isLoading.value = false;
       AppNavigation.pushAndClear( const SignInScreen());
-    // } catch (e) {
-    //   CustomSnackBar.error('Failed to reset password');
-    // } finally {
-    //   isLoading.value = false;
-    // }
+
+
+    } on HttpException catch(e){
+      isLoading.value = false;
+    }catch (e){
+      isLoading.value = false;
+    }finally{
+      isLoading.value = false;
+  }
+
+
+
+
   }
 
   @override
