@@ -57,51 +57,53 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF9F5ED),
       extendBody: true,
-      body: WillPopScope(
-        onWillPop: () {
-          if (currentIndex == 0 && homeNavKey.currentState!.canPop()) {
-            homeNavKey.currentState?.pop();
-            return Future.value(false);
-          } else if (currentIndex == 1 &&
-              unitsNavKey.currentState!.canPop()) {
-            unitsNavKey.currentState?.pop();
-            return Future.value(false);
-          } else if (currentIndex == 2 &&
-              badgesNavKey.currentState!.canPop()) {
-            badgesNavKey.currentState?.pop();
-            return Future.value(false);
-          }
-          return Future.value(true);
-        },
-        child: IndexedStack(
-          index: currentIndex,
-          children: [
-            Navigator(
-              key: homeNavKey,
-              onGenerateInitialRoutes: (navigator, initialRoute) {
-                return [
-                  MaterialPageRoute(builder: (context) => screens[0])
-                ];
-              },
+      body: Stack(
+        children: [
+          // ── Background image ──────────────────────────────────────
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/background.png', // 👈 change to your path
+              fit: BoxFit.cover,
             ),
-            Navigator(
-              key: unitsNavKey,
-              onGenerateInitialRoutes: (navigator, initialRoute) {
-                return [
-                  MaterialPageRoute(builder: (context) => screens[1])
-                ];
-              },
+          ),
+
+          // ── Your existing body ────────────────────────────────────
+          WillPopScope(
+            onWillPop: () {
+              if (currentIndex == 0 && homeNavKey.currentState!.canPop()) {
+                homeNavKey.currentState?.pop();
+                return Future.value(false);
+              } else if (currentIndex == 1 && unitsNavKey.currentState!.canPop()) {
+                unitsNavKey.currentState?.pop();
+                return Future.value(false);
+              } else if (currentIndex == 2 && badgesNavKey.currentState!.canPop()) {
+                badgesNavKey.currentState?.pop();
+                return Future.value(false);
+              }
+              return Future.value(true);
+            },
+            child: IndexedStack(
+              index: currentIndex,
+              children: [
+                Navigator(
+                  key: homeNavKey,
+                  onGenerateInitialRoutes: (navigator, initialRoute) =>
+                  [MaterialPageRoute(builder: (context) => screens[0])],
+                ),
+                Navigator(
+                  key: unitsNavKey,
+                  onGenerateInitialRoutes: (navigator, initialRoute) =>
+                  [MaterialPageRoute(builder: (context) => screens[1])],
+                ),
+                Navigator(
+                  key: badgesNavKey,
+                  onGenerateInitialRoutes: (navigator, initialRoute) =>
+                  [MaterialPageRoute(builder: (context) => screens[2])],
+                ),
+              ],
             ),
-            Navigator(
-              key: badgesNavKey,
-              onGenerateInitialRoutes: (navigator, initialRoute) {
-                return [
-                  MaterialPageRoute(builder: (context) => screens[2])
-                ];
-              },
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: currentIndex,

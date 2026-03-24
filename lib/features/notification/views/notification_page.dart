@@ -23,6 +23,7 @@ class NotificationPage extends StatelessWidget {
             BuildAppBar(
               useMinimalStyle: true,
               title: "Notification",
+
             ),
             Container(height: 1, color: const Color(0xFFE8E4DC)),
 

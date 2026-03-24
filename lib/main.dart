@@ -7,37 +7,38 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'core/services/api_services.dart';
 import 'features/auth/sign_in/views/sign_in_screen.dart';
-void main() {
-  Get.put(ApiServices(baseUrl: AppStrings.instance.baseUrl));
+import 'features/home/views/home_page.dart';
+  void main() {
+    Get.put(ApiServices(baseUrl: AppStrings.instance.baseUrl));
 
-  AppBindings.init();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  runApp(const MyApp());
-}
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+    AppBindings.init();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    runApp(const MyApp());
+  }
+  class MyApp extends StatelessWidget {
+    const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return
-      GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        navigatorKey: AppNavigation.navigatorKey,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.light,
-              statusBarBrightness: Brightness.dark,
+    @override
+    Widget build(BuildContext context) {
+      return
+        GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: AppNavigation.navigatorKey,
+          theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: Brightness.light,
+                statusBarBrightness: Brightness.dark,
+              ),
             ),
           ),
-        ),
-        home: const SignUpScreen(),
-        // home: const HomePage(),
-      );
-  }
+          // home: const SignUpScreen(),
+          home: const HomePage(),
+        );
+    }
 
-}
+  }

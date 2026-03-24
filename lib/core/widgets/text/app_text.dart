@@ -54,7 +54,7 @@ import 'package:google_fonts/google_fonts.dart';
         maxLines: maxLines ?? 20,
         overflow: overflow ?? TextOverflow.ellipsis,
         textAlign: textAlign,
-        style: GoogleFonts.plusJakartaSans(
+        style: GoogleFonts.nunito(
           height: height,
           fontSize: responsiveFontSize,
           color: color ?? Colors.black,
