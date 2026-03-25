@@ -22,6 +22,7 @@ class HomeViewController extends GetxController {
       xp: 20,
       isUnlocked: true,
       colorIcon: Colors.red,
+
     ),
     LessonItem(
       title: 'Color : Blue',

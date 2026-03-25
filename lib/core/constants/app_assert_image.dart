@@ -19,6 +19,7 @@
     final String lockIcon = "assets/icons/lock_icon.png";
     final String filledLockIcon = "assets/icons/filled_lock.png";
     final String logOutIcon = "assets/icons/logout_icon.png";
+    final String activeIcon = "assets/icons/active_icon.png";
 
     final String shareIcon = "assets/images/share_icon.png";
     final String alertImage = "assets/icons/alart_icon.png";
@@ -32,6 +33,7 @@
     final String weeklySafetyBannerBg = "assets/images/weekly_safety_banner_bg.png";
     final String trainingGameBg = "assets/images/training_game_bg.png";
     final String playButton = "assets/images/play_button.png";
+    final String startButton = "assets/images/start_button.png";
 
 
 

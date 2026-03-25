@@ -27,7 +27,8 @@ class LessonCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(context.responsiveSize(14)),
+        padding: EdgeInsets.symmetric(horizontal :context.responsiveSize(12),
+            vertical: context.responsiveSize(8)),
         decoration: BoxDecoration(
           color: const Color(0xFFFFFDE8),
           borderRadius: BorderRadius.circular(context.responsiveSize(20)),
@@ -108,7 +109,7 @@ class LessonCard extends StatelessWidget {
 
             // ── Main Content ──
             Padding(
-              padding: EdgeInsets.only(top: context.responsiveSize(24)),
+              padding: EdgeInsets.only(top: context.responsiveSize(12)),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -124,51 +125,33 @@ class LessonCard extends StatelessWidget {
                       children: [
                         AppText(
                           data: lesson.title,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w800,
-                          color: const Color(0xFF5C3A00),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w900,
+                          color: const Color(0xFF92400E),
                           useResponsiveFontSize: true,
                         ),
                         SizedBox(height: context.responsiveSize(4)),
                         AppText(
                           data: lesson.translation,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFFE8A838),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                          color: const Color(0xFFD97706),
                           useResponsiveFontSize: true,
                         ),
-                        SizedBox(height: context.responsiveSize(10)),
+                        SizedBox(height: context.responsiveSize(6)),
 
                         // ── Start Button ──
+
                         GestureDetector(
                           onTap: onTap,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: context.responsiveSize(28),
-                              vertical: context.responsiveSize(8),
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF4CAF50),
-                              borderRadius: BorderRadius.circular(
-                                context.responsiveSize(30),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF4CAF50).withOpacity(0.4),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: AppText(
-                              data: 'Start',
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              useResponsiveFontSize: true,
-                            ),
+                          child: Image.asset(
+                            AppAssertImage.instance.startButton,
+                            height: context.responsiveSize(45),
+                            width: context.responsiveSize(110),
+                            fit: BoxFit.contain,
                           ),
                         ),
+
                       ],
                     ),
                   ),
@@ -186,30 +169,33 @@ class LessonCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: double.infinity,
+        height: context.responsiveSize(120),
         padding: EdgeInsets.symmetric(
-          horizontal: context.responsiveSize(14),
-          vertical: context.responsiveSize(14),
+          horizontal: context.responsiveSize(16),
+          vertical: context.responsiveSize(16),
         ),
         decoration: BoxDecoration(
-          color: const Color(0xFFF0F0F0),
+          color: const Color(0xFFD8D8D8),
           borderRadius: BorderRadius.circular(context.responsiveSize(20)),
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // ── Lock Icon ──
+            // ── Lock Icon (bigger to match active card icon size) ──
             Container(
-              width: context.responsiveSize(52),
-              height: context.responsiveSize(52),
+              width: context.responsiveSize(64),
+              height: context.responsiveSize(64),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(context.responsiveSize(14)),
+                color: Color(0xFFF3F4F6),
+                borderRadius: BorderRadius.circular(context.responsiveSize(16)),
               ),
               child: Center(
                 child: Image.asset(
                   AppAssertImage.instance.lockIcon,
-                  height: context.responsiveSize(24),
-                  width: context.responsiveSize(24),
-                  color: const Color(0xFFB0B0B0),
+                  height: context.responsiveSize(28),
+                  width: context.responsiveSize(28),
+                  color: const Color(0xFF94A3B8),
                 ),
               ),
             ),
@@ -220,31 +206,40 @@ class LessonCard extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppText(
                     data: lesson.title,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xFFB0B0B0),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: const Color(0xFF9CA3AF),
                     useResponsiveFontSize: true,
                   ),
-                  SizedBox(height: context.responsiveSize(6)),
+                  SizedBox(height: context.responsiveSize(4)),
+                  // AppText(
+                  //   data: lesson.translation,
+                  //   fontSize: 13,
+                  //   fontWeight: FontWeight.w400,
+                  //   color: const Color(0xFFC8C8C8),
+                  //   useResponsiveFontSize: true,
+                  // ),
+                  SizedBox(height: context.responsiveSize(8)),
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: context.responsiveSize(10),
-                      vertical: context.responsiveSize(3),
+                      vertical: context.responsiveSize(4),
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE0E0E0),
+                      color: const Color(0xFFE5E7EB),
                       borderRadius: BorderRadius.circular(
-                        context.responsiveSize(6),
+                        context.responsiveSize(8),
                       ),
                     ),
                     child: AppText(
                       data: 'LOCKED',
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
-                      color: const Color(0xFFB0B0B0),
+                      color: const Color(0xFF9CA3AF),
                       useResponsiveFontSize: true,
                     ),
                   ),
@@ -263,7 +258,6 @@ class LessonCard extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildActiveIcon(BuildContext context) {
     return Container(
       width: context.responsiveSize(64),
@@ -285,20 +279,10 @@ class LessonCard extends StatelessWidget {
       ),
       child: lesson.colorIcon != null
           ? Center(
-        child: Container(
-          width: context.responsiveSize(36),
-          height: context.responsiveSize(36),
-          decoration: BoxDecoration(
-            color: lesson.colorIcon,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: lesson.colorIcon!.withOpacity(0.5),
-                blurRadius: 8,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
+        child: Image.asset(
+          AppAssertImage.instance.activeIcon,
+          // height: context.responsiveSize(28),
+          // width: context.responsiveSize(28),
         ),
       )
           : Center(

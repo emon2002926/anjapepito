@@ -12,7 +12,6 @@ import '../widgets/lesson_card.dart';
 import '../widgets/stat_card.dart';
 class HomeView extends StatelessWidget {
    HomeView({super.key});
-
   final assets = AppAssertImage.instance;
 
   @override
@@ -143,7 +142,6 @@ class HomeView extends StatelessWidget {
 
                     SizedBox(height: context.responsiveSize(8)),
 
-                    // ── Unit Progress Bar (orange/yellow) ──
                     Obx(
                           () => ClipRRect(
                         borderRadius: BorderRadius.circular(context.responsiveSize(6)),
