@@ -33,6 +33,29 @@ class LearnTab extends StatelessWidget {
         // ── Progress Bar ──
         _buildVideoProgressBar(context),
 
+        SizedBox(height: context.responsiveSize(20)),
+
+        GestureDetector(
+          onTap: (){},
+          child: Container(
+            width: double.infinity,
+            height: context.responsiveSize(45),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(context.responsiveSize(12)),
+              image: DecorationImage(
+                image: AssetImage(AppAssertImage.instance.brownButtonBg),
+                fit: BoxFit.contain,
+              ),
+            ),
+            child: Center(
+                child: AppText(data: 'Anja says / Anja sagl :',
+                color: Color(0xFFB0B2BE),
+                useResponsiveFontSize: true,
+                )
+            ),
+          ),
+        ),
+
         SizedBox(height: context.responsiveSize(10)),
 
         // ── Anja Says Card ──
@@ -42,6 +65,7 @@ class LearnTab extends StatelessWidget {
           germanText: controller.anjaSays,
           englishText: controller.anjaTranslation,
         ),
+
 
         SizedBox(height: context.responsiveSize(40)),
       ],
@@ -95,9 +119,7 @@ class LearnTab extends StatelessWidget {
     );
   }
 
-  // ══════════════════════════════════════════════════════
-  // ANJA SAYS CARD
-  // ══════════════════════════════════════════════════════
+
   Widget _buildAnjaSaysCard(
       BuildContext context, {
         required String label,
@@ -105,7 +127,6 @@ class LearnTab extends StatelessWidget {
         required String englishText,
       }) {
     final appImage = AppAssertImage.instance;
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
@@ -113,53 +134,21 @@ class LearnTab extends StatelessWidget {
           vertical:context.responsiveSize(8)
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(context.responsiveSize(12)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClipOval(
-            child: Image.asset(
-              appImage.anjaIcon,
-              width: context.responsiveSize(56),
-              height: context.responsiveSize(56),
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(
-                width: context.responsiveSize(56),
-                height: context.responsiveSize(56),
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEDE8DF),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.person,
-                    size: context.responsiveSize(30), color: Colors.grey),
-              ),
-            ),
-          ),
           SizedBox(width: context.responsiveSize(12)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppText(
-                  data: label,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xFFB0B0B0),
-                  useResponsiveFontSize: true,
-                ),
-                SizedBox(height: context.responsiveSize(4)),
+
                 AppText(
                   data: germanText,
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                   color: const Color(0xFF2D2D2D),
                   useResponsiveFontSize: true,
@@ -168,9 +157,9 @@ class LearnTab extends StatelessWidget {
                 SizedBox(height: context.responsiveSize(2)),
                 AppText(
                   data: englishText,
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFFE8A838),
+                  color: const Color(0xFFFB923C),
                   useResponsiveFontSize: true,
                   textAlign: TextAlign.center,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/constants/app_assert_image.dart';
 import '../../../core/util/screen_size.dart';
 import '../../../core/widgets/app_bar/build_app_bar.dart';
 import '../../../core/widgets/text/app_text.dart';
@@ -39,102 +40,116 @@ class LessonScreen extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: const Color(0xFFF9F5ED),
-        body: SafeArea(
-          child: Column(
-            children: [
-              BuildAppBar(
-                useMinimalStyle: true,
-                title: controller.lessonTitle,
-                subtitle: controller.lessonTranslation,
-                onBackButtonPressed: () {
-                  Get.delete<LessonController>();
-                  Navigator.pop(context);
-                },
+        body: Stack(
+          children: [
+            // ── Background Image ──
+            Positioned.fill(
+              child: Image.asset(
+                AppAssertImage.instance.backgroundImage,
+                fit: BoxFit.cover,
               ),
+            ),
 
-              Container(height: 1, color: const Color(0xFFE8E4DC)),
-
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.responsiveSize(20),
+            // ── Foreground Content ──
+            SafeArea(
+              child: Column(
+                children: [
+                  BuildAppBar(
+                    useMinimalStyle: true,
+                    title: controller.lessonTitle,
+                    subtitle: controller.lessonTranslation,
+                    onBackButtonPressed: () {
+                      Get.delete<LessonController>();
+                      Navigator.pop(context);
+                    },
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: context.responsiveSize(12)),
 
-                      // Unit Title
-                      AppText(
-                        data: controller.unitTitle,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFF2D2D2D),
-                        useResponsiveFontSize: true,
+                  Container(height: 1, color: const Color(0xFFE8E4DC)),
+
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.responsiveSize(20),
                       ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: context.responsiveSize(12)),
 
-                      SizedBox(height: context.responsiveSize(12)),
+                          AppText(
+                            data: controller.unitTitle,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900,
+                            color: const Color(0xFF9CA3AF),
+                            useResponsiveFontSize: true,
+                          ),
+                          AppText(
+                            data: "Colors",
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
+                            color: const Color(0xFF1F2937),
+                            useResponsiveFontSize: true,
+                          ),
 
-                      // ── Tab Bar ──
-                      _buildTabBar(context, controller),
+                          SizedBox(height: context.responsiveSize(8)),
 
-                      SizedBox(height: context.responsiveSize(16)),
+                          _buildTabBar(context, controller),
 
-                      // ── Tab Content ──
-                      Obx(() {
-                        switch (controller.currentTab.value) {
-                          case 0:
-                            return const LearnTab();
-                          case 1:
-                            return const MissionTab();
-                          case 2:
-                            return const PracticeTab();
-                          default:
-                            return const SizedBox();
-                        }
-                      }),
-                    ],
+                          SizedBox(height: context.responsiveSize(20)),
+
+                          Obx(() {
+                            switch (controller.currentTab.value) {
+                              case 0:
+                                return const LearnTab();
+                              case 1:
+                                return const MissionTab();
+                              case 2:
+                                return const PracticeTab();
+                              default:
+                                return const SizedBox();
+                            }
+                          }),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+
+                  Obx(() {
+                    if (controller.currentTab.value != 2) return const SizedBox();
+                    return Container(
+                      color: Colors.transparent,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.responsiveSize(20),
+                        vertical: context.responsiveSize(8),
+                      ),
+                      child: Column(
+                        children: [
+                          VoiceInput(controller: controller),
+                          SizedBox(height: context.responsiveSize(12)),
+                          LessonTextInput(controller: controller),
+                          SizedBox(height: context.responsiveSize(12)),
+                        ],
+                      ),
+                    );
+                  }),
+
+                  Obx(() => _buildBottomButton(context, controller)),
+                ],
               ),
-
-              // ── Voice + Text Inputs (Practice tab only) ──
-              Obx(() {
-                if (controller.currentTab.value != 2) return const SizedBox();
-                return Container(
-                  color: const Color(0xFFF9F5ED),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.responsiveSize(20),
-                    vertical: context.responsiveSize(8),
-                  ),
-                  child: Column(
-                    children: [
-                      VoiceInput(controller: controller),
-                      SizedBox(height: context.responsiveSize(12)),
-                      LessonTextInput(controller: controller),
-                      SizedBox(height: context.responsiveSize(12)),
-                    ],
-                  ),
-                );
-              }),
-
-              // ── Bottom Button ──
-              Obx(() => _buildBottomButton(context, controller)),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
+
 
   Widget _buildTabBar(BuildContext context, LessonController controller) {
     return Obx(
           () => Row(
         children: List.generate(controller.tabs.length, (index) {
           final isActive = controller.currentTab.value == index;
-          final barColor = index <= controller.currentTab.value
-              ? const Color(0xFFE8A838)
-              : const Color(0xFFE0E0E0);
+          final isFilled = index <= controller.currentTab.value;
 
           return Expanded(
             child: GestureDetector(
@@ -146,9 +161,8 @@ class LessonScreen extends StatelessWidget {
                   children: [
                     AppText(
                       data: controller.tabs[index],
-                      fontSize: 12,
-                      fontWeight:
-                      isActive ? FontWeight.w700 : FontWeight.w500,
+                      fontSize: 14,
+                      fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                       color: isActive
                           ? const Color(0xFF2D2D2D)
                           : const Color(0xFF9E9E9E),
@@ -157,12 +171,29 @@ class LessonScreen extends StatelessWidget {
                     ),
                     SizedBox(height: context.responsiveSize(6)),
                     Container(
-                      height: context.responsiveSize(6),
+                      height: context.responsiveSize(12),
                       decoration: BoxDecoration(
-                        color: barColor,
+                        gradient: isFilled
+                            ? const LinearGradient(
+                          colors: [
+                            Color(0xFFFB923C),
+                            Color(0xFFFDE047),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        )
+                            : const LinearGradient(
+                          colors: [
+                            Color(0xFFE0E0E0),
+                            Color(0xFFE0E0E0),
+                          ],
+                        ),
                         borderRadius: BorderRadius.circular(
                           context.responsiveSize(12),
                         ),
+                        border: Border.all(
+                          color: Color(0xFFCACACA)
+                        )
                       ),
                     ),
                   ],
@@ -175,6 +206,9 @@ class LessonScreen extends StatelessWidget {
     );
   }
 
+
+
+
   Widget _buildBottomButton(
       BuildContext context, LessonController controller) {
     String primaryText;
@@ -184,13 +218,13 @@ class LessonScreen extends StatelessWidget {
     switch (controller.currentTab.value) {
       case 0:
         primaryText = 'Got it';
-        translationText = 'Verstanden';
+        translationText = '--> Verstanden';
         onTap = () => controller.onGotIt(context);
         break;
       case 1:
         if (controller.isForLesson) {
-          primaryText = "Done! Let\u2019s practice";
-          translationText = 'Fertig! Lass uns üben';
+          primaryText = "I found it !";
+          translationText = '';
         } else {
           primaryText = 'Done';
           translationText = 'Fertig';
@@ -198,13 +232,13 @@ class LessonScreen extends StatelessWidget {
         onTap = () => controller.onDonePractice(context);
         break;
       case 2:
-        primaryText = 'Done';
-        translationText = 'Fertig';
+        translationText  = 'Done';
+        primaryText = '--> Fertig';
         onTap = () => controller.onDone(context);
         break;
       default:
         primaryText = 'Next';
-        translationText = 'Weiter';
+        translationText = '--> Weiter';
         onTap = () {};
     }
 
@@ -226,89 +260,19 @@ class LessonScreen extends StatelessWidget {
             BorderRadius.circular(context.responsiveSize(28)),
           ),
           child: Center(
-            child: Text.rich(
-              TextSpan(
-                children: _buildBilingualButtonSpans(
-                  context,
-                  primaryText,
-                  translationText,
-                  controller,
-                ),
-              ),
+            child: AppText(
+              data: '${controller.currentTab.value == 0 ? primaryText : translationText} ${
+                  controller.currentTab.value == 0 ? translationText : primaryText}',
+              fontSize: context.responsiveSize(20),
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              useResponsiveFontSize: true,
             ),
+
           ),
         ),
       ),
     );
   }
 
-  List<TextSpan> _buildBilingualButtonSpans(
-      BuildContext context,
-      String primaryText,
-      String translationText,
-      LessonController lessonController,
-      ) {
-    const yellowColor = Color(0xFFFFEB3B);
-    const whiteColor = Colors.white;
-    final fontSize = lessonController.currentTab.value == 0
-        ? context.responsiveSize(14)
-        : lessonController.currentTab.value == 1
-        ? context.responsiveSize(12)
-        : context.responsiveSize(14);
-
-    TextSpan buildStyledWord(String word) {
-      if (word.isEmpty) return const TextSpan();
-      return TextSpan(
-        children: [
-          TextSpan(
-            text: word[0],
-            style: TextStyle(
-              color: yellowColor,
-              fontSize: fontSize,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          TextSpan(
-            text: word.substring(1),
-            style: TextStyle(
-              color: whiteColor,
-              fontSize: fontSize,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      );
-    }
-
-    final primaryWords = primaryText.split(' ');
-    final translationWords = translationText.split(' ');
-    final spans = <TextSpan>[];
-
-    for (int i = 0; i < primaryWords.length; i++) {
-      if (i > 0) {
-        spans.add(TextSpan(
-            text: ' ', style: TextStyle(fontSize: fontSize)));
-      }
-      spans.add(buildStyledWord(primaryWords[i]));
-    }
-
-    spans.add(TextSpan(
-      text: ' → ',
-      style: TextStyle(
-        color: whiteColor,
-        fontSize: fontSize,
-        fontWeight: FontWeight.w600,
-      ),
-    ));
-
-    for (int i = 0; i < translationWords.length; i++) {
-      if (i > 0) {
-        spans.add(TextSpan(
-            text: ' ', style: TextStyle(fontSize: fontSize)));
-      }
-      spans.add(buildStyledWord(translationWords[i]));
-    }
-
-    return spans;
-  }
 }

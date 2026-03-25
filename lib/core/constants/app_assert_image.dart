@@ -11,6 +11,7 @@
     final String profile = "assets/images/profile_demo.png";
     final String splashImage  = "assets/images/rig_logo_splash.png";
 
+    final String backgroundImage = "assets/images/background.png";
     final String onboardingImage1 = "assets/onboarding/anja_image.png";
     final String onboardingImage2 = "assets/onboarding/youtube_image.png";
     final String onboardingImage3 = "assets/onboarding/bobule_image.png";
@@ -34,6 +35,8 @@
     final String trainingGameBg = "assets/images/training_game_bg.png";
     final String playButton = "assets/images/play_button.png";
     final String startButton = "assets/images/start_button.png";
+    final String brownButtonBg = "assets/images/brown_button_bg.png";
+    final String greenButtonBg = "assets/images/brownButtonBg.png";
 
 
 

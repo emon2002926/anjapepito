@@ -55,7 +55,6 @@ class HomeViewController extends GetxController {
   }
 
   void onNotificationTap(BuildContext context) {
-    // TODO: Navigate to notifications
     AppNavigation.push( NotificationPage());
   }
 
@@ -68,7 +67,7 @@ class HomeViewController extends GetxController {
       () => LessonScreen(
         lessonTitle: 'Color : Orange',
         lessonTranslation: 'Farbe : Orange',
-        unitTitle: 'Unit 1 : Colors',
+        unitTitle: 'Unit 1',
         isForLesson: true,
       )
     );

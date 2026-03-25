@@ -29,57 +29,58 @@ class SignInController extends GetxController {
       final email = emailController.text.trim();
       final password = passwordController.text.trim();
 
+      _login();
 
-      final isValid = FormValidator.validateAll([
-        FormFieldEntry(
-          value: email,
-          errorMessage: 'Please enter your email',
-          focusNode: emailFocusNode,
-        ),
-      ]);
-      if (!isValid) return;
-
-      if (!FormValidator.isValidEmail(email)) {
-        CustomSnackBar.warning('Please enter a valid email');
-        emailFocusNode.requestFocus();
-        return;
-      }
-
-      isLoading.value = true;
-
-      try{
-        final request = SignInRequestModel(email: email, password: password);
-
-        final response = await api.post(
-          '/api/v1/auth/login/',
-          body: request.toJson(),
-
-        );
-        isLoading.value = false;
-        print(response);
-        final loginResponse = LoginResponseModel.fromJson(response);
-        StorageService.saveToken(loginResponse.data.accessToken);
-        AppNavigation.pushAndClear( const HomePage());
-      } on HttpException catch (e) {
-        isLoading.value = false;
-
-        switch (e.statusCode) {
-          case 401:
-            CustomSnackBar.error('Invalid email or password.');
-            break;
-          case 422:
-            CustomSnackBar.warning('Please check your input.');
-            break;
-          default:
-            CustomSnackBar.error('Something went wrong (${e.statusCode}).');
-        }
-      } catch (e) {
-        isLoading.value = false;
-        CustomSnackBar.error('Network error. Please try again.');
-      } finally{
-        isLoading.value = false;
-
-      }
+      // final isValid = FormValidator.validateAll([
+      //   FormFieldEntry(
+      //     value: email,
+      //     errorMessage: 'Please enter your email',
+      //     focusNode: emailFocusNode,
+      //   ),
+      // ]);
+      // if (!isValid) return;
+      //
+      // if (!FormValidator.isValidEmail(email)) {
+      //   CustomSnackBar.warning('Please enter a valid email');
+      //   emailFocusNode.requestFocus();
+      //   return;
+      // }
+      //
+      // isLoading.value = true;
+      //
+      // try{
+      //   final request = SignInRequestModel(email: email, password: password);
+      //
+      //   final response = await api.post(
+      //     '/api/v1/auth/login/',
+      //     body: request.toJson(),
+      //
+      //   );
+      //   isLoading.value = false;
+      //   print(response);
+      //   final loginResponse = LoginResponseModel.fromJson(response);
+      //   StorageService.saveToken(loginResponse.data.accessToken);
+      //   AppNavigation.pushAndClear( const HomePage());
+      // } on HttpException catch (e) {
+      //   isLoading.value = false;
+      //
+      //   switch (e.statusCode) {
+      //     case 401:
+      //       CustomSnackBar.error('Invalid email or password.');
+      //       break;
+      //     case 422:
+      //       CustomSnackBar.warning('Please check your input.');
+      //       break;
+      //     default:
+      //       CustomSnackBar.error('Something went wrong (${e.statusCode}).');
+      //   }
+      // } catch (e) {
+      //   isLoading.value = false;
+      //   CustomSnackBar.error('Network error. Please try again.');
+      // } finally{
+      //   isLoading.value = false;
+      //
+      // }
 
     }
 
@@ -104,5 +105,11 @@ class SignInController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     super.onClose();
+  }
+
+
+  void _login() {
+    StorageService.saveToken("loginResponse.data.accessToken");
+    AppNavigation.pushAndClear( const HomePage());
   }
 }

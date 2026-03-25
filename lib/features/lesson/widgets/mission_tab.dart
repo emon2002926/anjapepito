@@ -26,27 +26,27 @@ class MissionTab extends StatelessWidget {
           showThumbnail: false,
         ),
 
-        SizedBox(height: context.responsiveSize(10)),
+        SizedBox(height: context.responsiveSize(50)),
 
-        // ── Mission Title ──
-        AppText(
-          data: controller.missionTitle,
-          fontSize: 22,
-          fontWeight: FontWeight.w700,
-          color: const Color(0xFF2D2D2D),
-          useResponsiveFontSize: true,
-          textAlign: TextAlign.center,
-        ),
-
-        SizedBox(height: context.responsiveSize(4)),
-
-        AppText(
-          data: controller.missionTitleTranslation,
-          fontSize: 15,
-          fontWeight: FontWeight.w500,
-          color: const Color(0xFF4CB8B3),
-          useResponsiveFontSize: true,
-          textAlign: TextAlign.center,
+        GestureDetector(
+          onTap: (){},
+          child: Container(
+            width: double.infinity,
+            height: context.responsiveSize(45),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(context.responsiveSize(12)),
+              image: DecorationImage(
+                image: AssetImage(AppAssertImage.instance.brownButtonBg),
+                fit: BoxFit.contain,
+              ),
+            ),
+            child: Center(
+                child: AppText(data: 'Anja says / Anja sagl :',
+                  color: Color(0xFFB0B2BE),
+                  useResponsiveFontSize: true,
+                )
+            ),
+          ),
         ),
 
         SizedBox(height: context.responsiveSize(20)),
@@ -64,9 +64,6 @@ class MissionTab extends StatelessWidget {
     );
   }
 
-  // ══════════════════════════════════════════════════════
-  // ANJA SAYS CARD
-  // ══════════════════════════════════════════════════════
   Widget _buildAnjaSaysCard(
       BuildContext context, {
         required String label,
@@ -74,61 +71,28 @@ class MissionTab extends StatelessWidget {
         required String englishText,
       }) {
     final appImage = AppAssertImage.instance;
-
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-          vertical: context.responsiveSize(8),
-          horizontal: context.responsiveSize(16)
+          horizontal: context.responsiveSize(16),
+          vertical:context.responsiveSize(8)
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(context.responsiveSize(16)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(context.responsiveSize(12)),
+
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClipOval(
-            child: Image.asset(
-              appImage.anjaIcon,
-              width: context.responsiveSize(52),
-              height: context.responsiveSize(52),
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(
-                width: context.responsiveSize(52),
-                height: context.responsiveSize(52),
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEDE8DF),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(Icons.person,
-                    size: context.responsiveSize(28), color: Colors.grey),
-              ),
-            ),
-          ),
           SizedBox(width: context.responsiveSize(12)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppText(
-                  data: label,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: const Color(0xFFB0B0B0),
-                  useResponsiveFontSize: true,
-                ),
-                SizedBox(height: context.responsiveSize(4)),
+
                 AppText(
                   data: germanText,
-                  fontSize: 15,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                   color: const Color(0xFF2D2D2D),
                   useResponsiveFontSize: true,
@@ -137,9 +101,9 @@ class MissionTab extends StatelessWidget {
                 SizedBox(height: context.responsiveSize(2)),
                 AppText(
                   data: englishText,
-                  fontSize: 12,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: const Color(0xFFE8A838),
+                  color: const Color(0xFFFB923C),
                   useResponsiveFontSize: true,
                   textAlign: TextAlign.center,
                 ),
@@ -150,4 +114,5 @@ class MissionTab extends StatelessWidget {
       ),
     );
   }
+
 }

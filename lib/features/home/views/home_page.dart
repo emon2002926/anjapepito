@@ -1,6 +1,7 @@
 import 'package:anjapepito/features/units/views/units_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/app_assert_image.dart';
 import '../../../core/widgets/bottom_navigation/bottom_navigation.dart';
 import '../../../core/widgets/guest_overlay/guest_overlay.dart';
 import '../../badges/views/badges_page.dart';
@@ -62,7 +63,7 @@ class HomePageState extends State<HomePage> {
           // ── Background image ──────────────────────────────────────
           Positioned.fill(
             child: Image.asset(
-              'assets/images/background.png', // 👈 change to your path
+              AppAssertImage.instance.backgroundImage,
               fit: BoxFit.cover,
             ),
           ),
