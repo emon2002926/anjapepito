@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/util/screen_size.dart';
+import '../../../core/widgets/app_bar/build_app_bar.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/unit_detail_controller.dart';
 class UnitDetailPage extends StatelessWidget {
@@ -20,67 +21,55 @@ class UnitDetailPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F5ED),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // App Bar
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.responsiveSize(20),
-                vertical: context.responsiveSize(12),
-              ),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Icon(
-                      Icons.chevron_left,
-                      size: context.responsiveSize(28),
-                      color: const Color(0xFF2D2D2D),
-                    ),
-                  ),
-                  Expanded(
-                    child: AppText(
-                      data: controller.unitTitle,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFF2D2D2D),
-                      useResponsiveFontSize: true,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(width: context.responsiveSize(28)),
-                ],
-              ),
+      backgroundColor: const Color(0xFFF5F0E8),
+      extendBodyBehindAppBar: true,
+      appBar: BuildAppBar(
+        title: 'Unit 1: Colors',
+        showBackButton: true,
+        onBackButtonPressed: () => Navigator.pop(context),
+        titleFontSize: 20,
+        fontWeight: FontWeight.w900,
+        backButtonIcon: Icons.chevron_left,
+        useMinimalStyle: true,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Stack(
+        children: [
+          // ── Background Image ──
+          Positioned.fill(
+            child: Image.asset(
+              AppAssertImage.instance.backgroundImage,
+              fit: BoxFit.cover,
             ),
-
-            Container(height: 1, color: const Color(0xFFE8E4DC)),
-
-            // Lesson List
-            Expanded(
-              child: Obx(
-                    () => ListView.separated(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.responsiveSize(20),
-                    vertical: context.responsiveSize(16),
+          ),
+          SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Obx(
+                        () => ListView.separated(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: context.responsiveSize(20),
+                        vertical: context.responsiveSize(16),
+                      ),
+                      itemCount: controller.lessons.length,
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: context.responsiveSize(12)),
+                      itemBuilder: (context, index) {
+                        return _buildLessonCard(
+                          context,
+                          controller,
+                          controller.lessons[index],
+                          index,
+                        );
+                      },
+                    ),
                   ),
-                  itemCount: controller.lessons.length,
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: context.responsiveSize(12)),
-                  itemBuilder: (context, index) {
-                    return _buildLessonCard(
-                      context,
-                      controller,
-                      controller.lessons[index],
-                      index,
-                    );
-                  },
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -102,9 +91,7 @@ class UnitDetailPage extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(
-            context.responsiveSize(12),
-          ),
+          borderRadius: BorderRadius.circular(context.responsiveSize(12)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.03),
@@ -115,17 +102,17 @@ class UnitDetailPage extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Checkbox Icon
+            // ── Checkbox Icon ──
             Container(
               width: context.responsiveSize(32),
               height: context.responsiveSize(32),
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.circular(
-                  context.responsiveSize(8),
-                ),
+                borderRadius: BorderRadius.circular(context.responsiveSize(8)),
                 border: Border.all(
-                  color: isCompleted ? Colors.transparent : const Color(0xFFD1D1D1),
+                  color: isCompleted
+                      ? Colors.transparent
+                      : const Color(0xFFD1D1D1),
                   width: 2,
                 ),
               ),
@@ -140,7 +127,7 @@ class UnitDetailPage extends StatelessWidget {
 
             SizedBox(width: context.responsiveSize(14)),
 
-            // Text Content
+            // ── Text Content ──
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,13 +150,13 @@ class UnitDetailPage extends StatelessWidget {
                   SizedBox(height: context.responsiveSize(4)),
                   Container(
                     padding: EdgeInsets.symmetric(
-                      horizontal: context.responsiveSize(8),
+                      horizontal: context.responsiveSize(12),
                       vertical: context.responsiveSize(2),
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFF3D6),
+                      color: const Color(0xFFFBBF24),
                       borderRadius: BorderRadius.circular(
-                        context.responsiveSize(6),
+                        context.responsiveSize(12),
                       ),
                     ),
                     child: Row(
@@ -179,14 +166,14 @@ class UnitDetailPage extends StatelessWidget {
                           '✦ ',
                           style: TextStyle(
                             fontSize: context.responsiveSize(10),
-                            color: const Color(0xFFE8A838),
+                            color: Colors.white,
                           ),
                         ),
                         AppText(
                           data: '${lesson.xp}XP',
                           fontSize: 11,
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xFFE8A838),
+                          color: Colors.white,
                           useResponsiveFontSize: true,
                         ),
                       ],
@@ -196,7 +183,7 @@ class UnitDetailPage extends StatelessWidget {
               ),
             ),
 
-            // Arrow
+            // ── Arrow ──
             Icon(
               Icons.chevron_right,
               size: context.responsiveSize(24),

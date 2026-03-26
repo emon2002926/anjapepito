@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:anjapepito/features/auth/sign_in/views/sign_in_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 // ══════════════════════════════════════════════════════
 // enter_otp_controller.dart
 // ══════════════════════════════════════════════════════
@@ -12,8 +11,6 @@ import 'package:get_storage/get_storage.dart';
 import '../../../../core/services/api_services.dart';
 import '../../../../core/util/app_navigation.dart';
 import '../../../../core/widgets/snakbar/custom_snackbar.dart';
-import '../../../home/views/home_page.dart';
-import '../views/forgot_password_screen.dart';
 import '../views/reset_password_screen.dart';
 
 class EnterOtpController extends GetxController {

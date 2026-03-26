@@ -6,7 +6,7 @@ import '../text/app_text.dart';
 
 class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
-  final String? subtitle; // Subtitle displayed below the title
+  final String? subtitle;
   final Color? subtitleColor;
   final double? subtitleSize;
   final FontWeight? subtitleFontWeight;
@@ -18,14 +18,14 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData sideButtonIcon;
   final bool showBackButton;
   final Color? backgroundColor;
-  final double? titleSize;
+  final double? titleFontSize;
   final FontWeight? fontWeight;
   final VoidCallback? onBackButtonPressed;
   final bool useCircularBackButton;
   final Color? circularButtonColor;
   final double? circularButtonSize;
   final IconData backButtonIcon;
-  final bool useMinimalStyle; // Enables the minimal chevron-left row layout
+  final bool useMinimalStyle;
 
   const BuildAppBar({
     super.key,
@@ -42,7 +42,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.sideButtonIcon = Icons.more_vert,
     this.showBackButton = true,
     this.backgroundColor,
-    this.titleSize,
+    this.titleFontSize,
     this.fontWeight,
     this.onBackButtonPressed,
     this.useCircularBackButton = false,
@@ -54,78 +54,94 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ── Minimal style (matches _buildAppBar) ──────────────────────────────────
+    // ── Minimal style ──────────────────────────────────────────────────────────
     if (useMinimalStyle) {
       return Container(
         color: backgroundColor ?? Colors.transparent,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.responsiveSize(20),
-            vertical: context.responsiveSize(12),
-          ),
-          child: Row(
-            children: [
-              // Back button — chevron_left icon
-              showBackButton
-                  ? GestureDetector(
-                onTap: onBackButtonPressed ?? () => Navigator.pop(context),
-                child: Icon(
-                  Icons.chevron_left,
-                  size: context.responsiveSize(28),
-                  color: iconColor ?? const Color(0xFF2D2D2D),
-                ),
-              )
-                  : SizedBox(width: context.responsiveSize(28)),
-
-              // Centered title + optional subtitle
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (title != null)
-                      AppText(
-                        data: title!,
-                        fontSize: titleSize ?? 17,
-                        fontWeight: fontWeight ?? FontWeight.w900,
-                        color: titleColor ?? const Color(0xFF92400E),
-                        useResponsiveFontSize: true,
-                        textAlign: TextAlign.center,
-                      ),
-                    if (subtitle != null)
-                      AppText(
-                        data: subtitle!,
-                        fontSize: subtitleSize ?? 13,
-                        fontWeight: subtitleFontWeight ?? FontWeight.w800,
-                        color: subtitleColor ?? const Color(0xFFD97706),
-                        useResponsiveFontSize: true,
-                        textAlign: TextAlign.center,
-                      ),
-                  ],
-                ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: context.responsiveSize(16),
+                vertical: context.responsiveSize(14),
               ),
+              child: Column(
+                children: [
+                  SizedBox(height: context.heightPercentage(3)),
+                  Row(
+                    children: [
+                      // ── Back Button ──
+                      showBackButton
+                          ? GestureDetector(
+                        onTap: onBackButtonPressed ?? () => Navigator.pop(context),
+                        child: Padding(
+                          padding: EdgeInsets.only(right: context.responsiveSize(8)),
+                          child: Icon(
+                            Icons.chevron_left,
+                            size: context.responsiveSize(32),
+                            color: iconColor ?? const Color(0xFF78584A),
+                          ),
+                        ),
+                      )
+                          : SizedBox(width: context.responsiveSize(32)),
 
-              // Balancing spacer — keeps title truly centered,
-              // or a side action button when showSideButton is true
-              showSideButton
-                  ? GestureDetector(
-                onTap: onSideButtonPressed,
-                child: Icon(
-                  sideButtonIcon,
-                  size: context.responsiveSize(28),
-                  color: iconColor ?? const Color(0xFF2D2D2D),
-                ),
-              )
-                  : SizedBox(width: context.responsiveSize(28)),
-            ],
-          ),
+                      // ── Centered Title + Subtitle ──
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            if (title != null)
+                              AppText(
+                                data: title!,
+                                fontSize: titleFontSize ?? 20,
+                                fontWeight: fontWeight ?? FontWeight.w900,
+                                color: titleColor ?? const Color(0xFF78584A),
+                                useResponsiveFontSize: true,
+                                textAlign: TextAlign.center,
+                              ),
+                            if (subtitle != null)
+                              AppText(
+                                data: subtitle!,
+                                fontSize: subtitleSize ?? 13,
+                                fontWeight: subtitleFontWeight ?? FontWeight.w700,
+                                color: subtitleColor ?? const Color(0xFFD97706),
+                                useResponsiveFontSize: true,
+                                textAlign: TextAlign.center,
+                              ),
+                          ],
+                        ),
+                      ),
+
+                      // ── Right Side Balance / Action Button ──
+                      showSideButton
+                          ? GestureDetector(
+                        onTap: onSideButtonPressed,
+                        child: Icon(
+                          sideButtonIcon,
+                          size: context.responsiveSize(32),
+                          color: iconColor ?? const Color(0xFF78584A),
+                        ),
+                      )
+                          : SizedBox(width: context.responsiveSize(32)),
+                    ],
+                  ),
+
+
+                ],
+              ),
+            ),
+            Container(width: MediaQuery.of(context).size.width,
+              height: context.responsiveSize(1),color: Colors.black12,)
+          ],
         ),
       );
     }
 
-    // ── Original style (unchanged) ────────────────────────────────────────────
+    // ── Original style ────────────────────────────────────────────────────────
 
     Widget buildCircularBackButton() {
-      final size = circularButtonSize ?? context.responsiveSize(50);
+      final size = circularButtonSize ?? context.responsiveSize(60);
       final color = circularButtonColor ?? const Color(0xFF0047AB);
 
       return Padding(
@@ -135,7 +151,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
           bottom: context.responsiveSize(8),
         ),
         child: GestureDetector(
-          onTap: onBackButtonPressed ?? () { Navigator.pop(context); },
+          onTap: onBackButtonPressed ?? () => Navigator.pop(context),
           child: Container(
             width: size,
             height: size,
@@ -154,7 +170,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Icon(
                 backButtonIcon,
                 color: iconColor ?? Colors.black,
-                size: context.responsiveSize(24),
+                size: context.responsiveSize(32),
               ),
             ),
           ),
@@ -165,7 +181,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
     Widget buildStandardBackButton() {
       return IconButton(
         icon: Icon(backButtonIcon, color: iconColor ?? Colors.black),
-        onPressed: onBackButtonPressed ?? () { Navigator.pop(context); },
+        onPressed: onBackButtonPressed ?? () => Navigator.pop(context),
       );
     }
 
@@ -185,13 +201,10 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? context.responsiveSize(74)
           : null,
       title: title != null
-          ? Text(
-        title!,
-        style: TextStyle(
-          color: titleColor ?? Colors.white,
-          fontSize: titleSize ?? 24,
-          fontWeight: fontWeight ?? FontWeight.normal,
-        ),
+        ?AppText(data:title!,
+        fontSize: titleFontSize??24,
+        fontWeight: fontWeight ?? FontWeight.normal,
+        color: titleColor ?? Color(0xFF624D40),
       )
           : null,
       centerTitle: true,
@@ -201,7 +214,7 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
           icon: Icon(sideButtonIcon, color: iconColor ?? Colors.white),
           onPressed: onSideButtonPressed,
           iconSize: 24,
-        )
+        ),
       ]
           : null,
     );

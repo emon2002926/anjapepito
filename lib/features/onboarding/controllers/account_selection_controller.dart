@@ -1,4 +1,4 @@
-import 'package:anjapepito/features/home/views/home_page.dart';
+import 'package:anjapepito/features/base_screen/views/base_page.dart';
 import 'package:get/get.dart';
 
 import '../../../core/util/app_navigation.dart';
@@ -17,7 +17,7 @@ class AccountSelectionController extends GetxController {
   }
   void exploreAsGuest() {
     // Navigate to Sign In screen
-    AppNavigation.push( const HomePage());
+    AppNavigation.push( const BasePage());
   }
 
   void onPrivacyPolicyTap() {

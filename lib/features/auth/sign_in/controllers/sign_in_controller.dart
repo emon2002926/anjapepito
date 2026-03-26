@@ -3,13 +3,9 @@ import 'package:anjapepito/core/util/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/util/app_navigation.dart';
-import '../../../../core/util/form_validator.dart';
-import '../../../../core/widgets/snakbar/custom_snackbar.dart';
-import '../../../home/views/home_page.dart';
+import '../../../base_screen/views/base_page.dart';
 import '../../others/views/forgot_password_screen.dart';
 import '../../sign_up/views/sign_up_screen.dart';
-import '../models/sign_in_request_model.dart';
-import '../models/sign_in_response_model.dart';
 
 class SignInController extends GetxController {
   final emailFocusNode = FocusNode();
@@ -110,6 +106,6 @@ class SignInController extends GetxController {
 
   void _login() {
     StorageService.saveToken("loginResponse.data.accessToken");
-    AppNavigation.pushAndClear( const HomePage());
+    AppNavigation.pushAndClear( const BasePage());
   }
 }

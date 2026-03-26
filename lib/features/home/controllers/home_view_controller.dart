@@ -3,6 +3,7 @@ import 'package:anjapepito/features/notification/views/notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
+import '../../base_screen/controllers/base_controller.dart';
 import '../../lesson/views/color_lesson_screen.dart';
 import '../models/lesson_item.dart';
 
@@ -14,6 +15,8 @@ class HomeViewController extends GetxController {
   final RxInt totalLessons = 5.obs;
   final RxDouble unitProgress = 0.0.obs;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+
 
   late final RxList<LessonItem> lessons = <LessonItem>[
     LessonItem(
@@ -51,7 +54,7 @@ class HomeViewController extends GetxController {
   ].obs;
 
   void openDrawer() {
-    scaffoldKey.currentState?.openDrawer();
+    Get.find<BaseController>().openDrawer();
   }
 
   void onNotificationTap(BuildContext context) {

@@ -18,6 +18,8 @@
     final String appLogo = "assets/onboarding/anja_carton.png";
     final String anjaIcon = "assets/icons/anja_icon.png";
     final String lockIcon = "assets/icons/lock_icon.png";
+    final String lockIconWithBg = "assets/icons/lock_icon_with_bg.png";
+    final String checkIcon = "assets/icons/check_icon.png";
     final String filledLockIcon = "assets/icons/filled_lock.png";
     final String logOutIcon = "assets/icons/logout_icon.png";
     final String activeIcon = "assets/icons/active_icon.png";
@@ -36,7 +38,8 @@
     final String playButton = "assets/images/play_button.png";
     final String startButton = "assets/images/start_button.png";
     final String brownButtonBg = "assets/images/brown_button_bg.png";
-    final String greenButtonBg = "assets/images/brownButtonBg.png";
+    final String greenButtonBg = "assets/images/green_button_bg.png";
+    final String activeLessonCardBg = "assets/images/active_lesson_card_bg.png";
 
 
 

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/util/app_navigation.dart';
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
+import '../../base_screen/controllers/base_controller.dart';
 import '../views/unit_detail_page.dart';
 enum UnitStatus { completed, inProgress, locked }
 
@@ -23,7 +24,6 @@ class UnitItem {
 }
 
 class UnitsController extends GetxController {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   final RxList<UnitItem> completedUnits = <UnitItem>[
     UnitItem(
@@ -81,7 +81,7 @@ class UnitsController extends GetxController {
   ].obs;
 
   void openDrawer() {
-    scaffoldKey.currentState?.openDrawer();
+    Get.find<BaseController>().openDrawer();
   }
 
   void onNotificationTap(BuildContext context) {

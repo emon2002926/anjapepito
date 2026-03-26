@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:anjapepito/core/services/api_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,7 +69,7 @@ class ResetPasswordController extends GetxController {
       AppNavigation.pushAndClear( const SignInScreen());
 
 
-    } on HttpException catch(e){
+    } on HttpException {
       isLoading.value = false;
     }catch (e){
       isLoading.value = false;

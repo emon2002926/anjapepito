@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/util/screen_size.dart';
+import '../../../core/widgets/app_bar/build_app_bar.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/terms_controller.dart';
 class TermsPage extends StatelessWidget {
@@ -12,41 +13,20 @@ class TermsPage extends StatelessWidget {
     final controller = Get.put(TermsController());
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F5ED),
+      backgroundColor: const Color(0xFFF9F5ED),extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: BuildAppBar(
+        title: 'Terms and Conditions',
+        showBackButton: true,
+        onBackButtonPressed: () => Navigator.pop(context),
+        titleFontSize: 20,
+        fontWeight: FontWeight.w900,
+        backButtonIcon: Icons.chevron_left,
+        useMinimalStyle: true,
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            // App Bar
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.responsiveSize(20),
-                vertical: context.responsiveSize(12),
-              ),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Icon(
-                      Icons.chevron_left,
-                      size: context.responsiveSize(28),
-                      color: const Color(0xFF2D2D2D),
-                    ),
-                  ),
-                  Expanded(
-                    child: AppText(
-                      data: 'Terms and Conditions',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFF2D2D2D),
-                      useResponsiveFontSize: true,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(width: context.responsiveSize(28)),
-                ],
-              ),
-            ),
-
             // Content
             Expanded(
               child: SingleChildScrollView(

@@ -13,7 +13,7 @@ class VoiceInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final isSelected = controller.selectedInput.value == 'voice';
+      final isRecording = controller.isRecording.value;
 
       return GestureDetector(
         onTap: () => controller.onTalkWithAnja(),
@@ -21,53 +21,47 @@ class VoiceInput extends StatelessWidget {
           width: double.infinity,
           height: context.responsiveSize(56),
           decoration: BoxDecoration(
-            color: isSelected && controller.isRecording.value
-                ? const Color(0xFF4CB8B3).withOpacity(0.1)
-                : Colors.transparent,
-            borderRadius:
-            BorderRadius.circular(context.responsiveSize(28)),
-            border: Border.all(
-              color: isSelected
-                  ? const Color(0xFF4CB8B3)
-                  : const Color(0xFFD1D1D1),
-              width: 1.5,
-            ),
+            color: isRecording
+                ? const Color(0xFF2D6A2D)
+                : const Color(0xFF3A7D3A),
+            borderRadius: BorderRadius.circular(context.responsiveSize(12)),
           ),
           child: Row(
             children: [
               SizedBox(width: context.responsiveSize(16)),
               Icon(
-                isSelected && controller.isRecording.value
-                    ? Icons.mic
-                    : Icons.mic_outlined,
-                size: context.responsiveSize(22),
-                color: isSelected
-                    ? const Color(0xFF4CB8B3)
-                    : const Color(0xFFB0B0B0),
+                isRecording ? Icons.mic : Icons.mic_outlined,
+                size: context.responsiveSize(24),
+                color: Colors.white,
               ),
               SizedBox(width: context.responsiveSize(10)),
               Expanded(
                 child: AppText(
-                  data: isSelected && controller.isRecording.value
-                      ? 'Recording...'
-                      : 'Talk with Pocket Anja',
+                  data: isRecording ? 'Recording...' : 'Talk with Pocket Anja',
                   fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: isSelected
-                      ? const Color(0xFF4CB8B3)
-                      : const Color(0xFFB0B0B0),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                   useResponsiveFontSize: true,
                 ),
               ),
-              Padding(
-                padding:
-                EdgeInsets.only(right: context.responsiveSize(16)),
+
+              // ── Send icon in rounded square ──
+              Container(
+                margin: EdgeInsets.only(right: context.responsiveSize(10)),
+                width: context.responsiveSize(36),
+                height: context.responsiveSize(36),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(context.responsiveSize(10)),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.4),
+                    width: 1,
+                  ),
+                ),
                 child: Icon(
                   Icons.send_rounded,
-                  size: context.responsiveSize(22),
-                  color: isSelected
-                      ? const Color(0xFF4CB8B3)
-                      : const Color(0xFFB0B0B0),
+                  size: context.responsiveSize(18),
+                  color: Colors.white,
                 ),
               ),
             ],

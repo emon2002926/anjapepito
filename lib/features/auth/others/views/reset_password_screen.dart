@@ -10,7 +10,7 @@ import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/reset_password_controller.dart';
 class ResetPasswordScreen extends StatelessWidget {
   final String resetToken ;
-   ResetPasswordScreen({super.key,required this.resetToken});
+   const ResetPasswordScreen({super.key,required this.resetToken});
 
   @override
   Widget build(BuildContext context) {

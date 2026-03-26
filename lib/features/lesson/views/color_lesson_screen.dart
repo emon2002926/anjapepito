@@ -40,6 +40,7 @@ class LessonScreen extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: const Color(0xFFF9F5ED),
+        extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             // ── Background Image ──
@@ -51,91 +52,89 @@ class LessonScreen extends StatelessWidget {
             ),
 
             // ── Foreground Content ──
-            SafeArea(
-              child: Column(
-                children: [
-                  BuildAppBar(
-                    useMinimalStyle: true,
-                    title: controller.lessonTitle,
-                    subtitle: controller.lessonTranslation,
-                    onBackButtonPressed: () {
-                      Get.delete<LessonController>();
-                      Navigator.pop(context);
-                    },
-                  ),
+            Column(
+              children: [
+                BuildAppBar(
+                  useMinimalStyle: true,
+                  title: controller.lessonTitle,
+                  subtitle: controller.lessonTranslation,
+                  onBackButtonPressed: () {
+                    Get.delete<LessonController>();
+                    Navigator.pop(context);
+                  },
+                ),
 
-                  Container(height: 1, color: const Color(0xFFE8E4DC)),
+                Container(height: 1, color: const Color(0xFFE8E4DC)),
 
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: context.responsiveSize(20),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: context.responsiveSize(12)),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.responsiveSize(20),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: context.responsiveSize(12)),
 
-                          AppText(
-                            data: controller.unitTitle,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900,
-                            color: const Color(0xFF9CA3AF),
-                            useResponsiveFontSize: true,
-                          ),
-                          AppText(
-                            data: "Colors",
-                            fontSize: 24,
-                            fontWeight: FontWeight.w900,
-                            color: const Color(0xFF1F2937),
-                            useResponsiveFontSize: true,
-                          ),
+                        AppText(
+                          data: controller.unitTitle,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                          color: const Color(0xFF9CA3AF),
+                          useResponsiveFontSize: true,
+                        ),
+                        AppText(
+                          data: "Colors",
+                          fontSize: 24,
+                          fontWeight: FontWeight.w900,
+                          color: const Color(0xFF1F2937),
+                          useResponsiveFontSize: true,
+                        ),
 
-                          SizedBox(height: context.responsiveSize(8)),
+                        SizedBox(height: context.responsiveSize(8)),
 
-                          _buildTabBar(context, controller),
+                        _buildTabBar(context, controller),
 
-                          SizedBox(height: context.responsiveSize(20)),
+                        SizedBox(height: context.responsiveSize(20)),
 
-                          Obx(() {
-                            switch (controller.currentTab.value) {
-                              case 0:
-                                return const LearnTab();
-                              case 1:
-                                return const MissionTab();
-                              case 2:
-                                return const PracticeTab();
-                              default:
-                                return const SizedBox();
-                            }
-                          }),
-                        ],
-                      ),
+                        Obx(() {
+                          switch (controller.currentTab.value) {
+                            case 0:
+                              return const LearnTab();
+                            case 1:
+                              return const MissionTab();
+                            case 2:
+                              return const PracticeTab();
+                            default:
+                              return const SizedBox();
+                          }
+                        }),
+                      ],
                     ),
                   ),
+                ),
 
-                  Obx(() {
-                    if (controller.currentTab.value != 2) return const SizedBox();
-                    return Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: context.responsiveSize(20),
-                        vertical: context.responsiveSize(8),
-                      ),
-                      child: Column(
-                        children: [
-                          VoiceInput(controller: controller),
-                          SizedBox(height: context.responsiveSize(12)),
-                          LessonTextInput(controller: controller),
-                          SizedBox(height: context.responsiveSize(12)),
-                        ],
-                      ),
-                    );
-                  }),
+                Obx(() {
+                  if (controller.currentTab.value != 2) return const SizedBox();
+                  return Container(
+                    color: Colors.transparent,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.responsiveSize(20),
+                      vertical: context.responsiveSize(8),
+                    ),
+                    child: Column(
+                      children: [
+                        VoiceInput(controller: controller),
+                        SizedBox(height: context.responsiveSize(12)),
+                        LessonTextInput(controller: controller),
+                        SizedBox(height: context.responsiveSize(12)),
+                      ],
+                    ),
+                  );
+                }),
 
-                  Obx(() => _buildBottomButton(context, controller)),
-                ],
-              ),
+                Obx(() => _buildBottomButton(context, controller)),
+              ],
             ),
           ],
         ),
@@ -253,22 +252,23 @@ class LessonScreen extends StatelessWidget {
         onTap: onTap,
         child: Container(
           width: double.infinity,
-          height: context.responsiveSize(45),
+          // height: context.responsiveSize(56),
+          padding: EdgeInsets.symmetric(vertical: context.responsiveSize(14)),
           decoration: BoxDecoration(
-            color: const Color(0xFF2FA8B6),
-            borderRadius:
-            BorderRadius.circular(context.responsiveSize(28)),
+            borderRadius: BorderRadius.circular(context.responsiveSize(8)),
+            image: DecorationImage(
+              image: AssetImage(AppAssertImage.instance.greenButtonBg),
+              fit: BoxFit.fill,
+            ),
           ),
           child: Center(
             child: AppText(
-              data: '${controller.currentTab.value == 0 ? primaryText : translationText} ${
-                  controller.currentTab.value == 0 ? translationText : primaryText}',
+              data: '${controller.currentTab.value == 0 ? primaryText : translationText} ${controller.currentTab.value == 0 ? translationText : primaryText}',
               fontSize: context.responsiveSize(20),
               fontWeight: FontWeight.w700,
               color: Colors.white,
               useResponsiveFontSize: true,
             ),
-
           ),
         ),
       ),

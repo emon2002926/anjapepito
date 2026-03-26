@@ -2,21 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
-class BadgeItem {
-  final String title;
-  final String subtitle;
-  final bool isUnlocked;
-
-  BadgeItem({
-    required this.title,
-    required this.subtitle,
-    required this.isUnlocked,
-  });
-}
+import '../../base_screen/controllers/base_controller.dart';
+import '../models/badge_item.dart';
 
 class BadgesController extends GetxController {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
   final RxList<BadgeItem> badges = <BadgeItem>[
     BadgeItem(title: 'Unit:1', subtitle: 'Color', isUnlocked: true),
     BadgeItem(title: 'Unit:2', subtitle: 'Fruit', isUnlocked: false),
@@ -30,7 +19,7 @@ class BadgesController extends GetxController {
   ].obs;
 
   void openDrawer() {
-    scaffoldKey.currentState?.openDrawer();
+    Get.find<BaseController>().openDrawer();
   }
 
   void onNotificationTap(BuildContext context) {

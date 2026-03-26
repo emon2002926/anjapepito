@@ -41,10 +41,8 @@ class ForgotPasswordController extends GetxController {
       ));
 
     }
-    on HttpException catch (e){
+    on HttpException {
       isLoading.value = false;
-    }catch (e){
-
     }finally {
       isLoading.value = false;
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/constants/app_assert_image.dart';
 import '../../../core/util/screen_size.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/color_lesson_controller.dart';
@@ -14,14 +15,13 @@ class PracticeTab extends StatelessWidget {
 
     return Stack(
       children: [
-        // ── Scrollable Content ──
         SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // ── Anja Avatar + Prompt ──
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ClipOval(
                     child: Image.asset(
@@ -43,23 +43,36 @@ class PracticeTab extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: context.responsiveSize(12)),
+
+                  // ── Prompt Bubble using brown bg image ──
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: context.responsiveSize(16),
-                        vertical: context.responsiveSize(12),
-                      ),
+                      height: context.responsiveSize(50),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF3F0E8),
-                        borderRadius:
-                        BorderRadius.circular(context.responsiveSize(16)),
+                        borderRadius: BorderRadius.circular(
+                          context.responsiveSize(28),
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            AppAssertImage.instance.brownButtonBg,
+                          ),
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                      child: const AppText(
-                        data: 'Talk to me (Anja-bot) 😊',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF9E9E9E),
-                        useResponsiveFontSize: true,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: context.responsiveSize(16),
+                          ),
+                          child: AppText(
+                            data: 'Talk to me (Anja-bot) 😊',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xFFB0956A),
+                            useResponsiveFontSize: true,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -76,63 +89,38 @@ class PracticeTab extends StatelessWidget {
                   itemCount: controller.chatMessages.length,
                   separatorBuilder: (_, __) =>
                       SizedBox(height: context.responsiveSize(10)),
-                  itemBuilder: (context, index) =>
-                      _buildChatBubble(context, controller.chatMessages[index]),
+                  itemBuilder: (context, index) => _buildChatBubble(
+                    context,
+                    controller.chatMessages[index],
+                  ),
                 ),
               ),
 
-              // Space for bottom inputs + keyboard
-              SizedBox(
-                height: context.responsiveSize(140) + bottomInset,
-              ),
+              SizedBox(height: context.responsiveSize(140) + bottomInset),
             ],
           ),
         ),
-
-        // ── Pinned Bottom Inputs ──
-        // Positioned(
-        //   left: 0,
-        //   right: 0,
-        //   bottom: bottomInset,
-        //   child: Container(
-        //     color: Colors.white,
-        //     padding: EdgeInsets.only(
-        //       bottom: context.responsiveSize(16),
-        //       top: context.responsiveSize(8),
-        //     ),
-        //     child: Column(
-        //       children: [
-        //         _buildVoiceInput(context, controller),
-        //         SizedBox(height: context.responsiveSize(12)),
-        //         _buildTextInput(context, controller),
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
 
-  // ══════════════════════════════════════════════════════
-  // CHAT BUBBLE
-  // ══════════════════════════════════════════════════════
+  // ── Chat Bubble ──
   Widget _buildChatBubble(BuildContext context, ChatMessage message) {
     final isUser = !message.isBot;
 
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        constraints:
-        BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
-        margin: EdgeInsets.only(
-          left: isUser ? context.responsiveSize(60) : 0,
-          right: isUser ? 0 : context.responsiveSize(60),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.85,
         ),
-        padding: EdgeInsets.all(context.responsiveSize(16)),
+        margin: EdgeInsets.only(
+          left: isUser ? context.responsiveSize(40) : 20,
+          right: isUser ? 0 : context.responsiveSize(0),
+        ),
+        padding: EdgeInsets.all(context.responsiveSize(14)),
         decoration: BoxDecoration(
-          color: isUser
-              ? const Color(0xFF4CB8B3).withOpacity(0.15)
-              : const Color(0xFFF3F0E8),
+          color: const Color(0xFFFDF0E4),
           borderRadius: BorderRadius.circular(context.responsiveSize(16)),
         ),
         child: Column(
@@ -142,7 +130,7 @@ class PracticeTab extends StatelessWidget {
               data: message.text,
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF2D2D2D),
+              color: const Color(0xFF5C3A00),
               useResponsiveFontSize: true,
             ),
             if (message.germanExample != null) ...[
@@ -150,7 +138,7 @@ class PracticeTab extends StatelessWidget {
               AppText(
                 data: message.germanExample!,
                 fontSize: 14,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 color: const Color(0xFFE8A838),
                 useResponsiveFontSize: true,
               ),
@@ -171,110 +159,4 @@ class PracticeTab extends StatelessWidget {
     );
   }
 
-  // ══════════════════════════════════════════════════════
-  // VOICE INPUT
-  // ══════════════════════════════════════════════════════
-  Widget _buildVoiceInput(BuildContext context, LessonController controller) {
-    return Obx(
-          () => GestureDetector(
-        onTap: () => controller.onTalkWithAnja(),
-        child: Container(
-          width: double.infinity,
-          height: context.responsiveSize(56),
-          decoration: BoxDecoration(
-            color: controller.isRecording.value
-                ? const Color(0xFF4CB8B3).withOpacity(0.1)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(context.responsiveSize(28)),
-            border: Border.all(color: const Color(0xFF4CB8B3), width: 1.5),
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: context.responsiveSize(16)),
-              Icon(
-                controller.isRecording.value
-                    ? Icons.mic
-                    : Icons.mic_outlined,
-                size: context.responsiveSize(22),
-                color: const Color(0xFF4CB8B3),
-              ),
-              SizedBox(width: context.responsiveSize(10)),
-              Expanded(
-                child: AppText(
-                  data: controller.isRecording.value
-                      ? 'Recording...'
-                      : 'Talk with Pocket Anja',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: const Color(0xFF4CB8B3),
-                  useResponsiveFontSize: true,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: context.responsiveSize(16)),
-                child: Icon(
-                  Icons.send_rounded,
-                  size: context.responsiveSize(22),
-                  color: const Color(0xFF4CB8B3),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ══════════════════════════════════════════════════════
-  // TEXT INPUT
-  // ══════════════════════════════════════════════════════
-  Widget _buildTextInput(BuildContext context, LessonController controller) {
-    return Container(
-      width: double.infinity,
-      height: context.responsiveSize(56),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(context.responsiveSize(28)),
-        border: Border.all(color: const Color(0xFFD1D1D1), width: 1),
-      ),
-      child: Row(
-        children: [
-          SizedBox(width: context.responsiveSize(16)),
-          Icon(
-            Icons.keyboard_outlined,
-            size: context.responsiveSize(22),
-            color: const Color(0xFFB0B0B0),
-          ),
-          SizedBox(width: context.responsiveSize(10)),
-          Expanded(
-            child: TextField(
-              controller: controller.chatInputController,
-              decoration: InputDecoration(
-                hintText: 'Chat with Pocket Anja',
-                hintStyle: TextStyle(
-                  fontSize: context.responsiveSize(15),
-                  color: const Color(0xFFB0B0B0),
-                  fontWeight: FontWeight.w400,
-                ),
-                border: InputBorder.none,
-                isDense: true,
-              ),
-              onSubmitted: (_) => controller.onSendChat(),
-            ),
-          ),
-          GestureDetector(
-            onTap: () => controller.onSendChat(),
-            child: Padding(
-              padding: EdgeInsets.only(right: context.responsiveSize(16)),
-              child: Icon(
-                Icons.send_rounded,
-                size: context.responsiveSize(22),
-                color: const Color(0xFFB0B0B0),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

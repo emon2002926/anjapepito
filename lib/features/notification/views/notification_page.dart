@@ -1,6 +1,7 @@
 import 'package:anjapepito/core/widgets/app_bar/build_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/constants/app_assert_image.dart';
 import '../../../core/util/screen_size.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/notification_controller.dart';
@@ -13,67 +14,79 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<NotificationController>();
 
-
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F5ED),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BuildAppBar(
-              useMinimalStyle: true,
-              title: "Notification",
-
+      extendBodyBehindAppBar: true,
+      appBar: BuildAppBar(
+        title: 'Notification',
+        showBackButton: true,
+        onBackButtonPressed: () => Navigator.pop(context),
+        titleFontSize: 20,
+        fontWeight: FontWeight.w900,
+        backButtonIcon: Icons.chevron_left,
+        useMinimalStyle: true,
+        backgroundColor: Colors.transparent,
+      ),
+      body: Stack(
+        children: [
+          // ── Background Image ──
+          Positioned.fill(
+            child: Image.asset(
+              AppAssertImage.instance.backgroundImage,
+              fit: BoxFit.cover,
             ),
-            Container(height: 1, color: const Color(0xFFE8E4DC)),
+          ),
 
-            // Content
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.responsiveSize(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: context.responsiveSize(14)),
+          // ── Foreground Content ──
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(height: 1, color: const Color(0xFFE8E4DC)),
 
-                    // Today Header
-                    AppText(
-                      data: 'Today',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xFF2D2D2D),
-                      useResponsiveFontSize: true,
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.responsiveSize(20),
                     ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: context.responsiveSize(14)),
 
-                    SizedBox(height: context.responsiveSize(12)),
+                        AppText(
+                          data: 'Today',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF2D2D2D),
+                          useResponsiveFontSize: true,
+                        ),
 
-                    // Notification List
-                    Obx(
-                          () => ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount:
-                        controller.todayNotifications.length,
-                        separatorBuilder: (context, index) =>
-                            SizedBox(
-                                height: context.responsiveSize(10)),
-                        itemBuilder: (context, index) {
-                          return _buildNotificationCard(
-                            context,
-                            controller,
-                            controller.todayNotifications[index],
-                          );
-                        },
-                      ),
+                        SizedBox(height: context.responsiveSize(12)),
+
+                        Obx(
+                              () => ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.todayNotifications.length,
+                            separatorBuilder: (context, index) =>
+                                SizedBox(height: context.responsiveSize(10)),
+                            itemBuilder: (context, index) {
+                              return _buildNotificationCard(
+                                context,
+                                controller,
+                                controller.todayNotifications[index],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -91,14 +104,12 @@ class NotificationPage extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
+              color: Color(0xFFDFDFD8),
+              blurRadius: 0,
+              offset: const Offset(0, 6),
             ),
           ],
-          borderRadius: BorderRadius.circular(
-            context.responsiveSize(14),
-          ),
+          borderRadius: BorderRadius.circular(context.responsiveSize(14)),
           border: Border.all(
             color: const Color(0xFFE8E4DC),
             width: 1,
@@ -107,17 +118,13 @@ class NotificationPage extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Emoji
             Text(
               item.emoji,
-              style: TextStyle(
-                fontSize: context.responsiveSize(26),
-              ),
+              style: TextStyle(fontSize: context.responsiveSize(26)),
             ),
 
             SizedBox(width: context.responsiveSize(12)),
 
-            // Text
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +148,6 @@ class NotificationPage extends StatelessWidget {
               ),
             ),
 
-            // Time
             AppText(
               data: item.timeAgo,
               fontSize: 12,
