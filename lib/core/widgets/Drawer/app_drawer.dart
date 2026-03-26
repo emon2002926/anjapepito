@@ -44,7 +44,6 @@ class CustomAppDrawer extends StatelessWidget {
               title: 'Profile',
               onTap: () {
                 Navigator.pop(context);
-
                 AppNavigation.push( const ProfileScreen());
               },
             ),
@@ -89,10 +88,17 @@ class CustomAppDrawer extends StatelessWidget {
                     vertical: context.responsiveSize(12),
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Color(0xFFFBE9D3),
                     borderRadius: BorderRadius.circular(
-                      context.responsiveSize(24),
+                      context.responsiveSize(12),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ]
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -101,14 +107,14 @@ class CustomAppDrawer extends StatelessWidget {
                         AppAssertImage.instance.logOutIcon,
                         height: context.responsiveSize(20),
                         width: context.responsiveSize(20),
-                        color: const Color(0xFF2D2D2D),
+                        color: const Color(0xFF624D40),
                       ),
                       SizedBox(width: context.responsiveSize(8)),
                       AppText(
                         data: 'Log out',
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: const Color(0xFF2D2D2D),
+                        color: const Color(0xFF624D40),
                         useResponsiveFontSize: true,
                       ),
                     ],
