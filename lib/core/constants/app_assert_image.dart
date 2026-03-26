@@ -38,6 +38,7 @@
     final String playButton = "assets/images/play_button.png";
     final String startButton = "assets/images/start_button.png";
     final String brownButtonBg = "assets/images/brown_button_bg.png";
+    final String secoundBrownButtonBg = "assets/images/secound_brown_button_bg.png";
     final String greenButtonBg = "assets/images/green_button_bg.png";
     final String activeLessonCardBg = "assets/images/active_lesson_card_bg.png";
 

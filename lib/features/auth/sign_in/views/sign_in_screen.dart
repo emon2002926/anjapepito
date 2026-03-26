@@ -8,6 +8,7 @@ import '../../../../core/util/screen_size.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/widgets/buttons/app_button.dart';
+import '../../../../core/widgets/buttons/custom_button.dart';
 import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/sign_in_controller.dart';
@@ -82,8 +83,8 @@ class SignInScreen extends StatelessWidget {
                 enabled: !controller.isLoading.value,
                 keyboardType: TextInputType.emailAddress,
                 fillColor: Colors.transparent,
-                borderColor: const Color(0xFFD1D1D1),
-                hintTextColor: const Color(0xFFB0B0B0),
+                borderColor: const Color(0xFFA68978),
+                hintTextColor: const Color(0xFFA68978),
                 inputTextColor: const Color(0xFF2D2D2D),
                 isHintTextInMiddle: true,
                 focusNode: controller.emailFocusNode,
@@ -102,8 +103,8 @@ class SignInScreen extends StatelessWidget {
                 obscureText: !controller.isPasswordVisible.value,
                 fillColor: Colors.transparent,
                 focusNode: controller.passwordFocusNode,
-                borderColor: const Color(0xFFD1D1D1),
-                hintTextColor: const Color(0xFFB0B0B0),
+                borderColor: const Color(0xFFA68978),
+                hintTextColor: const Color(0xFFA68978),
                 inputTextColor: const Color(0xFF2D2D2D),
                 elevation: 0,
                 customBorderRadius: BorderRadius.circular(context.responsiveSize(28)),
@@ -130,21 +131,23 @@ class SignInScreen extends StatelessWidget {
               ),
 
               SizedBox(height: context.responsiveSize(28)),
+              CustomAppButton(  text: 'Sign in', onTap: () => controller.onSignIn()),
 
-              Obx(
-                  () => AppButton(
-                    buttonText: 'Sign in',
-                    onPressed: () => controller.onSignIn(),
-                    fillColor: const Color(0xFF4CB8B3),
-                    textColor: Colors.white,
-                    borderRadius: 28,
-                    buttonHeight: 45,
-                    fontSize: 17,
-                    isLoading: controller.isLoading.value,
-                    loadingText: 'Signing in...',
-                    fontWeight: FontWeight.w600,
-                  ),
-              ),
+
+              // Obx(
+              //     () => AppButton(
+              //       buttonText: 'Sign in',
+              //       onPressed: () => controller.onSignIn(),
+              //       fillColor: const Color(0xFF4CB8B3),
+              //       textColor: Colors.white,
+              //       borderRadius: 28,
+              //       buttonHeight: 45,
+              //       fontSize: 17,
+              //       isLoading: controller.isLoading.value,
+              //       loadingText: 'Signing in...',
+              //       fontWeight: FontWeight.w600,
+              //     ),
+              // ),
 
               SizedBox(height: context.responsiveSize(24)),
 

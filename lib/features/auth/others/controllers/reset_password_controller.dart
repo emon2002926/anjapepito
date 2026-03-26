@@ -77,8 +77,10 @@ class ResetPasswordController extends GetxController {
       isLoading.value = false;
   }
 
+  }
 
-
+  void onSecoundSubmit(){
+    AppNavigation.pushAndClear( const SignInScreen());
 
   }
 

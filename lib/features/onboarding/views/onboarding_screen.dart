@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/constants/app_assert_image.dart';
 import '../../../core/util/screen_size.dart';
+import '../../../core/widgets/buttons/custom_button.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/onboarding_controller.dart';
 
@@ -32,39 +34,16 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
 
-            // Bilingual Button
+
+
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: context.responsiveSize(24),
+              padding: EdgeInsets.only(
+                left: context.responsiveSize(24),
+                right: context.responsiveSize(24),
+                bottom: context.responsiveSize(24),
+                top: context.responsiveSize(8),
               ),
-              child: Obx(() {
-                final page =
-                controller.pages[controller.currentPage.value];
-                return GestureDetector(
-                  onTap: () => controller.nextPage(context),
-                  child: Container(
-                    width: double.infinity,
-                    height: context.responsiveSize(56),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF4CB8B3),
-                      borderRadius: BorderRadius.circular(
-                        context.responsiveSize(28),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text.rich(
-                        TextSpan(
-                          children: _buildButtonTextSpans(
-                            context,
-                            page.buttonText,
-                            page.buttonTranslation,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              }),
+              child: CustomAppButton(  text: 'Next', onTap: () => controller.nextPage(context)),
             ),
 
             SizedBox(height: context.responsiveSize(20)),
@@ -91,6 +70,45 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
+  // Widget _bottomButton({
+  //   required BuildContext context,
+  //   required String text,
+  //   required VoidCallback onTap,
+  // }) {
+  //   return Padding(
+  //     padding: EdgeInsets.only(
+  //       left: context.responsiveSize(24),
+  //       right: context.responsiveSize(24),
+  //       bottom: context.responsiveSize(24),
+  //       top: context.responsiveSize(8),
+  //     ),
+  //     child: GestureDetector(
+  //       onTap: onTap,
+  //       child: Container(
+  //         width: double.infinity,
+  //         padding: EdgeInsets.symmetric(
+  //           vertical: context.responsiveSize(14),
+  //         ),
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(context.responsiveSize(8)),
+  //           image: DecorationImage(
+  //             image: AssetImage(AppAssertImage.instance.greenButtonBg),
+  //             fit: BoxFit.fill,
+  //           ),
+  //         ),
+  //         child: Center(
+  //           child: AppText(
+  //             data: text,
+  //             fontSize: context.responsiveSize(20),
+  //             fontWeight: FontWeight.w700,
+  //             color: Colors.white,
+  //             useResponsiveFontSize: true,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
   // ── Page Builder ──
   Widget _buildPage(BuildContext context, OnboardingPage page) {
     return SingleChildScrollView(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/app_assert_image.dart';
 import '../../util/screen_size.dart';
 import '../text/app_text.dart';
 class SocialButton extends StatelessWidget {
@@ -14,7 +15,8 @@ class SocialButton extends StatelessWidget {
     required this.onTap,
     required this.text,
     this.iconPath,
-    this.icon, required this.height,
+    this.icon,
+    required this.height,
   }) : assert(
   iconPath != null || icon != null,
   'Provide either iconPath or icon',
@@ -28,15 +30,11 @@ class SocialButton extends StatelessWidget {
         width: double.infinity,
         height: context.responsiveSize(height),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(context.responsiveSize(28)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 10,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          image: DecorationImage(
+            image: AssetImage(AppAssertImage.instance.secoundBrownButtonBg),
+            fit: BoxFit.fill,
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +62,7 @@ class SocialButton extends StatelessWidget {
             else if (icon != null)
               Icon(
                 icon,
-                color: Colors.black,
+                color: const Color(0xFF5C3A00),
                 size: context.responsiveSize(24),
               ),
 
@@ -75,7 +73,7 @@ class SocialButton extends StatelessWidget {
               data: text,
               fontSize: 15,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF2D2D2D),
+              color: const Color(0xFF5C3A00),
               useResponsiveFontSize: true,
             ),
           ],

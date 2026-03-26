@@ -151,6 +151,12 @@ class EnterOtpController extends GetxController {
 
     }
   }
+
+
+  void onSecoundSubmit(){
+    AppNavigation.pushAndClear(ResetPasswordScreen(resetToken: "resetToken"));
+
+  }
   @override
   void onClose() {
     otpController.dispose();

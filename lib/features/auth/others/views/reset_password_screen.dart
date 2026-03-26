@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../core/constants/app_assert_image.dart';
 import '../../../../core/util/screen_size.dart';
 import '../../../../core/widgets/buttons/app_button.dart';
+import '../../../../core/widgets/buttons/custom_button.dart';
 import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/reset_password_controller.dart';
@@ -78,9 +79,9 @@ class ResetPasswordScreen extends StatelessWidget {
                   obscureText: !controller.isPasswordVisible.value,
                   enabled: !controller.isLoading.value,
                   fillColor: Colors.transparent,
-                  borderColor: const Color(0xFFD1D1D1),
-                  hintTextColor: const Color(0xFFB0B0B0),
-                  inputTextColor: const Color(0xFF2D2D2D),
+                      borderColor: const Color(0xFFA68978),
+                      hintTextColor: const Color(0xFFA68978),
+                      inputTextColor: const Color(0xFF2D2D2D),
                   elevation: 0,
                   customBorderRadius: BorderRadius.circular(
                     context.responsiveSize(28),
@@ -104,9 +105,9 @@ class ResetPasswordScreen extends StatelessWidget {
                   !controller.isConfirmPasswordVisible.value,
                   fillColor: Colors.transparent,
                   enabled: !controller.isLoading.value,
-                  borderColor: const Color(0xFFD1D1D1),
-                  hintTextColor: const Color(0xFFB0B0B0),
-                  inputTextColor: const Color(0xFF2D2D2D),
+                      borderColor: const Color(0xFFA68978),
+                      hintTextColor: const Color(0xFFA68978),
+                      inputTextColor: const Color(0xFF2D2D2D),
                   elevation: 0,
                   customBorderRadius: BorderRadius.circular(
                     context.responsiveSize(28),
@@ -123,19 +124,21 @@ class ResetPasswordScreen extends StatelessWidget {
               const Spacer(),
 
               // Confirm Button
-              Obx(() => AppButton(
-                    buttonText: 'Confirm',
-                  onPressed: () => controller.onConfirm(resetToken),
-                  fillColor: const Color(0xFF4CB8B3),
-                  textColor: Colors.white,
-                  borderRadius: 28,
-                  buttonHeight: 45,
-                  fontSize: 17,
-                  isLoading: controller.isLoading.value,
-                  loadingText: 'Loading...',
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              // Obx(() => AppButton(
+              //       buttonText: 'Confirm',
+              //     onPressed: () => controller.onConfirm(resetToken),
+              //     fillColor: const Color(0xFF4CB8B3),
+              //     textColor: Colors.white,
+              //     borderRadius: 28,
+              //     buttonHeight: 45,
+              //     fontSize: 17,
+              //     isLoading: controller.isLoading.value,
+              //     loadingText: 'Loading...',
+              //     fontWeight: FontWeight.w600,
+              //   ),
+              // ),
+              CustomAppButton(  text: 'Confirm', onTap: () => controller.onSecoundSubmit()),
+
 
               SizedBox(height: context.responsiveSize(32)),
             ],

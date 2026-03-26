@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../core/constants/app_assert_image.dart';
 import '../../../core/util/screen_size.dart';
+import '../../../core/widgets/buttons/custom_button.dart';
 import '../../../core/widgets/text/app_text.dart';
 import '../controllers/account_selection_controller.dart';
 class AccountSelectionScreen extends StatelessWidget {
@@ -54,98 +55,110 @@ class AccountSelectionScreen extends StatelessWidget {
               SizedBox(height: context.responsiveSize(32)),
 
               // Create an account Button
-              GestureDetector(
+              CustomAppButton(  text: 'Create an account Button',
                 onTap: () => controller.onCreateAccount(),
-                child: Container(
-                  width: double.infinity,
-                  height: context.responsiveSize(56),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(28),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
-                        blurRadius: 10,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                    border: Border.all(
-                      color: const Color(0xFFD1D1D1),
-                      width: 1,
-                    ),
-                  ),
-                  child: Center(
-                    child: AppText(
-                      data: 'Create an account',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF2D2D2D),
-                      useResponsiveFontSize: true,
-                    ),
-                  ),
-                ),
               ),
+
+              // GestureDetector(
+              //   onTap: () => controller.onCreateAccount(),
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: context.responsiveSize(56),
+              //     decoration: BoxDecoration(
+              //       color: Colors.white,
+              //       borderRadius: BorderRadius.circular(
+              //         context.responsiveSize(28),
+              //       ),
+              //       boxShadow: [
+              //         BoxShadow(
+              //           color: Colors.black.withOpacity(0.04),
+              //           blurRadius: 10,
+              //           offset: const Offset(0, 2),
+              //         ),
+              //       ],
+              //       border: Border.all(
+              //         color: const Color(0xFFD1D1D1),
+              //         width: 1,
+              //       ),
+              //     ),
+              //     child: Center(
+              //       child: AppText(
+              //         data: 'Create an account',
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.w500,
+              //         color: const Color(0xFF2D2D2D),
+              //         useResponsiveFontSize: true,
+              //       ),
+              //     ),
+              //   ),
+              // ),
 
               SizedBox(height: context.responsiveSize(16)),
 
               // I have an account Button
-              GestureDetector(
+              // GestureDetector(
+              //   onTap: () => controller.onHaveAccount(),
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: context.responsiveSize(56),
+              //     decoration: BoxDecoration(
+              //       color: Colors.white,
+              //       borderRadius: BorderRadius.circular(
+              //         context.responsiveSize(28),
+              //       ),
+              //       border: Border.all(
+              //         color: const Color(0xFFD1D1D1),
+              //         width: 1,
+              //       ),
+              //     ),
+              //     child: Center(
+              //       child: AppText(
+              //         data: 'I have an account',
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.w400,
+              //         color: const Color(0xFF2D2D2D),
+              //         useResponsiveFontSize: true,
+              //       ),
+              //     ),
+              //   ),
+              // ),
+
+              CustomAppButton(  text: 'I have an account Button',
                 onTap: () => controller.onHaveAccount(),
-                child: Container(
-                  width: double.infinity,
-                  height: context.responsiveSize(56),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(28),
-                    ),
-                    border: Border.all(
-                      color: const Color(0xFFD1D1D1),
-                      width: 1,
-                    ),
-                  ),
-                  child: Center(
-                    child: AppText(
-                      data: 'I have an account',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF2D2D2D),
-                      useResponsiveFontSize: true,
-                    ),
-                  ),
-                ),
+                image: AppAssertImage.instance.secoundBrownButtonBg,
+                textColor: Color(0xFF624D40),
+
               ),
+
               SizedBox(height: context.responsiveSize(16)),
 
               // I have an account Button
-              GestureDetector(
-                onTap: () => controller.exploreAsGuest(),
-                child: Container(
-                  width: double.infinity,
-                  height: context.responsiveSize(56),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      context.responsiveSize(28),
-                    ),
-                    border: Border.all(
-                      color: const Color(0xFFD1D1D1),
-                      width: 1,
-                    ),
-                  ),
-                  child: Center(
-                    child: AppText(
-                      data: 'Explore as guest ',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF2D2D2D),
-                      useResponsiveFontSize: true,
-                    ),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () => controller.exploreAsGuest(),
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: context.responsiveSize(56),
+              //     decoration: BoxDecoration(
+              //       color: Colors.white,
+              //       borderRadius: BorderRadius.circular(
+              //         context.responsiveSize(28),
+              //       ),
+              //       border: Border.all(
+              //         color: const Color(0xFFD1D1D1),
+              //         width: 1,
+              //       ),
+              //     ),
+              //     child: Center(
+              //       child: AppText(
+              //         data: 'Explore as guest ',
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.w400,
+              //         color: const Color(0xFF2D2D2D),
+              //         useResponsiveFontSize: true,
+              //       ),
+              //     ),
+              //   ),
+              // ),
 
               const Spacer(),
 
@@ -189,4 +202,7 @@ class AccountSelectionScreen extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

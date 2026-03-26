@@ -120,6 +120,12 @@ class SignUpController extends GetxController {
     // launchUrl(Uri.parse('https://yourapp.com/privacy'));
   }
 
+  void secoundSignUP(){
+    // CustomSnackBar.success(response['message']);
+    AppNavigation.pushReplacement(EnterOtpScreen(email: "email",comesFromSignUp: 'register',));
+
+  }
+
   @override
   void onClose() {
     usernameController.dispose();

@@ -102,7 +102,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
     // 👇 Determine border color based on focus state
     final Color activeBorderColor = _isFocused
-        ? (widget.focusedErrorBorderColor ?? Colors.teal)
+        ? (widget.focusedErrorBorderColor ?? Color(0xFFA68978))
         : (widget.borderColor ?? Colors.transparent);
 
     final borderSide = BorderSide(color: activeBorderColor, width: _isFocused ? 1.5 : 1.0);
@@ -173,7 +173,7 @@ class _AppTextFieldState extends State<AppTextField> {
               suffixIcon: widget.suffixIcon != null
                   ? GestureDetector(
                 onTap: effectiveSuffixTap,
-                child: Icon(widget.suffixIcon, color: Colors.grey[700], size: iconSize),
+                child: Icon(widget.suffixIcon, color: Color(0xFFA68978), size: iconSize),
               )
                   : null,
               contentPadding: EdgeInsets.symmetric(

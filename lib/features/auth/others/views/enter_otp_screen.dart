@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/app_assert_image.dart';
 import '../../../../core/util/screen_size.dart';
 import '../../../../core/widgets/buttons/app_button.dart';
+import '../../../../core/widgets/buttons/custom_button.dart';
 import '../../../../core/widgets/text/app_text.dart';
 import '../../../../core/widgets/text/text_field/AppTextFiled.dart';
 import '../controllers/enter_otp_controller.dart';
@@ -78,8 +79,8 @@ class EnterOtpScreen extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 enabled: !controller.isLoading.value,
                 fillColor: Colors.transparent,
-                borderColor: const Color(0xFFD1D1D1),
-                hintTextColor: const Color(0xFFB0B0B0),
+                borderColor: const Color(0xFFA68978),
+                hintTextColor: const Color(0xFFA68978),
                 inputTextColor: const Color(0xFF2D2D2D),
                 elevation: 0,
                 customBorderRadius: BorderRadius.circular(
@@ -149,21 +150,23 @@ class EnterOtpScreen extends StatelessWidget {
               SizedBox(height: context.responsiveSize(16)),
 
               // Submit Button
+              CustomAppButton(  text: 'Sign up', onTap: () => controller.onSecoundSubmit()),
 
-              Obx(
-                    () => AppButton(
-                  buttonText: 'Submit',
-                  onPressed: () => controller.onSubmit(email,comesFromSignUp),
-                  fillColor: const Color(0xFF4CB8B3),
-                  textColor: Colors.white,
-                  borderRadius: 28,
-                  buttonHeight: 45,
-                  fontSize: 17,
-                  isLoading: controller.isLoading.value,
-                  loadingText: 'Verifying otp...',
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+
+              // Obx(
+              //       () => AppButton(
+              //     buttonText: 'Submit',
+              //     onPressed: () => controller.onSubmit(email,comesFromSignUp),
+              //     fillColor: const Color(0xFF4CB8B3),
+              //     textColor: Colors.white,
+              //     borderRadius: 28,
+              //     buttonHeight: 45,
+              //     fontSize: 17,
+              //     isLoading: controller.isLoading.value,
+              //     loadingText: 'Verifying otp...',
+              //     fontWeight: FontWeight.w600,
+              //   ),
+              // ),
 
 
               // GestureDetector(
