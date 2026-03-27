@@ -22,9 +22,16 @@ class VoiceInput extends StatelessWidget {
           height: context.responsiveSize(56),
           decoration: BoxDecoration(
             color: isRecording
-                ? const Color(0xFF2D6A2D)
-                : const Color(0xFF3A7D3A),
+                ? const Color(0xFF6B8D16)
+                : const Color(0xFF49620B),
             borderRadius: BorderRadius.circular(context.responsiveSize(12)),
+            boxShadow: [
+              BoxShadow(
+              color: Color(0xFF05744A),
+              blurRadius: 4,
+              offset: const Offset(1, 6),
+            ),
+            ]
           ),
           child: Row(
             children: [

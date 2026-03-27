@@ -122,6 +122,13 @@ class PracticeTab extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color(0xFFFDF0E4),
           borderRadius: BorderRadius.circular(context.responsiveSize(16)),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFFB06A2E),
+                blurRadius: 9,
+                offset: const Offset(0, -3),
+              ),
+            ]
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../core/util/app_navigation.dart';
 import '../../../core/widgets/snakbar/custom_snackbar.dart';
 import '../../base_screen/controllers/base_controller.dart';
+import '../../notification/views/notification_page.dart';
 import '../views/unit_detail_page.dart';
 enum UnitStatus { completed, inProgress, locked }
 
@@ -86,6 +87,8 @@ class UnitsController extends GetxController {
 
   void onNotificationTap(BuildContext context) {
     // TODO: Navigate to notifications
+    AppNavigation.push( NotificationPage());
+
   }
 
   void onUnitTap(BuildContext context, UnitItem unit) {

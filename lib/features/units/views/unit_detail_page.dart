@@ -94,9 +94,9 @@ class UnitDetailPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(context.responsiveSize(12)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              color: Color(0xFFDFDFD8),
+              blurRadius: 0,
+              offset: const Offset(0, 6),
             ),
           ],
         ),

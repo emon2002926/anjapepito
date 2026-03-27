@@ -43,7 +43,7 @@ class OnboardingScreen extends StatelessWidget {
                 bottom: context.responsiveSize(24),
                 top: context.responsiveSize(8),
               ),
-              child: CustomAppButton(  text: 'Next', onTap: () => controller.nextPage(context)),
+              child: CustomAppButton(  text: 'Next --> Weiter', onTap: () => controller.nextPage(context)),
             ),
 
             SizedBox(height: context.responsiveSize(20)),
@@ -230,8 +230,8 @@ class OnboardingScreen extends StatelessWidget {
     return AppText(
       data: text,
       fontSize: size,
-      fontWeight: FontWeight.w500,
-      color: const Color(0xFFE8842A),
+      fontWeight: FontWeight.w700,
+      color: const Color(0xFFFFA63A),
       useResponsiveFontSize: true,
       textAlign: TextAlign.center,
     );

@@ -68,8 +68,8 @@ class HomeViewController extends GetxController {
     }
     Get.to(
       () => LessonScreen(
-        lessonTitle: 'Color : Orange',
-        lessonTranslation: 'Farbe : Orange',
+        lessonTitle: 'Color : Red',
+        lessonTranslation: 'Farbe : Rot',
         unitTitle: 'Unit 1',
         isForLesson: true,
       )

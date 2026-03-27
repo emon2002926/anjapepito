@@ -56,8 +56,8 @@ class NotificationPage extends StatelessWidget {
                         AppText(
                           data: 'Today',
                           fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: const Color(0xFF2D2D2D),
+                          fontWeight: FontWeight.w800,
+                          color: const Color(0xFF000000),
                           useResponsiveFontSize: true,
                         ),
 
@@ -69,7 +69,7 @@ class NotificationPage extends StatelessWidget {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: controller.todayNotifications.length,
                             separatorBuilder: (context, index) =>
-                                SizedBox(height: context.responsiveSize(10)),
+                                SizedBox(height: context.responsiveSize(16)),
                             itemBuilder: (context, index) {
                               return _buildNotificationCard(
                                 context,

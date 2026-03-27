@@ -103,8 +103,8 @@ class BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
                             if (subtitle != null)
                               AppText(
                                 data: subtitle!,
-                                fontSize: subtitleSize ?? 13,
-                                fontWeight: subtitleFontWeight ?? FontWeight.w700,
+                                fontSize: subtitleSize ?? 14,
+                                fontWeight: subtitleFontWeight ?? FontWeight.w800,
                                 color: subtitleColor ?? const Color(0xFFD97706),
                                 useResponsiveFontSize: true,
                                 textAlign: TextAlign.center,

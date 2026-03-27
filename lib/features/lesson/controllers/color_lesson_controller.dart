@@ -29,8 +29,8 @@ class LessonController extends GetxController {
     'assets/video/video_demo.mp4',
     thumbnailAssetPath: 'assets/images/learn_thumb.png',
   );
-  final String anjaSays = '"Das ist orange"';
-  final String anjaTranslation = '" This is orange "';
+  final String anjaSays = '"Das ist rot"';
+  final String anjaTranslation = '" This is red "';
 
   // ── Mission Tab Data ──
   late final VideoSource missionVideoSource = VideoSource.asset(
@@ -39,8 +39,8 @@ class LessonController extends GetxController {
   );
   final String missionTitle = 'Real–Life Mission !';
   final String missionTitleTranslation = 'Echte Mission';
-  final String missionInstruction = 'Finde etwas Oranges in deiner Wohnung';
-  final String missionTranslation = 'Find something orange in your apartment';
+  final String missionInstruction = '"Finde etwas Red in deiner Wohnung"';
+  final String missionTranslation = '"Find something red in your apartment"';
 
   // ── Practice Tab Data ──
   final RxList<ChatMessage> chatMessages = <ChatMessage>[

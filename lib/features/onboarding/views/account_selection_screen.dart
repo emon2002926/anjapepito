@@ -55,7 +55,7 @@ class AccountSelectionScreen extends StatelessWidget {
               SizedBox(height: context.responsiveSize(32)),
 
               // Create an account Button
-              CustomAppButton(  text: 'Create an account Button',
+              CustomAppButton(  text: 'Create an account',
                 onTap: () => controller.onCreateAccount(),
               ),
 
@@ -123,7 +123,7 @@ class AccountSelectionScreen extends StatelessWidget {
               //   ),
               // ),
 
-              CustomAppButton(  text: 'I have an account Button',
+              CustomAppButton(  text: 'I have an account',
                 onTap: () => controller.onHaveAccount(),
                 image: AppAssertImage.instance.secoundBrownButtonBg,
                 textColor: Color(0xFF624D40),
