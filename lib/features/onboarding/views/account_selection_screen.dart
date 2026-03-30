@@ -131,6 +131,12 @@ class AccountSelectionScreen extends StatelessWidget {
               ),
 
               SizedBox(height: context.responsiveSize(16)),
+              CustomAppButton(  text: 'Explore as a guest',
+                onTap: () => controller.exploreAsGuest(),
+                image: AppAssertImage.instance.secoundBrownButtonBg,
+                textColor: Color(0xFF624D40),
+
+              ),
 
               // I have an account Button
               // GestureDetector(

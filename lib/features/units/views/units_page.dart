@@ -33,7 +33,7 @@ class UnitsPage extends StatelessWidget {
                       assets.drawerIcon,
                       height: context.responsiveSize(28),
                       width: context.responsiveSize(28),
-                      color: const Color(0xFF2D2D2D),
+                      color: const Color(0xFF78584A),
                     ),
                   ),
                   GestureDetector(
@@ -42,7 +42,7 @@ class UnitsPage extends StatelessWidget {
                       assets.notificationIcon,
                       height: context.responsiveSize(28),
                       width: context.responsiveSize(28),
-                      color: const Color(0xFF2D2D2D),
+                      color: const Color(0xFF78584A),
                     ),
                   ),
                 ],

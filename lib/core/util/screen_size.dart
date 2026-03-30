@@ -1,33 +1,54 @@
 // lib/utils/size_config.dart
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 extension ScreenSize on BuildContext {
-  // Screen dimensions
+  // ─── Designer's Figma frame (ask your designer, commonly 375 or 390) ───
+  static const double _designWidth = 393.0;
+  static const double _designHeight = 852.0;
+
+  // ─── Raw screen info ────────────────────────────────────────────────────
   double get screenWidth => MediaQuery.of(this).size.width;
   double get screenHeight => MediaQuery.of(this).size.height;
 
-  // Responsive width (percentage of screen width)
-  double widthPercentage(double percentage) => screenWidth * (percentage / 100);
+  // ─── Scale factors ──────────────────────────────────────────────────────
+  double get _scaleWidth => screenWidth / _designWidth;
+  double get _scaleHeight => screenHeight / _designHeight;
 
-  // Responsive height (percentage of screen height)
+  // For text: use the smaller axis so text doesn't balloon on tablets
+  double get _scaleText => min(_scaleWidth, _scaleHeight);
+
+  // ─── Core converters (replace all your old usages with these) ───────────
+
+  /// Width-based scaling — use for horizontal sizes, padding, widths
+  double w(double px) => px * _scaleWidth;
+
+  /// Height-based scaling — use for vertical sizes, heights
+  double h(double px) => px * _scaleHeight;
+
+  /// Font size scaling — matches Figma px directly
+  double sp(double px) => px * _scaleText;
+
+  // ─── Responsive helpers (kept for backward compat) ──────────────────────
+  double widthPercentage(double percentage) => screenWidth * (percentage / 100);
   double heightPercentage(double percentage) => screenHeight * (percentage / 100);
 
-  // Responsive size (general purpose - based on screen width, 375px baseline)
-  double responsiveSize(double size) => screenWidth * (size / 375);
+  /// @deprecated — use sp() instead
+  double responsiveSize(double size) => sp(size);
 
-  // Responsive font size (based on screen width)
-  double responsiveFontSize(double size) => screenWidth * (size / 375);
+  /// @deprecated — use sp() instead
+  double responsiveFontSize(double size) => sp(size);
 
-  // Responsive spacing
-  double get spacing4 => screenWidth * 0.01;
-  double get spacing8 => screenWidth * 0.02;
-  double get spacing12 => screenWidth * 0.03;
-  double get spacing16 => screenWidth * 0.04;
-  double get spacing24 => screenWidth * 0.06;
-  double get spacing32 => screenWidth * 0.08;
+  // ─── Spacing (now properly scaled) ──────────────────────────────────────
+  double get spacing4  => w(4);
+  double get spacing8  => w(8);
+  double get spacing12 => w(12);
+  double get spacing16 => w(16);
+  double get spacing24 => w(24);
+  double get spacing32 => w(32);
 
-  // Card dimensions (for tarot cards)
-  double get cardWidth => screenWidth * 0.25; // ~25% of screen
-  double get cardHeight => cardWidth * 1.5; // Maintain aspect ratio
+  // ─── Card dimensions (kept exactly as before) ───────────────────────────
+  double get cardWidth  => screenWidth * 0.25;
+  double get cardHeight => cardWidth * 1.5;
 }
-
