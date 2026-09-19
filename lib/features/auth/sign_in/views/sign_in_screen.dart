@@ -131,7 +131,11 @@ class SignInScreen extends StatelessWidget {
               ),
 
               SizedBox(height: context.responsiveSize(28)),
-              CustomAppButton(  text: 'Sign in', onTap: () => controller.onSignIn()),
+              Obx(() => CustomAppButton(
+                text: 'Sign in',
+                onTap: () => controller.onSignIn(),
+                isLoading: controller.isLoading.value,
+              )),
 
 
               // Obx(

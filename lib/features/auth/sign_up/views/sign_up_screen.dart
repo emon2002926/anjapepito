@@ -155,7 +155,11 @@ class SignUpScreen extends StatelessWidget {
 
               // Sign Up Button
 
-              CustomAppButton(  text: 'Sign up', onTap: () => controller.secoundSignUP()),
+              Obx(() => CustomAppButton(
+                text: 'Sign up',
+                onTap: () => controller.onSignUp(context),
+                isLoading: controller.isLoading.value,
+              )),
 
               // AppButton(
               //   buttonText: 'Sign up',

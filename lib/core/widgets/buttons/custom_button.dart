@@ -7,7 +7,7 @@ class CustomAppButton extends StatelessWidget {
   const CustomAppButton({
     super.key,
     required this.text,
-    required this.onTap, this.image, this.textColor, this.fontSize,
+    required this.onTap, this.image, this.textColor, this.fontSize, this.isLoading = false,
   });
 
   final String text;
@@ -15,11 +15,12 @@ class CustomAppButton extends StatelessWidget {
   final String? image;
   final Color? textColor;
   final double? fontSize;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading ? null : onTap,
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(
@@ -33,13 +34,22 @@ class CustomAppButton extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: AppText(
-            data: text,
-            fontSize:fontSize?? context.responsiveSize(20),
-            fontWeight: FontWeight.w700,
-            color: textColor??Colors.white,
-            useResponsiveFontSize: true,
-          ),
+          child: isLoading 
+              ? SizedBox(
+                  height: context.responsiveSize(24),
+                  width: context.responsiveSize(24),
+                  child: CircularProgressIndicator(
+                    color: textColor ?? Colors.white,
+                    strokeWidth: 3,
+                  ),
+                )
+              : AppText(
+                  data: text,
+                  fontSize: fontSize ?? context.responsiveSize(20),
+                  fontWeight: FontWeight.w700,
+                  color: textColor ?? Colors.white,
+                  useResponsiveFontSize: true,
+                ),
         ),
       ),
     );

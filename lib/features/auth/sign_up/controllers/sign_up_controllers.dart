@@ -128,6 +128,10 @@ class SignUpController extends GetxController {
 
   @override
   void onClose() {
+    usernameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    confirmPasswordFocusNode.dispose();
     usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
