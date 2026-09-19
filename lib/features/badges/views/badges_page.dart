@@ -159,23 +159,55 @@ class BadgesPage extends StatelessWidget {
               Container(
                 width: iconSize,
                 height: iconSize,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFE8E4DC),
+                decoration: BoxDecoration(
+                  color: badge.isUnlocked ? null : const Color(0xFFF5F2EB),
+                  gradient: badge.isUnlocked
+                      ? const LinearGradient(
+                          colors: [Color(0xFFFFD54F), Color(0xFFF9A826)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
                   shape: BoxShape.circle,
+                  boxShadow: badge.isUnlocked
+                      ? [
+                          BoxShadow(
+                            color: const Color(0xFFF9A826).withOpacity(0.4),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          )
+                        ]
+                      : [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.02),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          )
+                        ],
+                  border: badge.isUnlocked
+                      ? Border.all(color: Colors.white, width: 3)
+                      : Border.all(color: const Color(0xFFE8E4DC), width: 1),
                 ),
                 child: Center(
                   child: badge.isUnlocked
                       ? Text(
-                    '🏅',
-                    style: TextStyle(
-                      fontSize: iconSize * 0.5,
-                    ),
-                  )
+                          '🏅',
+                          style: TextStyle(
+                            fontSize: iconSize * 0.55,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black.withOpacity(0.15),
+                                blurRadius: 4,
+                                offset: const Offset(1, 2),
+                              )
+                            ],
+                          ),
+                        )
                       : Image.asset(
-                    AppAssertImage.instance.filledLockIcon,
-                    height: iconSize * 0.4,
-                    width: iconSize * 0.4,
-                  ),
+                          AppAssertImage.instance.filledLockIcon,
+                          height: iconSize * 0.4,
+                          width: iconSize * 0.4,
+                        ),
                 ),
               ),
 
